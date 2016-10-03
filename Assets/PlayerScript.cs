@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Unit : MonoBehaviour {
-
+public class PlayerScript : MonoBehaviour
+{
 	// tileX and tileZ represent the correct map-tile position
 	// for this piece.  Note that this doesn't necessarily mean
 	// the world-space coordinates, because our map might be scaled
@@ -20,13 +20,16 @@ public class Unit : MonoBehaviour {
 	int moveSpeed = 2;
 	float remainingMovement=2;
 
-	void Update() {
+	void Update()
+	{
 		// Draw our debug line showing the pathfinding!
 		// NOTE: This won't appear in the actual game view.
-		if(currentPath != null) {
+		if(currentPath != null)
+		{
 			int currNode = 0;
 
-			while( currNode < currentPath.Count-1 ) {
+			while( currNode < currentPath.Count-1 )
+			{
 
 				Vector3 start = map.TileCoordToWorldCoord( currentPath[currNode].x, currentPath[currNode].z ) + 
 					new Vector3(0, 0, -0.5f) ;
@@ -49,7 +52,8 @@ public class Unit : MonoBehaviour {
 	}
 
 	// Advances our pathfinding progress by one tile.
-	void AdvancePathing() {
+	void AdvancePathing()
+	{
 		if(currentPath==null)
 			return;
 
@@ -62,15 +66,16 @@ public class Unit : MonoBehaviour {
 
 		// Get cost from current tile to next tile
 		remainingMovement -= map.CostToEnterTile(currentPath[0].x, currentPath[0].z, currentPath[1].x, currentPath[1].z );
-		
+
 		// Move us to the next tile in the sequence
 		tileX = currentPath[1].x;
 		tileZ = currentPath[1].z;
-		
+
 		// Remove the old "current" tile from the pathfinding list
 		currentPath.RemoveAt(0);
-		
-		if(currentPath.Count == 1) {
+
+		if(currentPath.Count == 1)
+		{
 			// We only have one tile left in the path, and that tile MUST be our ultimate
 			// destination -- and we are standing on it!
 			// So let's just clear our pathfinding info.
@@ -79,9 +84,11 @@ public class Unit : MonoBehaviour {
 	}
 
 	// The "Next Turn" button calls this.
-	public void NextTurn() {
+	public void NextTurn()
+	{
 		// Make sure to wrap-up any outstanding movement left over.
-		while(currentPath!=null && remainingMovement > 0) {
+		while(currentPath!=null && remainingMovement > 0)
+		{
 			AdvancePathing();
 		}
 

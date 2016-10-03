@@ -5,7 +5,7 @@ using System.Linq;
 public class TileMap : MonoBehaviour
 {
 	public GameObject player;
-	public GameObject selectedUnit;
+	public GameObject enemy;
 
 	public TileType[] tileTypes;
 
@@ -18,14 +18,14 @@ public class TileMap : MonoBehaviour
 
 	void Start()
 	{
-		// Setup the selectedUnit's variable
-		selectedUnit.GetComponent<Unit>().tileX = (int)selectedUnit.transform.position.x;
-		selectedUnit.GetComponent<Unit>().tileZ = (int)selectedUnit.transform.position.z;
-		selectedUnit.GetComponent<Unit>().map = this;
+		// Setup the enemy's variable
+		enemy.GetComponent<EnemyScript>().tileX = (int)enemy.transform.position.x;
+		enemy.GetComponent<EnemyScript>().tileZ = (int)enemy.transform.position.z;
+		enemy.GetComponent<EnemyScript>().map = this;
 
-/*		player.GetComponent<PlayerScripts>().tileX = (int)player.transform.position.x;
-		player.GetComponent<PlayerScripts>().tileZ = (int)player.transform.position.z;
-		player.GetComponent<PlayerScripts>().map = this; */
+		player.GetComponent<PlayerScript>().tileX = (int)player.transform.position.x;
+		player.GetComponent<PlayerScript>().tileZ = (int)player.transform.position.z;
+		player.GetComponent<PlayerScript>().map = this;
 
 		GenerateMapData();
 		GeneratePathfindingGraph();
@@ -37,33 +37,38 @@ public class TileMap : MonoBehaviour
 		// Allocate our map tiles	
 		tiles = new int[mapSizeX,mapSizeY]
 		{
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 2, 1, 5, 5, 1, 1, 0},
-			{9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 0},
-			{9, 9, 9, 9, 9, 9, 9, 9, 0, 9, 9, 9, 6, 1, 1, 2, 2, 1, 1, 0},
-			{9, 9, 9, 9, 9, 9, 9, 9, 0, 9, 9, 9, 0, 1, 1, 2, 2, 1, 2, 0},
-			{9, 9, 9, 9, 9, 9, 9, 9, 0, 9, 9, 9, 0, 1, 2, 2, 2, 1, 2, 0},
-			{9, 9, 9, 9, 9, 9, 9, 0, 0, 6, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0},
-			{9, 9, 9, 9, 9, 9, 9, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 0, 1, 1, 1, 2, 2, 1, 1, 1, 0, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 0, 2, 1, 2, 1, 2, 2, 1, 2, 0, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 0, 2, 1, 2, 1, 2, 2, 1, 2, 0, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 0, 2, 1, 2, 1, 2, 2, 1, 2, 0, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 0, 2, 1, 1, 1, 1, 1, 1, 1, 0, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 0, 1, 1, 1, 2, 2, 1, 1, 1, 0, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 0, 1, 1, 1, 1, 1, 1, 2, 2, 0, 9, 9, 9},
-			{9, 9, 9, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 9, 9, 9},
-			{9, 9, 9, 8, 1, 7, 1, 1, 1, 1, 1, 2, 2, 1, 0, 9, 9, 9, 9, 9},
-			{9, 9, 9, 0, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 0, 9, 9, 9, 9, 9},
-			{0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 4, 0, 9, 9, 9, 9, 9},
-			{0, 1, 1, 1, 1, 1, 1, 0, 2, 1, 1, 1, 1, 1, 0, 9, 9, 9, 9, 9},
-			{0, 5, 1, 2, 1, 2, 1, 0, 2, 1, 2, 2, 2, 1, 0, 9, 9, 9, 9, 9},
-			{0, 5, 1, 2, 2, 2, 1, 0, 1, 1, 2, 2, 2, 1, 0, 9, 9, 9, 9, 9},
-			{0, 5, 1, 2, 2, 2, 1, 3, 1, 1, 1, 1, 1, 1, 0, 9, 9, 9, 9, 9},
-			{0, 5, 1, 1, 2, 2, 1, 0, 2, 2, 2, 2, 1, 1, 0, 9, 9, 9, 9, 9},
-			{0, 2, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9},
-			{0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9}
+			{9, 9, 9, 9, 9,		9, 9, 9, 9, 9,		9, 9, 0, 0, 0,		0, 0, 0, 0, 0},
+			{9, 9, 9, 9, 9,		9, 9, 9, 9, 9,		9, 9, 0, 2, 1,		5, 5, 1, 1, 0},
+			{9, 9, 9, 9, 9,		9, 9, 9, 0, 0,		0, 0, 0, 2, 1,		1, 1, 1, 1, 0},
+			{9, 9, 9, 9, 9,		9, 9, 9, 0, 9,		9, 9, 6, 1, 1,		2, 2, 1, 1, 0},
+			{9, 9, 9, 9, 9,		9, 9, 9, 0, 9,		9, 9, 0, 1, 1,		2, 2, 1, 2, 0},
+
+			{9, 9, 9, 9, 9,		9, 9, 9, 0, 9,		9, 9, 0, 1, 2,		2, 2, 1, 2, 0},
+			{9, 9, 9, 9, 9,		9, 9, 0, 0, 6,		0, 0, 0, 4, 0,		0, 0, 0, 0, 0},
+			{9, 9, 9, 9, 9,		9, 9, 0, 1, 1,		1, 1, 1, 1, 1,		1, 0, 9, 9, 9},
+			{9, 9, 9, 9, 9,		9, 9, 0, 1, 1,		1, 2, 2, 1, 1,		1, 0, 9, 9, 9},
+			{9, 9, 9, 9, 9,		9, 9, 0, 1, 1,		1, 1, 1, 1, 1,		1, 0, 9, 9, 9},
+
+			{9, 9, 9, 9, 9,		9, 9, 0, 2, 1,		2, 1, 2, 2, 1,		2, 0, 9, 9, 9},
+			{9, 9, 9, 9, 9,		9, 9, 0, 2, 1,		2, 1, 2, 2, 1,		2, 0, 9, 9, 9},
+			{9, 9, 9, 9, 9,		9, 9, 0, 2, 1,		2, 1, 2, 2, 1,		2, 0, 9, 9, 9},
+			{9, 9, 9, 9, 9,		9, 9, 0, 2, 1,		1, 1, 1, 1, 1,		1, 0, 9, 9, 9},
+			{9, 9, 9, 9, 9,		9, 9, 0, 1, 1,		1, 2, 2, 1, 1,		1, 0, 9, 9, 9},
+
+			{9, 9, 9, 9, 9,		9, 9, 0, 1, 1,		1, 1, 1, 1, 2,		2, 0, 9, 9, 9},
+			{9, 9, 9, 0, 0,		0, 0, 0, 0, 3,		0, 0, 0, 3, 0,		0, 0, 9, 9, 9},
+			{9, 9, 9, 8, 1,		7, 1, 1, 1, 1,		1, 2, 2, 1, 0,		9, 9, 9, 9, 9},
+			{9, 9, 9, 0, 1,		1, 1, 2, 2, 1,		1, 1, 1, 1, 0,		9, 9, 9, 9, 9},
+			{0, 0, 0, 0, 0,		4, 0, 0, 0, 0,		0, 0, 0, 4, 0,		9, 9, 9, 9, 9},
+
+			{0, 1, 1, 1, 1,		1, 1, 0, 2, 1,		1, 1, 1, 1, 0,		9, 9, 9, 9, 9},
+			{0, 5, 1, 2, 1,		2, 1, 0, 2, 1,		2, 2, 2, 1, 0,		9, 9, 9, 9, 9},
+			{0, 5, 1, 2, 2,		2, 1, 0, 1, 1,		2, 2, 2, 1, 0,		9, 9, 9, 9, 9},
+			{0, 5, 1, 2, 2,		2, 1, 3, 1, 1,		1, 1, 1, 1, 0,		9, 9, 9, 9, 9},
+			{0, 5, 1, 1, 2,		2, 1, 0, 2, 2,		2, 2, 1, 1, 0,		9, 9, 9, 9, 9},
+
+			{0, 2, 2, 1, 1,		1, 1, 0, 0, 0,		0, 0, 0, 0, 0,		9, 9, 9, 9, 9},
+			{0, 0, 0, 0, 0,		0, 0, 0, 9, 9,		9, 9, 9, 9, 9,		9, 9, 9, 9, 9}
 		};
 	}
 
@@ -184,10 +189,10 @@ public class TileMap : MonoBehaviour
 		return tileTypes[ tiles[x,y] ].isWalkable;
 	}
 
-	public void GeneratePathTo(int x, int y)
+	public void EnemyGeneratePathTo(int x, int y)
 	{
 		// Clear out our unit's old path.
-		selectedUnit.GetComponent<Unit>().currentPath = null;
+		enemy.GetComponent<EnemyScript>().currentPath = null;
 
 		if( UnitCanEnterTile(x,y) == false )
 		{
@@ -203,8 +208,8 @@ public class TileMap : MonoBehaviour
 
 		Node source = graph
 			[
-				selectedUnit.GetComponent<Unit>().tileX, 
-				selectedUnit.GetComponent<Unit>().tileZ
+				enemy.GetComponent<EnemyScript>().tileX, 
+				enemy.GetComponent<EnemyScript>().tileZ
 			];
 
 		Node target = graph
@@ -288,7 +293,113 @@ public class TileMap : MonoBehaviour
 
 		currentPath.Reverse();
 
-		selectedUnit.GetComponent<Unit>().currentPath = currentPath;
+		enemy.GetComponent<EnemyScript>().currentPath = currentPath;
 	}
 
+	public void PlayerGeneratePathTo(int x, int y)
+	{
+		// Clear out our unit's old path.
+		player.GetComponent<PlayerScript>().currentPath = null;
+
+		if(UnitCanEnterTile(x,y) == false)
+		{
+			// We probably clicked on a mountain or something, so just quit out.
+			return;
+		}
+
+		Dictionary<Node, float> dist = new Dictionary<Node, float>();
+		Dictionary<Node, Node> prev = new Dictionary<Node, Node>();
+
+		// Setup the "Q" -- the list of nodes we haven't checked yet.
+		List<Node> unvisited = new List<Node>();
+
+		Node source = graph
+			[
+				player.GetComponent<PlayerScript>().tileX, 
+				player.GetComponent<PlayerScript>().tileZ
+			];
+
+		Node target = graph
+			[
+				x, 
+				y
+			];
+
+		dist[source] = 0;
+		prev[source] = null;
+
+		// Initialize everything to have INFINITY distance, since
+		// we don't know any better right now. Also, it's possible
+		// that some nodes CAN'T be reached from the source,
+		// which would make INFINITY a reasonable value
+		foreach(Node v in graph)
+		{
+			if(v != source)
+			{
+				dist[v] = Mathf.Infinity;
+				prev[v] = null;
+			}
+
+			unvisited.Add(v);
+		}
+
+		while(unvisited.Count > 0)
+		{
+			// "u" is going to be the unvisited node with the smallest distance.
+			Node u = null;
+
+			foreach(Node possibleU in unvisited)
+			{
+				if(u == null || dist[possibleU] < dist[u])
+				{
+					u = possibleU;
+				}
+			}
+
+			if(u == target)
+			{
+				break;	// Exit the while loop!
+			}
+
+			unvisited.Remove(u);
+
+			foreach(Node v in u.neighbours)
+			{
+				//float alt = dist[u] + u.DistanceTo(v);
+				float alt = dist[u] + CostToEnterTile(u.x, u.z, v.x, v.z);
+				if( alt < dist[v] )
+				{
+					dist[v] = alt;
+					prev[v] = u;
+				}
+			}
+		}
+
+		// If we get there, the either we found the shortest route
+		// to our target, or there is no route at ALL to our target.
+
+		if(prev[target] == null)
+		{
+			// No route between our target and the source
+			return;
+		}
+
+		List<Node> currentPath = new List<Node>();
+
+		Node curr = target;
+
+		// Step through the "prev" chain and add it to our path
+		while(curr != null)
+		{
+			currentPath.Add(curr);
+			curr = prev[curr];
+		}
+
+		// Right now, currentPath describes a route from out target to our source
+		// So we need to invert it!
+
+		currentPath.Reverse();
+
+		player.GetComponent<PlayerScript>().currentPath = currentPath;
+	}
 }
