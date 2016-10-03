@@ -13,18 +13,18 @@ public class TileMap : MonoBehaviour
 	Node[,] graph;
 
 
-	const int mapSizeX = 30;
-	const int mapSizeY = 30;
+	const int mapSizeX = 20;
+	const int mapSizeY = 27;
 
 	void Start()
 	{
 		// Setup the selectedUnit's variable
 		selectedUnit.GetComponent<Unit>().tileX = (int)selectedUnit.transform.position.x;
-		selectedUnit.GetComponent<Unit>().tileY = (int)selectedUnit.transform.position.y;
+		selectedUnit.GetComponent<Unit>().tileZ = (int)selectedUnit.transform.position.z;
 		selectedUnit.GetComponent<Unit>().map = this;
 
 /*		player.GetComponent<PlayerScripts>().tileX = (int)player.transform.position.x;
-		player.GetComponent<PlayerScripts>().tileY = (int)player.transform.position.y;
+		player.GetComponent<PlayerScripts>().tileZ = (int)player.transform.position.z;
 		player.GetComponent<PlayerScripts>().map = this; */
 
 		GenerateMapData();
@@ -37,55 +37,41 @@ public class TileMap : MonoBehaviour
 		// Allocate our map tiles	
 		tiles = new int[mapSizeX,mapSizeY]
 		{
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
+			{1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1},
+			{1,1,0,0,0,		0,0,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1},
+			{1,1,0,0,0,		0,0,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1},
+			{1,0,0,1,1,		1,0,1,1,0,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1},
+			{1,0,1,1,1,		0,0,1,0,0,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1},
+			{1,0,1,1,1,		1,0,0,0,0,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1},
+			{1,0,0,0,0,		0,0,1,0,0,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1},
+			{1,1,1,0,1,		1,1,1,1,0,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1},
+			{1,1,1,0,0,		1,1,1,1,0,		1,0,0,1,1,		1,1,0,0,0,		1,1,1,1,1,		1,1},
+			{1,1,1,0,0,		0,0,1,0,0,		0,0,0,0,0,		0,0,0,0,0,		1,1,1,1,1,		1,1},
+			{1,1,1,0,1,		1,0,1,0,0,		1,0,0,0,1,		1,1,0,0,0,		1,1,1,1,1,		1,1},
+			{1,1,1,0,1,		1,0,1,0,1,		1,0,1,0,0,		0,0,0,1,0,		1,1,1,1,1,		1,1},
+			{1,1,0,0,1,		1,0,1,0,1,		1,0,1,0,1,		1,1,0,1,0,		1,1,1,1,1,		1,1},
+			{1,1,0,0,0,		0,0,0,0,0,		0,0,0,0,1,		1,1,0,0,0,		0,0,0,0,1,		1,1},
+			{1,1,1,1,1,		1,1,1,1,1,		1,1,0,0,0,		0,0,0,0,0,		1,1,0,0,0,		0,1},
+			{1,1,1,1,1,		1,1,1,1,1,		1,1,0,0,1,		1,1,0,0,0,		1,1,1,1,0,		0,1},
+			{1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,0,		0,1},
+			{1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,0,0,0,0,		0,1},
+			{1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,0,0,		0,1},
+			{1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1,1,1,1,		1,1}
 
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
-			{0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0,		0,0,0,0,0},
 		};
 	}
 
-	public float CostToEnterTile(int sourceX, int sourceY, int targetX, int targetY)
+	public float CostToEnterTile(int sourceX, int sourceZ, int targetX, int targetZ)
 	{
 
-		TileType tt = tileTypes[ tiles[targetX,targetY] ];
+		TileType tt = tileTypes[tiles[targetX, targetZ]];
 
-		if(UnitCanEnterTile(targetX, targetY) == false)
+		if(UnitCanEnterTile(targetX, targetZ) == false)
 			return Mathf.Infinity;
 
 		float cost = tt.movementCost;
 
-		if( sourceX!=targetX && sourceY!=targetY)
+		if(sourceX!=targetX && sourceZ!=targetZ)
 		{
 			// We are moving diagonally!  Fudge the cost for tie-breaking
 			// Purely a cosmetic thing!
@@ -99,23 +85,23 @@ public class TileMap : MonoBehaviour
 	void GeneratePathfindingGraph()
 	{
 		// Initialize the array
-		graph = new Node[mapSizeX,mapSizeY];
+		graph = new Node[mapSizeX, mapSizeY];
 
 		// Initialize a Node for each spot in the array
 		for(int x=0; x < mapSizeX; x++)
 		{
-			for(int y=0; y < mapSizeX; y++)
+			for(int y=0; y < mapSizeY; y++)
 			{
 				graph[x,y] = new Node();
 				graph[x,y].x = x;
-				graph[x,y].y = y;
+				graph[x,y].z = y;
 			}
 		}
 
 		// Now that all the nodes exist, calculate their neighbours
 		for(int x=0; x < mapSizeX; x++)
 		{
-			for(int y=0; y < mapSizeX; y++)
+			for(int y=0; y < mapSizeY; y++)
 			{
 
 				// This is the 4-way connection version:
@@ -163,16 +149,16 @@ public class TileMap : MonoBehaviour
 	{
 		for(int x=0; x < mapSizeX; x++)
 		{
-			for(int y=0; y < mapSizeX; y++)
+			for(int y=0; y < mapSizeY; y++)
 			{
 
 				TileType tt = tileTypes[ tiles[x,y] ];
-				GameObject go = (GameObject)Instantiate( tt.tileVisualPrefab, new Vector3(x, 0, y), Quaternion.identity );
+				GameObject go = (GameObject)Instantiate( tt.tileVisualPrefab, new Vector3(y, 0, mapSizeX-x-1), Quaternion.identity );
 				go.transform.parent = transform;
 
 				ClickableTile ct = go.GetComponent<ClickableTile>();
 				ct.tileX = x;
-				ct.tileY = y;
+				ct.tileZ = y;
 				ct.map = this;
 			}
 		}
@@ -180,7 +166,7 @@ public class TileMap : MonoBehaviour
 
 	public Vector3 TileCoordToWorldCoord(int x, int y)
 	{
-		return new Vector3(x, y, 0);
+		return new Vector3(x, 0, y);
 	}
 
 	public bool UnitCanEnterTile(int x, int y)
@@ -209,15 +195,17 @@ public class TileMap : MonoBehaviour
 		// Setup the "Q" -- the list of nodes we haven't checked yet.
 		List<Node> unvisited = new List<Node>();
 
-		Node source = graph[
-			selectedUnit.GetComponent<Unit>().tileX, 
-			selectedUnit.GetComponent<Unit>().tileY
-		];
+		Node source = graph
+			[
+				selectedUnit.GetComponent<Unit>().tileX, 
+				selectedUnit.GetComponent<Unit>().tileZ
+			];
 
-		Node target = graph[
-			x, 
-			y
-		];
+		Node target = graph
+			[
+				x, 
+				y
+			];
 
 		dist[source] = 0;
 		prev[source] = null;
@@ -226,8 +214,10 @@ public class TileMap : MonoBehaviour
 		// we don't know any better right now. Also, it's possible
 		// that some nodes CAN'T be reached from the source,
 		// which would make INFINITY a reasonable value
-		foreach(Node v in graph) {
-			if(v != source) {
+		foreach(Node v in graph)
+		{
+			if(v != source)
+			{
 				dist[v] = Mathf.Infinity;
 				prev[v] = null;
 			}
@@ -258,8 +248,9 @@ public class TileMap : MonoBehaviour
 			foreach(Node v in u.neighbours)
 			{
 				//float alt = dist[u] + u.DistanceTo(v);
-				float alt = dist[u] + CostToEnterTile(u.x, u.y, v.x, v.y);
-				if( alt < dist[v] ) {
+				float alt = dist[u] + CostToEnterTile(u.x, u.z, v.x, v.z);
+				if( alt < dist[v] )
+				{
 					dist[v] = alt;
 					prev[v] = u;
 				}

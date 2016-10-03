@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 public class ClickableTile : MonoBehaviour {
 
 	public int tileX;
-	public int tileY;
+	public int tileZ;
 	public TileMap map;
 
 	void OnMouseUp() {
@@ -14,7 +14,7 @@ public class ClickableTile : MonoBehaviour {
 		if(EventSystem.current.IsPointerOverGameObject())
 			return;
 
-		map.GeneratePathTo(tileX, tileY);
+		map.GeneratePathTo(tileX, tileZ);
 	}
 
 }
