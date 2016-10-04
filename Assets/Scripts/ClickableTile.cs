@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class ClickableTile : MonoBehaviour {
-
+public class ClickableTile : MonoBehaviour 
+{
 	public int tileX;
 	public int tileZ;
 	public TileMap map;

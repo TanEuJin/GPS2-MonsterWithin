@@ -45,6 +45,12 @@ public class PlayerManager : MonoBehaviour
 	public int moveSpeed = 2;
 	public float remainingMovement=2;
 
+	// Sanity
+	public GameObject flashLight;
+	public bool gotLight = false;
+	public int currentSanityLevel = 4;
+	public int maxSanityLevel = 6;
+
 	void Update()
 	{
 		// Draw our debug line showing the pathfinding!
@@ -105,5 +111,30 @@ public class PlayerManager : MonoBehaviour
 			// So let's just clear our pathfinding info.
 			currentPath = null;
 		}
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if(other.CompareTag("Light"))
+		{
+			gotLight = true;
+		}
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		if(other.CompareTag("Light"))
+		{
+			if(flashLight.activeSelf == false)
+			{
+				gotLight = false;
+			}
+		}
+	}
+
+	public void flashLightToggle(bool isOn)
+	{
+		flashLight.SetActive(isOn);
+		gotLight = isOn;
 	}
 }

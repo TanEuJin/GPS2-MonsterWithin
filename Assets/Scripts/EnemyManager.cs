@@ -118,9 +118,6 @@ public class EnemyManager : MonoBehaviour
 		}
 
 		// Reset our available movement points.
-		if(remainingMovement == 0)
-		{
-			remainingMovement = moveSpeed;
-		}
+		remainingMovement = moveSpeed;
 	}
 }

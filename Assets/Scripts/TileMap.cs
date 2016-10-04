@@ -19,7 +19,7 @@ public class TileMap : MonoBehaviour
 	void Start()
 	{
 		// Setup the enemy's variable
-		EnemyManager.Instance.tileX = (int)enemy.transform.position.x;
+		EnemyManager.Instance.tileX = (int)EnemyManager.Instance.transform.position.x;
 		EnemyManager.Instance.tileZ = (int)enemy.transform.position.z;
 		EnemyManager.Instance.map = this;
 
