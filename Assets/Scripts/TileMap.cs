@@ -19,13 +19,13 @@ public class TileMap : MonoBehaviour
 	void Start()
 	{
 		// Setup the enemy's variable
-		enemy.GetComponent<EnemyScript>().tileX = (int)enemy.transform.position.x;
-		enemy.GetComponent<EnemyScript>().tileZ = (int)enemy.transform.position.z;
-		enemy.GetComponent<EnemyScript>().map = this;
+		EnemyManager.Instance.tileX = (int)enemy.transform.position.x;
+		EnemyManager.Instance.tileZ = (int)enemy.transform.position.z;
+		EnemyManager.Instance.map = this;
 
-		player.GetComponent<PlayerScript>().tileX = (int)player.transform.position.x;
-		player.GetComponent<PlayerScript>().tileZ = (int)player.transform.position.z;
-		player.GetComponent<PlayerScript>().map = this;
+		PlayerManager.Instance.tileX = (int)player.transform.position.x;
+		PlayerManager.Instance.tileZ = (int)player.transform.position.z;
+		PlayerManager.Instance.map = this;
 
 		GenerateMapData();
 		GeneratePathfindingGraph();
@@ -192,7 +192,7 @@ public class TileMap : MonoBehaviour
 	public void EnemyGeneratePathTo(int x, int y)
 	{
 		// Clear out our unit's old path.
-		enemy.GetComponent<EnemyScript>().currentPath = null;
+		EnemyManager.Instance.currentPath = null;
 
 		if( UnitCanEnterTile(x,y) == false )
 		{
@@ -208,8 +208,8 @@ public class TileMap : MonoBehaviour
 
 		Node source = graph
 			[
-				enemy.GetComponent<EnemyScript>().tileX, 
-				enemy.GetComponent<EnemyScript>().tileZ
+				EnemyManager.Instance.tileX, 
+				EnemyManager.Instance.tileZ
 			];
 
 		Node target = graph
@@ -293,13 +293,13 @@ public class TileMap : MonoBehaviour
 
 		currentPath.Reverse();
 
-		enemy.GetComponent<EnemyScript>().currentPath = currentPath;
+		EnemyManager.Instance.currentPath = currentPath;
 	}
 
 	public void PlayerGeneratePathTo(int x, int y)
 	{
 		// Clear out our unit's old path.
-		player.GetComponent<PlayerScript>().currentPath = null;
+		PlayerManager.Instance.currentPath = null;
 
 		if(UnitCanEnterTile(x,y) == false)
 		{
@@ -315,8 +315,8 @@ public class TileMap : MonoBehaviour
 
 		Node source = graph
 			[
-				player.GetComponent<PlayerScript>().tileX, 
-				player.GetComponent<PlayerScript>().tileZ
+				PlayerManager.Instance.tileX, 
+				PlayerManager.Instance.tileZ
 			];
 
 		Node target = graph
@@ -400,6 +400,6 @@ public class TileMap : MonoBehaviour
 
 		currentPath.Reverse();
 
-		player.GetComponent<PlayerScript>().currentPath = currentPath;
+		PlayerManager.Instance.currentPath = currentPath;
 	}
 }

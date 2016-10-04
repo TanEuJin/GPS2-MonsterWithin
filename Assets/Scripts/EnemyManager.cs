@@ -1,8 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class EnemyScript : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
+	private static EnemyManager mInstance;
+
+	public static EnemyManager Instance
+	{
+		get
+		{
+			if(mInstance == null)
+			{
+				GameObject tempObject = GameObject.FindGameObjectWithTag("Enemy");
+
+				if(tempObject == null)
+				{
+					GameObject obj = new GameObject("_EnemyManager");
+					mInstance = obj.AddComponent<EnemyManager>();
+					obj.tag = "EnemyManager";
+				}
+				else
+				{
+					mInstance = tempObject.GetComponent<EnemyManager>();
+				}
+			}
+			return mInstance;
+		}
+	}
+
 	// tileX and tileZ represent the correct map-tile position
 	// for this piece.  Note that this doesn't necessarily mean
 	// the world-space coordinates, because our map might be scaled
@@ -18,7 +43,7 @@ public class EnemyScript : MonoBehaviour
 
 	// How far this unit can move in one turn. Note that some tiles cost extra.
 	int moveSpeed = 2;
-	float remainingMovement=2;
+	public float remainingMovement=2;
 
 	void Update()
 	{
@@ -93,6 +118,9 @@ public class EnemyScript : MonoBehaviour
 		}
 
 		// Reset our available movement points.
-		remainingMovement = moveSpeed;
+		if(remainingMovement == 0)
+		{
+			remainingMovement = moveSpeed;
+		}
 	}
 }
