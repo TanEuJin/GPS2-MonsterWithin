@@ -45,6 +45,12 @@ public class PlayerManager : MonoBehaviour
 	public int moveSpeed = 2;
 	public float remainingMovement=2;
 
+	//! Object Interaction
+	public GameObject InteractButton;
+	public GameObject Door, Closet;
+	public bool closetInteract, doorInteract, isHidden;
+	public int keys;
+
 	// Sanity
 	public GameObject flashLight;
 	public bool gotLight = false;
@@ -115,20 +121,46 @@ public class PlayerManager : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.CompareTag("Light"))
+		/*if(other.CompareTag("Light"))
 		{
 			gotLight = true;
+		}*/
+
+		if (other.gameObject.CompareTag ("Key")) {
+			Destroy (other.gameObject);
+			keys++;
 		}
+
+		if (other.gameObject.CompareTag ("Closet")) {
+			closetInteract = true;
+			InteractButton.SetActive(true);
+		}
+
+		if (other.gameObject.CompareTag ("Door")) {
+			doorInteract = true;
+			InteractButton.SetActive(true);
+		}
+
 	}
 
 	void OnTriggerExit(Collider other)
 	{
-		if(other.CompareTag("Light"))
+		/*if(other.CompareTag("Light"))
 		{
 			if(flashLight.activeSelf == false)
 			{
 				gotLight = false;
 			}
+		}*/
+
+		if (other.gameObject.CompareTag ("Closet")) {
+			closetInteract = false;
+			InteractButton.SetActive(false);
+		}
+
+		if (other.gameObject.CompareTag ("Door")) {
+			doorInteract = false;
+			InteractButton.SetActive(false);
 		}
 	}
 

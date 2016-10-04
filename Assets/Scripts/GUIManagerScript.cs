@@ -59,4 +59,42 @@ public class GUIManagerScript : MonoBehaviour
 			sanityBar.color = Color.green;
 		}
 	}
+
+	public void ClosetInteract()
+	{
+		Debug.Log ("Test");
+		if (PlayerManager.Instance.closetInteract == true) 
+		{
+			if (PlayerManager.Instance.isHidden == false)
+			{
+				PlayerManager.Instance.transform.position = PlayerManager.Instance.Closet.transform.position;
+				PlayerManager.Instance.isHidden = true;
+			} 
+
+			else if (PlayerManager.Instance.isHidden == true) 
+			{
+				PlayerManager.Instance.transform.position = Vector3.forward * 1.0f;
+				PlayerManager.Instance.isHidden = false;
+			}
+		}
+	}
+
+	public void DoorInteract()
+	{
+		Debug.Log ("Test");
+		if (PlayerManager.Instance.doorInteract == true) 
+		{
+			if (PlayerManager.Instance.keys == 3)
+			{
+				//! Door Unlocked
+				PlayerManager.Instance.Door.transform.position = Vector3.up * 1.0f;
+			} 
+
+			else if (PlayerManager.Instance.keys < 3) 
+			{
+				Debug.Log("Insufficient Keys!");
+			}
+		}
+	}
+
 }
