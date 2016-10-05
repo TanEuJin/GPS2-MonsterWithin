@@ -57,7 +57,7 @@ public class EnemyManager : MonoBehaviour
 
 	void Update()
 	{
-		if(PlayerManager.Instance.flashLightOn == true)//gotLight as in torch is on
+		if(PlayerManager.Instance.lanternOn == true)//gotLight as in torch is on
 		{
 			state = EnemyBehavior.CHASING;
 		}
