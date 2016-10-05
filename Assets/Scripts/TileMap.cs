@@ -6,6 +6,9 @@ public class TileMap : MonoBehaviour
 {
 	public TileType[] tileTypes;
 
+	public Vector3[] waypoints;
+	//public int waypointCounter;
+
 	int[,] tiles;
 	Node[,] graph;
 
@@ -27,6 +30,14 @@ public class TileMap : MonoBehaviour
 		GenerateMapData();
 		GeneratePathfindingGraph();
 		GenerateMapVisual();
+	}
+
+	void Update()
+	{
+		/*if(waypointCounter >= 25)
+		{
+			waypointCounter = 0;
+		}*/
 	}
 
 	void GenerateMapData()
@@ -355,6 +366,8 @@ public class TileMap : MonoBehaviour
 
 			if(u == target)
 			{
+				/*waypointCounter++;
+				Debug.Log("WaypointCounter :" + waypointCounter);*/
 				break;	// Exit the while loop!
 			}
 

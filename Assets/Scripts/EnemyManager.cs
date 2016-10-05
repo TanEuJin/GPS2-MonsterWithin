@@ -57,6 +57,7 @@ public class EnemyManager : MonoBehaviour
 
 	void Update()
 	{
+
 		if(PlayerManager.Instance.lanternOn == true)//gotLight as in torch is on
 		{
 			state = EnemyBehavior.CHASING;
@@ -99,7 +100,9 @@ public class EnemyManager : MonoBehaviour
 	void AdvancePathing()
 	{
 		if(currentPath==null)
+		{
 			return;
+		}
 
 		if(remainingMovement <= 0)
 			return;
