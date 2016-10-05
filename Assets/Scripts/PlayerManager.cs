@@ -138,8 +138,18 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		// Reset our available movement points.
-		remainingMovement = moveSpeed;
-
+		if(currentSanityLevel <= 2)
+		{
+			remainingMovement = 2;
+		}
+		else if(currentSanityLevel >=3 && currentSanityLevel <= 4)
+		{
+			remainingMovement = 3;
+		}
+		else if(currentSanityLevel >=5 && currentSanityLevel <= 6)
+		{
+			remainingMovement = 4;
+		}
 	}
 
 	void OnTriggerEnter(Collider other)

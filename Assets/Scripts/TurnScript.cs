@@ -14,7 +14,6 @@ public class TurnScript : MonoBehaviour
 	{
 		if (turnPlayer == false)
 		{
-			Debug.Log("Enemy Turn");
 			EnemyManager.Instance.NextTurn ();
 			turnPlayer = true;
 		}
@@ -24,10 +23,6 @@ public class TurnScript : MonoBehaviour
 	{
 		if (turnPlayer == true) 
 		{
-			Debug.Log("Player Turn");
-			PlayerManager.Instance.NextTurn ();
-			PlayerManager.Instance.currentPath = null;
-
 			if(PlayerManager.Instance.gotOtherLight == true)
 			{
 				if(PlayerManager.Instance.currentSanityLevel + 1 <= PlayerManager.Instance.maxSanityLevel)
@@ -45,6 +40,9 @@ public class TurnScript : MonoBehaviour
 					}
 				}
 			}
+
+			PlayerManager.Instance.NextTurn ();
+			PlayerManager.Instance.currentPath = null;
 			GUIManagerScript.Instance.UpdateSanityBar();
 
 			turnPlayer = false;
