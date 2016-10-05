@@ -55,8 +55,8 @@ public class PlayerManager : MonoBehaviour
 
 
 	// Sanity
-	public GameObject flashLight;
-	public bool gotLight = false;
+	public bool flashLightOn = false;
+	public bool gotOtherLight = false;
 	public int currentSanityLevel = 4;
 	public int maxSanityLevel = 6;
 	public GameObject fogOW;
@@ -146,10 +146,10 @@ public class PlayerManager : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		/*if(other.CompareTag("Light"))
+		if(other.CompareTag("Light"))
 		{
-			gotLight = true;
-		}*/
+			gotOtherLight = true;
+		}
 
 		if (other.gameObject.CompareTag ("Key"))
 		{
@@ -185,13 +185,10 @@ public class PlayerManager : MonoBehaviour
 
 	void OnTriggerExit(Collider other)
 	{
-		/*if(other.CompareTag("Light"))
+		if(other.CompareTag("Light"))
 		{
-			if(flashLight.activeSelf == false)
-			{
-				gotLight = false;
-			}
-		}*/
+			gotOtherLight = false;
+		}
 
 		if (other.gameObject.CompareTag ("Closet")) 
 		{
@@ -220,9 +217,9 @@ public class PlayerManager : MonoBehaviour
 
 	public void flashLightToggle(bool isOn)
 	{
-		gotLight = isOn;
+		flashLightOn = isOn;
 
-		if(gotLight == true)
+		if(flashLightOn == true)
 		{
 			fogOfWar.SetFloat ("_FogMaxRadius", 1.0f);
 			fogOfWar.SetFloat ("_FogRadius", 3.5f);
