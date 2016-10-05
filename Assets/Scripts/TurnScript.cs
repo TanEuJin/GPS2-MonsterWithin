@@ -46,7 +46,6 @@ public class TurnScript : MonoBehaviour
 			{
 				if(SoundManagerScript.Instance.gameObject.GetComponent<AudioSource>().name != "Heartbeat 180bpm")
 				{
-					SoundManagerScript.Instance.StopLoopingSFX(AudioClipID.SFX_HEARTBEAT60);
 					SoundManagerScript.Instance.StopLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
 					SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT180);
 				}
@@ -56,7 +55,7 @@ public class TurnScript : MonoBehaviour
 				if(SoundManagerScript.Instance.gameObject.GetComponent<AudioSource>().name != "Heartbeat 120bpm")
 				{
 					SoundManagerScript.Instance.StopLoopingSFX(AudioClipID.SFX_HEARTBEAT60);
-					SoundManagerScript.Instance.StopLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
+					SoundManagerScript.Instance.StopLoopingSFX(AudioClipID.SFX_HEARTBEAT180);
 					SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
 				}
 			}
@@ -64,7 +63,6 @@ public class TurnScript : MonoBehaviour
 			{
 				if(SoundManagerScript.Instance.gameObject.GetComponent<AudioSource>().name != "Heartbeat 60bpm")
 				{
-					SoundManagerScript.Instance.StopLoopingSFX(AudioClipID.SFX_HEARTBEAT60);
 					SoundManagerScript.Instance.StopLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
 					SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT60);
 				}
