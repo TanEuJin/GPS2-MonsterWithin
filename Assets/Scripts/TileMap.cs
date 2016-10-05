@@ -4,9 +4,6 @@ using System.Linq;
 
 public class TileMap : MonoBehaviour
 {
-	public GameObject player;
-	public GameObject enemy;
-
 	public TileType[] tileTypes;
 
 	int[,] tiles;
@@ -20,11 +17,11 @@ public class TileMap : MonoBehaviour
 	{
 		// Setup the enemy's variable
 		EnemyManager.Instance.tileX = (int)EnemyManager.Instance.transform.position.x;
-		EnemyManager.Instance.tileZ = (int)enemy.transform.position.z;
+		EnemyManager.Instance.tileZ = (int)EnemyManager.Instance.transform.position.z;
 		EnemyManager.Instance.map = this;
 
-		PlayerManager.Instance.tileX = (int)player.transform.position.x;
-		PlayerManager.Instance.tileZ = (int)player.transform.position.z;
+		PlayerManager.Instance.tileX = (int)PlayerManager.Instance.transform.position.x;
+		PlayerManager.Instance.tileZ = (int)PlayerManager.Instance.transform.position.z;
 		PlayerManager.Instance.map = this;
 
 		GenerateMapData();
