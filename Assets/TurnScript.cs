@@ -26,6 +26,23 @@ public class TurnScript : MonoBehaviour
 			Debug.Log("Player Turn");
 			PlayerManager.Instance.NextTurn ();
 			PlayerManager.Instance.currentPath = null;
+
+			if(PlayerManager.Instance.gotLight == true)
+			{
+				if(PlayerManager.Instance.currentSanityLevel + 1 <= PlayerManager.Instance.maxSanityLevel)
+				{
+					PlayerManager.Instance.currentSanityLevel ++;
+				}
+			}
+			else
+			{
+				if(PlayerManager.Instance.currentSanityLevel - 1 >= 0)
+				{
+					PlayerManager.Instance.currentSanityLevel --;
+				}
+			}
+			GUIManagerScript.Instance.UpdateSanityBar();
+
 			turnPlayer = false;
 		}
 	}
