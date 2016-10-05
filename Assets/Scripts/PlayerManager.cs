@@ -153,6 +153,8 @@ public class PlayerManager : MonoBehaviour
 		{
 			remainingMovement = 4;
 		}
+
+		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
 	}
 
 	void OnTriggerEnter(Collider other)
