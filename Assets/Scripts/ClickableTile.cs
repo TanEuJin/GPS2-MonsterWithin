@@ -34,10 +34,13 @@ public class ClickableTile : MonoBehaviour
 				waypointCounter++;
 				this.map.EnemyGeneratePathTo((int)map.waypoints[waypointCounter].x, (int)map.waypoints[waypointCounter].z);
 			}
-			/*if(tileX == 0 && tileZ == 0)
+			else
 			{
-				this.map.EnemyGeneratePathTo(0, 0);
-			}*/
+				if(EnemyManager.Instance.tileX == tileX && EnemyManager.Instance.tileZ == tileZ)
+				{
+					this.map.EnemyGeneratePathTo((int)map.waypoints[waypointCounter].x, (int)map.waypoints[waypointCounter].z);
+				}
+			}
 		}
 		else if(EnemyManager.Instance.state == EnemyBehavior.DISTRACTED)
 		{
