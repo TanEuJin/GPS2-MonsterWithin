@@ -9,21 +9,32 @@ public class ClickableTile : MonoBehaviour
 	public TileMap map;
 	public int playerPosX;
 	public int playerPosZ;
-	public GameObject player;
+	//public GameObject player;
 
 	void Start()
 	{
-		player = GameObject.FindWithTag("Player");
+		
 	}
 
 	void Update()
 	{
-		playerPosX = (int)player.transform.position.x;//(int)GameObject.FindWithTag("Player").transform.position.x;
-		playerPosZ = (int)player.transform.position.z;//(int)GameObject.FindWithTag("Player").transform.position.z;
+		playerPosX = (int)PlayerManager.Instance.transform.position.x;
+		playerPosZ = (int)PlayerManager.Instance.transform.position.z;
 
-		if(this.gameObject.transform.position == player.transform.position)
+		if(EnemyManager.Instance.state == EnemyBehavior.PATROLLING)
 		{
-			this.map.EnemyGeneratePathTo(playerPosX, playerPosZ);
+			
+		}
+		else if(EnemyManager.Instance.state == EnemyBehavior.DISTRACTED)
+		{
+			
+		}
+		else if(EnemyManager.Instance.state == EnemyBehavior.CHASING)
+		{
+			if(this.gameObject.transform.position == PlayerManager.Instance.transform.position)
+			{
+				this.map.EnemyGeneratePathTo(playerPosX, playerPosZ);
+			}
 		}
 	}
 
