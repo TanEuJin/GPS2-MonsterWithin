@@ -205,12 +205,10 @@ public class PlayerManager : MonoBehaviour
 		if(lanternOn == true)
 		{
 			fogOfWar.SetFloat ("_FogMaxRadius", 1.0f);
-			fogOfWar.SetFloat ("_FogRadius", 5.5f);
 		}
 		else
 		{
 			fogOfWar.SetFloat ("_FogMaxRadius", 1.5f);
-			fogOfWar.SetFloat ("_FogRadius", 4.5f);
 		}
 
 		GUIManagerScript.Instance.flashLightToggle.interactable = false;
