@@ -37,7 +37,7 @@ public class TurnScript : MonoBehaviour
 			}
 			else
 			{
-				if(PlayerManager.Instance.flashLightOn == false)
+				if(PlayerManager.Instance.lanternOn == false)
 				{
 					if(PlayerManager.Instance.currentSanityLevel - 1 >= 0)
 					{

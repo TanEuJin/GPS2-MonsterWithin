@@ -55,7 +55,7 @@ public class PlayerManager : MonoBehaviour
 
 
 	// Sanity
-	public bool flashLightOn = false;
+	public bool lanternOn = false;
 	public bool gotOtherLight = false;
 	public int currentSanityLevel = 4;
 	public int maxSanityLevel = 6;
@@ -215,11 +215,11 @@ public class PlayerManager : MonoBehaviour
 		}
 	}
 
-	public void flashLightToggle(bool isOn)
+	public void lanternToggle(bool isOn)
 	{
-		flashLightOn = isOn;
+		lanternOn = isOn;
 
-		if(flashLightOn == true)
+		if(lanternOn == true)
 		{
 			fogOfWar.SetFloat ("_FogMaxRadius", 1.0f);
 			fogOfWar.SetFloat ("_FogRadius", 3.5f);
