@@ -47,10 +47,8 @@ public class PlayerManager : MonoBehaviour
 
 	//! Object Interaction
 	public GameObject InteractButton;
-	public GameObject[] Door;
-	public GameObject Closet;
+	public GameObject Door, Closet;
 	public bool closetInteract, doorInteract, isHidden;
-	public bool FirstD,SecondD,ThirdD;
 	public int keys;
 
 
@@ -162,25 +160,6 @@ public class PlayerManager : MonoBehaviour
 			closetInteract = true;
 			InteractButton.SetActive(true);
 		}
-
-		if (other.gameObject.Equals(Door[0])) {
-			FirstD = true;
-			doorInteract = true;
-			InteractButton.SetActive(true);
-		}
-
-		if (other.gameObject.Equals(Door[1])) {
-			SecondD = true;
-			doorInteract = true;
-			InteractButton.SetActive(true);
-		}
-
-		if (other.gameObject.Equals(Door[2])) {
-			ThirdD = true;
-			doorInteract = true;
-			InteractButton.SetActive(true);
-		}
-
 	}
 
 	void OnTriggerExit(Collider other)
@@ -196,20 +175,8 @@ public class PlayerManager : MonoBehaviour
 			InteractButton.SetActive(false);
 		}
 
-		if (other.gameObject.Equals(Door[0])) {
-			FirstD = false;
-			doorInteract = false;
-			InteractButton.SetActive(false);
-		}
-
-		if (other.gameObject.Equals(Door[1])) {
-			SecondD = false;
-			doorInteract = false;
-			InteractButton.SetActive(false);
-		}
-
-		if (other.gameObject.Equals(Door[2])) {
-			ThirdD = false;
+		if (other.gameObject.CompareTag("Door"))
+		{
 			doorInteract = false;
 			InteractButton.SetActive(false);
 		}

@@ -9,7 +9,7 @@ public enum AudioClipID
 	BGM_GAMEOVER = 2,
 
 	SFX_PLAYERMOVE = 101,
-	SFX_DOOR = 100,
+	SFX_DOOROPEN = 100,
 	SFX_ENEMYMOVE = 99,
 	SFX_HIDE = 98,
 	SFX_PLAYERPANIC = 97,
@@ -62,6 +62,11 @@ public class SoundManagerScript : MonoBehaviour
 
 	public List<AudioSource> sfxAudioSourceList = new List<AudioSource>();
 	public List<AudioSource> bgmAudioSourceList = new List<AudioSource>();
+
+	void Start()
+	{
+		PlaySFX(AudioClipID.BGM_MANSION);
+	}
 
 	// Use this for initialization
 	void Awake () 
