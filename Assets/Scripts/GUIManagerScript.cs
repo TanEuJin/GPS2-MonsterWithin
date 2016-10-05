@@ -44,7 +44,7 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void UpdateSanityBar()
 	{
-		sanityBar.fillAmount = (PlayerManager.Instance.currentSanityLevel / PlayerManager.Instance.maxSanityLevel) * 1.0f;
+		sanityBar.fillAmount = (PlayerManager.Instance.currentSanityLevel * 1.0f / PlayerManager.Instance.maxSanityLevel * 1.0f);
 
 		if(PlayerManager.Instance.currentSanityLevel >=0 && PlayerManager.Instance.currentSanityLevel <=2)
 		{

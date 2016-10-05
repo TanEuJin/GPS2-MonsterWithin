@@ -57,6 +57,10 @@ public class PlayerManager : MonoBehaviour
 	public int currentSanityLevel = 4;
 	public int maxSanityLevel = 6;
 
+	void Start()
+	{
+		GUIManagerScript.Instance.UpdateSanityBar();
+	}
 
 	void Update()
 	{
@@ -141,17 +145,20 @@ public class PlayerManager : MonoBehaviour
 			gotLight = true;
 		}*/
 
-		if (other.gameObject.CompareTag ("Key")) {
+		if (other.gameObject.CompareTag ("Key"))
+		{
 			Destroy (other.gameObject);
 			keys++;
 		}
 
-		if (other.gameObject.CompareTag ("Closet")) {
+		if (other.gameObject.CompareTag ("Closet")) 
+		{
 			closetInteract = true;
 			InteractButton.SetActive(true);
 		}
 
-		if (other.gameObject.CompareTag ("Door")) {
+		if (other.gameObject.CompareTag ("Door")) 
+		{
 			doorInteract = true;
 			InteractButton.SetActive(true);
 		}
@@ -168,12 +175,14 @@ public class PlayerManager : MonoBehaviour
 			}
 		}*/
 
-		if (other.gameObject.CompareTag ("Closet")) {
+		if (other.gameObject.CompareTag ("Closet")) 
+		{
 			closetInteract = false;
 			InteractButton.SetActive(false);
 		}
 
-		if (other.gameObject.CompareTag ("Door")) {
+		if (other.gameObject.CompareTag ("Door")) 
+		{
 			doorInteract = false;
 			InteractButton.SetActive(false);
 		}
