@@ -31,10 +31,12 @@ public class GUIManagerScript : MonoBehaviour
 	}
 
 	public Image sanityBar;
+	public Text movesCount;
+	public Toggle flashLightToggle;
 
 	void Start()
 	{
-		
+		Screen.orientation = ScreenOrientation.Landscape;
 	}
 
 	void Update()

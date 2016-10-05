@@ -63,6 +63,7 @@ public class PlayerManager : MonoBehaviour
 	void Start()
 	{
 		GUIManagerScript.Instance.UpdateSanityBar();
+		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
 		fogOfWar = fogOW.GetComponent<Renderer>().material;
 	}
 
@@ -126,6 +127,8 @@ public class PlayerManager : MonoBehaviour
 			// So let's just clear our pathfinding info.
 			currentPath = null;
 		}
+
+		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
 	}
 
 	// The "Next Turn" button calls this.
@@ -206,5 +209,7 @@ public class PlayerManager : MonoBehaviour
 			fogOfWar.SetFloat ("_FogMaxRadius", 1.5f);
 			fogOfWar.SetFloat ("_FogRadius", 2.5f);
 		}
+
+		GUIManagerScript.Instance.flashLightToggle.interactable = false;
 	}
 }

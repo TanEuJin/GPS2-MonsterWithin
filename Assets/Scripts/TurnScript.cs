@@ -15,6 +15,7 @@ public class TurnScript : MonoBehaviour
 		if (turnPlayer == false)
 		{
 			EnemyManager.Instance.NextTurn ();
+			GUIManagerScript.Instance.flashLightToggle.interactable = true;
 			turnPlayer = true;
 		}
 	}

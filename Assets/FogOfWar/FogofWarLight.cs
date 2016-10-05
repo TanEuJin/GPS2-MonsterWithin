@@ -15,7 +15,7 @@ public class FogofWarLight : MonoBehaviour {
 	void Update () {
 		Vector3 screenPos = Camera.main.WorldToScreenPoint (transform.position);
 		Ray rayToPlayerPos = Camera.main.ScreenPointToRay (screenPos);
-		int layermask = (int)(1 << 8);
+		//int layermask = (int)(1 << 8);
 
 		RaycastHit hit;
 		if (Physics.Raycast (rayToPlayerPos, out hit, 1000)) {
