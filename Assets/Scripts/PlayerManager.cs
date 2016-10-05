@@ -65,6 +65,7 @@ public class PlayerManager : MonoBehaviour
 		GUIManagerScript.Instance.UpdateSanityBar();
 		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
 		fogOfWar = fogOW.GetComponent<Renderer>().material;
+		SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
 	}
 
 	void Update()
