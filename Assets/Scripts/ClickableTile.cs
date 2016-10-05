@@ -9,11 +9,13 @@ public class ClickableTile : MonoBehaviour
 	public TileMap map;
 	public int playerPosX;
 	public int playerPosZ;
+	public LayerMask layerMask;
 	//public GameObject player;
 
 	void Start()
 	{
-		
+		layerMask = LayerMask.NameToLayer ("Wall");
+		layerMask.value = ~(1 << layerMask.value);
 	}
 
 	void Update()
@@ -40,9 +42,9 @@ public class ClickableTile : MonoBehaviour
 
 	void OnMouseUp()
 	{
-		if(EventSystem.current.IsPointerOverGameObject())
+		if (EventSystem.current.IsPointerOverGameObject ())
 			return;
 
-		map.PlayerGeneratePathTo(tileX, tileZ);
+		map.PlayerGeneratePathTo (tileX, tileZ);
 	}
 }
