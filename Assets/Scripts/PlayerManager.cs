@@ -57,6 +57,7 @@ public class PlayerManager : MonoBehaviour
 	public int currentSanityLevel = 4;
 	public int maxSanityLevel = 6;
 
+
 	void Update()
 	{
 		// Draw our debug line showing the pathfinding!
@@ -130,6 +131,7 @@ public class PlayerManager : MonoBehaviour
 
 		// Reset our available movement points.
 		remainingMovement = moveSpeed;
+
 	}
 
 	void OnTriggerEnter(Collider other)
