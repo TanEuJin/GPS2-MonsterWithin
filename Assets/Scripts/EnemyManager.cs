@@ -1,6 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+public enum EnemyBehavior
+{
+	PATROLLING 	= 0,
+	DISTRACTED 	= 1,
+	CHASING		= 2,
+
+	TOTAL = 10
+}
+
 public class EnemyManager : MonoBehaviour
 {
 	private static EnemyManager mInstance;
@@ -44,9 +53,19 @@ public class EnemyManager : MonoBehaviour
 	// How far this unit can move in one turn. Note that some tiles cost extra.
 	int moveSpeed = 2;
 	public float remainingMovement=2;
+	public EnemyBehavior state;
 
 	void Update()
 	{
+		if(PlayerManager.Instance.gotLight == true)//gotLight as in torch is on
+		{
+			state = EnemyBehavior.CHASING;
+		}
+		else
+		{
+			state = EnemyBehavior.PATROLLING;
+		}
+
 		// Draw our debug line showing the pathfinding!
 		// NOTE: This won't appear in the actual game view.
 		if(currentPath != null)
