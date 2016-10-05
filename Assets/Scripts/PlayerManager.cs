@@ -119,6 +119,19 @@ public class PlayerManager : MonoBehaviour
 		}
 	}
 
+	// The "Next Turn" button calls this.
+	public void NextTurn()
+	{
+		// Make sure to wrap-up any outstanding movement left over.
+		while(currentPath!=null && remainingMovement > 0)
+		{
+			AdvancePathing();
+		}
+
+		// Reset our available movement points.
+		remainingMovement = moveSpeed;
+	}
+
 	void OnTriggerEnter(Collider other)
 	{
 		/*if(other.CompareTag("Light"))
