@@ -84,10 +84,24 @@ public class GUIManagerScript : MonoBehaviour
 		Debug.Log ("Test");
 		if (PlayerManager.Instance.doorInteract == true) 
 		{
-			if (PlayerManager.Instance.keys == 3)
+			if (PlayerManager.Instance.keys >= 1)
 			{
 				//! Door Unlocked
-				PlayerManager.Instance.Door.transform.position = Vector3.up * 1.0f;
+				if (PlayerManager.Instance.FirstD == true) {
+					PlayerManager.Instance.Door[0].transform.position = Vector3.up * 1.0f;
+					PlayerManager.Instance.keys -= 1;
+					//! Change
+				}
+
+				else if (PlayerManager.Instance.SecondD == true) {
+					PlayerManager.Instance.Door[1].transform.position = Vector3.up * 1.0f;
+					PlayerManager.Instance.keys -= 1;
+				}
+
+				else if (PlayerManager.Instance.ThirdD == true) {
+					PlayerManager.Instance.Door[2].transform.position = Vector3.up * 1.0f;
+					PlayerManager.Instance.keys -= 1;
+				}
 			} 
 
 			else if (PlayerManager.Instance.keys < 3) 
