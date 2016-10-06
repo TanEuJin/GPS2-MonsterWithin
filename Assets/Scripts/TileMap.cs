@@ -7,7 +7,7 @@ public class TileMap : MonoBehaviour
 	public TileType[] tileTypes;
 
 	public Vector3[] waypoints;
-	//public int waypointCounter;
+	public int waypointCounter;
 
 	int[,] tiles;
 	Node[,] graph;
@@ -34,10 +34,40 @@ public class TileMap : MonoBehaviour
 
 	void Update()
 	{
-		/*if(waypointCounter >= 25)
+		//! Reset Patrolling waypoint
+		if(waypointCounter == 25)
 		{
 			waypointCounter = 0;
-		}*/
+		}
+
+		//! Patrolling Behavior
+		if(EnemyManager.Instance.state == EnemyBehavior.PATROLLING)
+		{
+
+			if(EnemyManager.Instance.tileX == (int)waypoints[waypointCounter].x && EnemyManager.Instance.tileZ ==(int)waypoints[waypointCounter].z)
+			{
+				waypointCounter++;
+				this.EnemyGeneratePathTo((int)waypoints[waypointCounter].x, (int)waypoints[waypointCounter].z);
+			}
+			/*else
+			{
+				if(this.GetComponentInChildren<ClickableTile>().tileX == EnemyManager.Instance.tileX && this.GetComponentInChildren<ClickableTile>().tileZ == EnemyManager.Instance.tileZ)
+				{
+					this.EnemyGeneratePathTo((int)waypoints[waypointCounter].x, (int)waypoints[waypointCounter].z);
+				}
+			}*/
+		}
+		else if(EnemyManager.Instance.state == EnemyBehavior.DISTRACTED)
+		{
+			
+		}
+		else if(EnemyManager.Instance.state == EnemyBehavior.CHASING)
+		{
+			if(EnemyManager.Instance.transform.position != PlayerManager.Instance.transform.position)
+			{
+				this.EnemyGeneratePathTo(this.GetComponentInChildren<ClickableTile>().playerPosX, this.GetComponentInChildren<ClickableTile>().playerPosZ);
+			}
+		}
 	}
 
 	void GenerateMapData()

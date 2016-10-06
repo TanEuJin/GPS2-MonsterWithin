@@ -9,7 +9,7 @@ public class ClickableTile : MonoBehaviour
 	public TileMap map;
 	public int playerPosX;
 	public int playerPosZ;
-	public int waypointCounter;
+	//public int waypointCounter;
 
 	void Start()
 	{
@@ -20,8 +20,15 @@ public class ClickableTile : MonoBehaviour
 	{
 		playerPosX = (int)PlayerManager.Instance.transform.position.x;
 		playerPosZ = (int)PlayerManager.Instance.transform.position.z;
+		if(EnemyManager.Instance.state == EnemyBehavior.PATROLLING)
+		{
+			if(tileX == EnemyManager.Instance.tileX && tileZ == EnemyManager.Instance.tileZ)
+			{
+				this.map.EnemyGeneratePathTo((int)map.waypoints[map.waypointCounter].x, (int)map.waypoints[map.waypointCounter].z);
+			}
+		}
 
-		//! Reset Patrolling waypoint
+		/*//! Reset Patrolling waypoint
 		if(waypointCounter == 25)
 		{
 			waypointCounter = 0;
@@ -54,7 +61,7 @@ public class ClickableTile : MonoBehaviour
 			{
 				this.map.EnemyGeneratePathTo(playerPosX, playerPosZ);
 			}
-		}
+		}*/
 	}
 
 	void OnMouseUp()
