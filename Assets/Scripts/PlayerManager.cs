@@ -46,9 +46,9 @@ public class PlayerManager : MonoBehaviour
 	public float remainingMovement=2;
 
 	//! Object Interaction
-	public GameObject InteractButton;
+	public GameObject InteractButton, playerModel;
 	public GameObject Door, Closet;
-	public bool closetInteract, doorInteract, isHidden;
+	public bool closetInteract, doorInteract, HideInteract, isHidden;
 	public int keys;
 
 
@@ -173,9 +173,15 @@ public class PlayerManager : MonoBehaviour
 			keys++;
 		}
 
-		if (other.gameObject.CompareTag ("Closet")) 
+		if (other.gameObject.CompareTag ("HideObject")) 
 		{
-			closetInteract = true;
+			HideInteract = true;
+			InteractButton.SetActive(true);
+		}
+
+		if (other.gameObject.CompareTag ("Door")) 
+		{
+			doorInteract = true;
 			InteractButton.SetActive(true);
 		}
 	}
@@ -187,9 +193,15 @@ public class PlayerManager : MonoBehaviour
 			gotOtherLight = false;
 		}
 
-		if (other.gameObject.CompareTag ("Closet")) 
+		/*if (other.gameObject.CompareTag ("Closet")) 
 		{
 			closetInteract = false;
+			InteractButton.SetActive(false);
+		}*/
+
+		if (other.gameObject.CompareTag ("HideObject")) 
+		{
+			HideInteract = false;
 			InteractButton.SetActive(false);
 		}
 
@@ -199,6 +211,7 @@ public class PlayerManager : MonoBehaviour
 			InteractButton.SetActive(false);
 		}
 	}
+
 
 	public void lanternToggle(bool isOn)
 	{
