@@ -18,14 +18,16 @@ public class ClickableTile : MonoBehaviour
 
 	void Update()
 	{
-		
+		playerPosX = (int)PlayerManager.Instance.transform.position.x;
+		playerPosZ = (int)PlayerManager.Instance.transform.position.z;
+
+		//! Reset Patrolling waypoint
 		if(waypointCounter == 25)
 		{
 			waypointCounter = 0;
 		}
-		playerPosX = (int)PlayerManager.Instance.transform.position.x;
-		playerPosZ = (int)PlayerManager.Instance.transform.position.z;
 
+		//! Patrolling Behavior
 		if(EnemyManager.Instance.state == EnemyBehavior.PATROLLING)
 		{
 
@@ -36,7 +38,7 @@ public class ClickableTile : MonoBehaviour
 			}
 			else
 			{
-				if(EnemyManager.Instance.tileX == tileX && EnemyManager.Instance.tileZ == tileZ)
+				if(tileX == EnemyManager.Instance.tileX && tileZ == EnemyManager.Instance.tileZ)
 				{
 					this.map.EnemyGeneratePathTo((int)map.waypoints[waypointCounter].x, (int)map.waypoints[waypointCounter].z);
 				}

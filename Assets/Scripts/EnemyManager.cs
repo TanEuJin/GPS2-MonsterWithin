@@ -58,6 +58,8 @@ public class EnemyManager : MonoBehaviour
 	void Update()
 	{
 
+
+		//! Setting Enemy Behavior
 		if(PlayerManager.Instance.lanternOn == true)//gotLight as in torch is on
 		{
 			state = EnemyBehavior.CHASING;
@@ -66,6 +68,8 @@ public class EnemyManager : MonoBehaviour
 		{
 			state = EnemyBehavior.PATROLLING;
 		}
+
+
 
 		// Draw our debug line showing the pathfinding!
 		// NOTE: This won't appear in the actual game view.
