@@ -70,7 +70,9 @@ public class PlayerManager : MonoBehaviour
 
 	void Update()
 	{
+
 		// Draw our debug line showing the pathfinding!
+
 		// NOTE: This won't appear in the actual game view.
 		if(currentPath != null)
 		{
