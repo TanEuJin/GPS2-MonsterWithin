@@ -15,7 +15,6 @@ public class TurnScript : MonoBehaviour
 		if (turnPlayer == false)
 		{
 			EnemyManager.Instance.NextTurn ();
-			GUIManagerScript.Instance.flashLightToggle.interactable = true;
 			turnPlayer = true;
 		}
 	}
@@ -24,24 +23,6 @@ public class TurnScript : MonoBehaviour
 	{
 		if (turnPlayer == true) 
 		{
-			if(PlayerManager.Instance.gotOtherLight == true)
-			{
-				if(PlayerManager.Instance.currentSanityLevel + 1 <= PlayerManager.Instance.maxSanityLevel)
-				{
-					PlayerManager.Instance.currentSanityLevel ++;
-				}
-			}
-			else
-			{
-				if(PlayerManager.Instance.lanternOn == false)
-				{
-					if(PlayerManager.Instance.currentSanityLevel - 1 >= 0)
-					{
-						PlayerManager.Instance.currentSanityLevel --;
-					}
-				}
-			}
-
 			if(PlayerManager.Instance.currentSanityLevel <= 2)
 			{
 				if(SoundManagerScript.Instance.gameObject.GetComponent<AudioSource>().name != "Heartbeat 180bpm")

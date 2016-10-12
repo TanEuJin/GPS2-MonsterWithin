@@ -57,8 +57,6 @@ public class EnemyManager : MonoBehaviour
 
 	void Update()
 	{
-
-
 		//! Setting Enemy Behavior
 		if(PlayerManager.Instance.lanternOn == true)//gotLight as in torch is on
 		{
@@ -145,5 +143,23 @@ public class EnemyManager : MonoBehaviour
 
 		// Reset our available movement points.
 		remainingMovement = moveSpeed;
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if(other.CompareTag("Player"))
+		{
+			PlayerManager.Instance.currentSanityLevel --;
+			PlayerManager.Instance.enemyInRange = true;
+			GUIManagerScript.Instance.UpdateSanityBar();
+		}
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		if(other.CompareTag("Player"))
+		{
+			PlayerManager.Instance.enemyInRange = false;
+		}
 	}
 }

@@ -57,14 +57,12 @@ public class PlayerManager : MonoBehaviour
 	public bool gotOtherLight = false;
 	public int currentSanityLevel = 4;
 	public int maxSanityLevel = 6;
-	public GameObject fogOW;
-	Material fogOfWar;
+	public bool enemyInRange = false;
 
 	void Start()
 	{
 		GUIManagerScript.Instance.UpdateSanityBar();
 		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
-		fogOfWar = fogOW.GetComponent<Renderer>().material;
 		SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
 	}
 
@@ -157,6 +155,11 @@ public class PlayerManager : MonoBehaviour
 			remainingMovement = 4;
 		}
 
+		if(enemyInRange)
+		{
+			currentSanityLevel--;
+		}
+
 		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
 	}
 
@@ -165,6 +168,13 @@ public class PlayerManager : MonoBehaviour
 		if(other.CompareTag("Light"))
 		{
 			gotOtherLight = true;
+		}
+
+		if(other.CompareTag("Memory"))
+		{
+			currentSanityLevel ++;
+			GUIManagerScript.Instance.UpdateSanityBar();
+			Destroy(other.gameObject);
 		}
 
 		if (other.gameObject.CompareTag ("Key"))
@@ -210,22 +220,5 @@ public class PlayerManager : MonoBehaviour
 			doorInteract = false;
 			InteractButton.SetActive(false);
 		}
-	}
-
-
-	public void lanternToggle(bool isOn)
-	{
-		lanternOn = isOn;
-
-		if(lanternOn == true)
-		{
-			fogOfWar.SetFloat ("_FogMaxRadius", 1.0f);
-		}
-		else
-		{
-			fogOfWar.SetFloat ("_FogMaxRadius", 1.5f);
-		}
-
-		GUIManagerScript.Instance.flashLightToggle.interactable = false;
 	}
 }

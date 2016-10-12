@@ -32,7 +32,6 @@ public class GUIManagerScript : MonoBehaviour
 
 	public Image sanityBar;
 	public Text movesCount;
-	public Toggle flashLightToggle;
 
 	void Start()
 	{
