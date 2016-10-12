@@ -77,4 +77,15 @@ public class ClickableTile : MonoBehaviour
 			map.PlayerGeneratePathTo(tileX, tileZ);
 		}
 	}
+	/*
+	RaycastHit hit;
+	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+	{
+		Transform objecthit = hit.transform;
+		if (hit.transform.gameObject.tag == "testObject")
+		{
+			//Change material
+		}
+	}
+	*/
 }
