@@ -23,7 +23,7 @@ public class TurnScript : MonoBehaviour
 	{
 		if (turnPlayer == true) 
 		{
-			if(PlayerManager.Instance.currentSanityLevel <= 2)
+			/*if(PlayerManager.Instance.currentSanityLevel <= 2)
 			{
 				if(SoundManagerScript.Instance.gameObject.GetComponent<AudioSource>().name != "Heartbeat 180bpm")
 				{
@@ -47,7 +47,7 @@ public class TurnScript : MonoBehaviour
 					SoundManagerScript.Instance.StopLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
 					SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT60);
 				}
-			}
+			}*/
 
 			PlayerManager.Instance.NextTurn ();
 			PlayerManager.Instance.currentPath = null;

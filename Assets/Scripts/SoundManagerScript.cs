@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -31,6 +32,20 @@ public class AudioClipInfo
 
 public class SoundManagerScript : MonoBehaviour 
 {
+	public AudioMixerSnapshot notSeenByEnemy;
+	public AudioMixerSnapshot seenByEnemy;
+	public AudioClip Spotted;
+	public AudioSource seenByTheEnemy;
+	public AudioSource SpottedSource;
+	public float bpm = 128;
+
+	public float m_TransitionIn;
+	public float m_TransitionOut;
+	public float m_QuarternNote;
+
+	/////////////////////////////////////////
+	/////////////////////////////////////////
+
 	private static SoundManagerScript mInstance;
 
 	public static SoundManagerScript Instance
@@ -68,7 +83,11 @@ public class SoundManagerScript : MonoBehaviour
 
 	void Start()
 	{
-		PlaySFX(AudioClipID.BGM_MANSION);
+		m_QuarternNote = 60 / bpm;
+		m_TransitionIn = m_QuarternNote;
+		m_TransitionOut = m_QuarternNote * 32;
+
+		//PlaySFX(AudioClipID.BGM_MANSION);
 	}
 
 	// Use this for initialization
@@ -262,4 +281,30 @@ public class SoundManagerScript : MonoBehaviour
 	{
 		sfxVolume = value;
 	}
+
+	void OnTriggerEnter(Collider Other)
+	{
+		if (Other.CompareTag ("Monster")) 
+		{
+			seenByTheEnemy.Play();
+			seenByEnemy.TransitionTo (m_TransitionIn);
+			playTransition ();
+		}
+	}
+
+	void OnTriggerExit(Collider Other)
+	{
+		if (Other.CompareTag ("Monster")) 
+		{
+			notSeenByEnemy.TransitionTo (m_TransitionOut);
+		}
+	}
+
+	public void playTransition()
+	{
+		SpottedSource.clip = Spotted;
+		SpottedSource.Play();
+	}
+
+
 }

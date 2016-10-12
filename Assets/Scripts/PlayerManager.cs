@@ -66,7 +66,7 @@ public class PlayerManager : MonoBehaviour
 	{
 		GUIManagerScript.Instance.UpdateSanityBar();
 		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
-		SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
+		//SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
 	}
 
 	void Update()
@@ -180,23 +180,19 @@ public class PlayerManager : MonoBehaviour
 			Destroy(other.gameObject);
 		}
 
-		if (other.gameObject.CompareTag ("Key"))
-		{
-			Destroy (other.gameObject);
-			keys++;
-		}
-
 		if (other.gameObject.CompareTag ("HideObject")) 
 		{
 			HideInteract = true;
 			InteractButton.SetActive(true);
 		}
 
-		if (other.gameObject.CompareTag ("Door")) 
+		if (other.CompareTag ("Enemy")) 
 		{
-			doorInteract = true;
-			InteractButton.SetActive(true);
+			SoundManagerScript.Instance.seenByTheEnemy.Play();
+			SoundManagerScript.Instance.seenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
+			SoundManagerScript.Instance.playTransition ();
 		}
+
 	}
 
 	void OnTriggerExit(Collider other)
@@ -206,22 +202,16 @@ public class PlayerManager : MonoBehaviour
 			gotOtherLight = false;
 		}
 
-		/*if (other.gameObject.CompareTag ("Closet")) 
-		{
-			closetInteract = false;
-			InteractButton.SetActive(false);
-		}*/
-
 		if (other.gameObject.CompareTag ("HideObject")) 
 		{
 			HideInteract = false;
 			InteractButton.SetActive(false);
 		}
 
-		if (other.gameObject.CompareTag("Door"))
+		if (other.CompareTag ("Enemy")) 
 		{
-			doorInteract = false;
-			InteractButton.SetActive(false);
+			SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionOut);
 		}
+
 	}
 }
