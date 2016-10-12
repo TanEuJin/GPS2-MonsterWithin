@@ -18,17 +18,19 @@ public class ClickableTile : MonoBehaviour
 
 	void Update()
 	{
-		playerPosX = (int)PlayerManager.Instance.transform.position.x;
-		playerPosZ = (int)PlayerManager.Instance.transform.position.z;
-		if(EnemyManager.Instance.state == EnemyBehavior.PATROLLING)
 		{
-			if(tileX == EnemyManager.Instance.tileX && tileZ == EnemyManager.Instance.tileZ)
-			{
-				this.map.EnemyGeneratePathTo((int)map.waypoints[map.waypointCounter].x, (int)map.waypoints[map.waypointCounter].z);
-			}
-		}
+			playerPosX = (int)PlayerManager.Instance.transform.position.x;
+			playerPosZ = (int)PlayerManager.Instance.transform.position.z;
 
-		/*//! Reset Patrolling waypoint
+			if(EnemyManager.Instance.state == EnemyBehavior.PATROLLING)
+			{
+				if(tileX == EnemyManager.Instance.tileX && tileZ == EnemyManager.Instance.tileZ)
+				{
+					this.map.EnemyGeneratePathTo((int)map.waypoints[map.waypointCounter].x, (int)map.waypoints[map.waypointCounter].z);
+				}
+			}
+
+			/*//! Reset Patrolling waypoint
 		if(waypointCounter == 25)
 		{
 			waypointCounter = 0;
@@ -62,13 +64,17 @@ public class ClickableTile : MonoBehaviour
 				this.map.EnemyGeneratePathTo(playerPosX, playerPosZ);
 			}
 		}*/
+		}
+
 	}
 
 	void OnMouseUp()
 	{
-		if(EventSystem.current.IsPointerOverGameObject())
-			return;
+		if (PlayerManager.Instance.isHidden == false) {
+			if(EventSystem.current.IsPointerOverGameObject())
+				return;
 
-		map.PlayerGeneratePathTo(tileX, tileZ);
+			map.PlayerGeneratePathTo(tileX, tileZ);
+		}
 	}
 }
