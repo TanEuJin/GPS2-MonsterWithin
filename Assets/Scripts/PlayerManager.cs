@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+//! Test
+
 public class PlayerManager : MonoBehaviour
 {
 	private static PlayerManager mInstance;
