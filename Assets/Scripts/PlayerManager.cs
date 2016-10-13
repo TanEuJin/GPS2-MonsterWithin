@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 //! Test
@@ -53,7 +54,6 @@ public class PlayerManager : MonoBehaviour
 	public GameObject Door, Closet;
 	public bool closetInteract, doorInteract, HideInteract, isHidden;
 	public int keys;
-
 
 	// Sanity
 	public bool lanternOn = false;
@@ -212,6 +212,5 @@ public class PlayerManager : MonoBehaviour
 		{
 			SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionOut);
 		}
-
 	}
 }

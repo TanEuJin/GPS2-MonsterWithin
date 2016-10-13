@@ -204,7 +204,9 @@ public class TileMap : MonoBehaviour
 				TileType tt = tileTypes[ tiles[x,y] ];
 				GameObject go = (GameObject)Instantiate( tt.tileVisualPrefab, new Vector3(x, 0, y), Quaternion.identity );//mapSizeX-x-1
 				go.transform.parent = transform;
-
+				if (tt.isWalkable == true) {
+					go.layer = 8;
+				}
 				ClickableTile ct = go.GetComponent<ClickableTile>();
 				ct.tileX = x;
 				ct.tileZ = y;

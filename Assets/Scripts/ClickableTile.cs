@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ClickableTile : MonoBehaviour 
 {
@@ -11,26 +12,26 @@ public class ClickableTile : MonoBehaviour
 	public int playerPosZ;
 	//public int waypointCounter;
 
+	private int LayerTile;
 	void Start()
 	{
-		
+		LayerTile = LayerMask.NameToLayer ("ClickableTile");
 	}
 
 	void Update()
 	{
-		{
-			playerPosX = (int)PlayerManager.Instance.transform.position.x;
-			playerPosZ = (int)PlayerManager.Instance.transform.position.z;
+		playerPosX = (int)PlayerManager.Instance.transform.position.x;
+		playerPosZ = (int)PlayerManager.Instance.transform.position.z;
 
-			if(EnemyManager.Instance.state == EnemyBehavior.PATROLLING)
-			{
-				if(tileX == EnemyManager.Instance.tileX && tileZ == EnemyManager.Instance.tileZ)
-				{
-					this.map.EnemyGeneratePathTo((int)map.waypoints[map.waypointCounter].x, (int)map.waypoints[map.waypointCounter].z);
-				}
+		if (EnemyManager.Instance.state == EnemyBehavior.PATROLLING) {
+			if (tileX == EnemyManager.Instance.tileX && tileZ == EnemyManager.Instance.tileZ) {
+				this.map.EnemyGeneratePathTo ((int)map.waypoints [map.waypointCounter].x, (int)map.waypoints [map.waypointCounter].z);
 			}
+		}
 
-			/*//! Reset Patrolling waypoint
+
+
+		/* Reset Patrolling waypoint
 		if(waypointCounter == 25)
 		{
 			waypointCounter = 0;
@@ -63,29 +64,43 @@ public class ClickableTile : MonoBehaviour
 			{
 				this.map.EnemyGeneratePathTo(playerPosX, playerPosZ);
 			}
-		}*/
 		}
+		*/
 
 	}
 
 	void OnMouseUp()
 	{
-		if (PlayerManager.Instance.isHidden == false) {
-			if(EventSystem.current.IsPointerOverGameObject())
-				return;
-
-			map.PlayerGeneratePathTo(tileX, tileZ);
-		}
-	}
-	/*
-	RaycastHit hit;
-	if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
-	{
-		Transform objecthit = hit.transform;
-		if (hit.transform.gameObject.tag == "testObject")
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit hitInfo;
+		Collider playerCol = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider>();
+		if (PlayerManager.Instance.isHidden == false) 
 		{
-			//Change material
-		}
-	}
-	*/
+			Physics.IgnoreCollision(playerCol, playerCol, true);
+			if (Physics.Raycast (ray, out hitInfo)) 
+			{
+				if (hitInfo.transform.gameObject.layer == LayerTile) 
+				{
+					//Newly added.
+					GameObject ourHitObject = hitInfo.collider.transform.gameObject;
+					Debug.Log(ourHitObject.name);
+					Debug.Log (LayerTile);
+					map.PlayerGeneratePathTo ((int)ourHitObject.transform.position.x, (int)ourHitObject.transform.position.z);
+					return;
+				}
+				else
+				{
+					Debug.Log("HeLLO");
+				}
+			}
+		} 
+	} //! End of OnMouseDown
+
+
+
+
+
 }
+
+
+
