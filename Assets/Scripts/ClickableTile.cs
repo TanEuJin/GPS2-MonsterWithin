@@ -79,6 +79,10 @@ public class ClickableTile : MonoBehaviour
 			Physics.IgnoreCollision(playerCol, playerCol, true);
 			if (Physics.Raycast (ray, out hitInfo)) 
 			{
+				if(EventSystem.current.IsPointerOverGameObject())
+				{
+					return;
+				}
 				if (hitInfo.transform.gameObject.layer == LayerTile) 
 				{
 					//Newly added.
@@ -87,10 +91,6 @@ public class ClickableTile : MonoBehaviour
 					Debug.Log (LayerTile);
 					map.PlayerGeneratePathTo ((int)ourHitObject.transform.position.x, (int)ourHitObject.transform.position.z);
 					return;
-				}
-				else
-				{
-					Debug.Log("HeLLO");
 				}
 			}
 		} 
