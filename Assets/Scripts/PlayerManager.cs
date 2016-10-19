@@ -63,6 +63,7 @@ public class PlayerManager : MonoBehaviour
 	public bool enemyInRange = false;
 
 	Animator anim;
+	Transform modalTransform;
 
 	void Start()
 	{
@@ -71,6 +72,7 @@ public class PlayerManager : MonoBehaviour
 		//SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
 
 		anim = GetComponentInChildren<Animator>();
+		modalTransform = transform.GetChild(0).gameObject.transform;
 	}
 
 	void Update()
@@ -116,6 +118,11 @@ public class PlayerManager : MonoBehaviour
 		remainingMovement -= map.CostToEnterTile(currentPath[0].x, currentPath[0].z, currentPath[1].x, currentPath[1].z );
 
 		// Move us to the next tile in the sequence
+		if(tileX + 1 == currentPath[1].x)
+		{
+			//modalTransform.Rotate(new Vector3(0.0f, 90.0f, 0.0f), Space.World);
+		}
+
 		tileX = currentPath[1].x;
 		tileZ = currentPath[1].z;
 		anim.SetBool("IsWalk", true);

@@ -10,35 +10,40 @@ public class PlayerWall : MonoBehaviour
 	public GameObject camera1;
 
 	//List of all objects that we have hidden.
-	public List<Transform> hiddenObjects;
+	//public List<Transform> hiddenObjects;
 
 	//Layers to hide
 	public LayerMask layerMask;
 
+	public Material transparent;
+	public Material opaque;
+
 	private void Start()
 	{
 		//Initialize the list
-		hiddenObjects = new List<Transform>();
+		//hiddenObjects = new List<Transform>();
 
 		layerMask = LayerMask.NameToLayer ("Wall");
-		layerMask.value = (1 << layerMask.value);
+		Debug.Log ("ccccccccc " + layerMask.value);
+		layerMask = (1 << layerMask.value);
 	}
 
 	void Update()
 	{
 		Vector3 screenPos = Camera.main.WorldToScreenPoint (transform.position);
 		Ray rayToPlayerPos = Camera.main.ScreenPointToRay (screenPos);
-		//int layermask = (int)(1 << 8);
 
+		Debug.Log ("aaaaaaaaaaaaaaa " + layerMask.value);
 		RaycastHit hit;
 		if (Physics.Raycast (rayToPlayerPos, out hit, 1000, layerMask)) {
-			hit.collider.gameObject.SetActive (false);
-		} else {
-			hit.collider.gameObject.SetActive (true);
-		}
+			Debug.Log ("aaaaaaaaaaaaaaa " + hit.collider.name);
+			if (hit.collider != null) {
+				hit.collider.gameObject.GetComponent<Renderer> ().material = transparent;
+			}
+		} 
 
 
-		/*//Find the direction from the camera to the player
+		/*Find the direction from the camera to the player
 		Vector3 direction = player.transform.position - camera.transform.position;
 
 		//The magnitude of the direction is the distance of the ray
