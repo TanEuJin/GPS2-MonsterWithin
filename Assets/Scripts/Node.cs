@@ -14,11 +14,6 @@ public class Node
 	
 	public float DistanceTo(Node n)
 	{
-		if(n == null)
-		{
-			Debug.LogError("WTF?");
-		}
-
 		return Vector2.Distance(new Vector2(x, z), new Vector2(n.x, n.z));
 	}
 	

@@ -61,16 +61,19 @@ public class PlayerManager : MonoBehaviour
 	public int maxSanityLevel = 6;
 	public bool enemyInRange = false;
 
+	Animator anim;
+
 	void Start()
 	{
 		GUIManagerScript.Instance.UpdateSanityBar();
 		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
 		//SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
+
+		anim = GetComponentInChildren<Animator>();
 	}
 
 	void Update()
 	{
-
 		// Draw our debug line showing the pathfinding!
 
 		// NOTE: This won't appear in the actual game view.
@@ -80,13 +83,6 @@ public class PlayerManager : MonoBehaviour
 
 			while( currNode < currentPath.Count-1 )
 			{
-				Vector3 start = map.TileCoordToWorldCoord( currentPath[currNode].x, currentPath[currNode].z ) + 
-					new Vector3(0, 0, -0.5f) ;
-				Vector3 end   = map.TileCoordToWorldCoord( currentPath[currNode+1].x, currentPath[currNode+1].z )  + 
-					new Vector3(0, 0, -0.5f) ;
-
-				Debug.DrawLine(start, end, Color.red);
-
 				currNode++;
 			}
 		}
@@ -94,7 +90,9 @@ public class PlayerManager : MonoBehaviour
 		// Have we moved our visible piece close enough to the target tile that we can
 		// advance to the next step in our pathfinding?
 		if(Vector3.Distance(transform.position, map.TileCoordToWorldCoord( tileX, tileZ )) < 0.1f)
+		{
 			AdvancePathing();
+		}
 
 		// Smoothly animate towards the correct map tile.
 		transform.position = Vector3.Lerp(transform.position, map.TileCoordToWorldCoord( tileX, tileZ ), 5f * Time.deltaTime);
@@ -103,11 +101,11 @@ public class PlayerManager : MonoBehaviour
 	// Advances our pathfinding progress by one tile.
 	void AdvancePathing()
 	{
-		if(currentPath==null)
+		if(currentPath==null || remainingMovement <= 0)
+		{
+			anim.SetBool("IsWalk", false);
 			return;
-
-		if(remainingMovement <= 0)
-			return;
+		}
 
 		// Teleport us to our correct "current" position, in case we
 		// haven't finished the animation yet.
@@ -119,6 +117,7 @@ public class PlayerManager : MonoBehaviour
 		// Move us to the next tile in the sequence
 		tileX = currentPath[1].x;
 		tileZ = currentPath[1].z;
+		anim.SetBool("IsWalk", true);
 
 		// Remove the old "current" tile from the pathfinding list
 		currentPath.RemoveAt(0);
@@ -129,6 +128,7 @@ public class PlayerManager : MonoBehaviour
 			// destination -- and we are standing on it!
 			// So let's just clear our pathfinding info.
 			currentPath = null;
+			//anim.SetBool("IsWalk", false);
 		}
 
 		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
