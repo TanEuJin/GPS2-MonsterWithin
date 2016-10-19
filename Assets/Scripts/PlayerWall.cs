@@ -26,7 +26,7 @@ public class PlayerWall : MonoBehaviour
 
 	void Update()
 	{
-		/*Vector3 screenPos = Camera.main.WorldToScreenPoint (transform.position);
+		Vector3 screenPos = Camera.main.WorldToScreenPoint (transform.position);
 		Ray rayToPlayerPos = Camera.main.ScreenPointToRay (screenPos);
 		//int layermask = (int)(1 << 8);
 
@@ -35,7 +35,7 @@ public class PlayerWall : MonoBehaviour
 			hit.collider.gameObject.SetActive (false);
 		} else {
 			hit.collider.gameObject.SetActive (true);
-		}*/	
+		}
 
 
 		/*//Find the direction from the camera to the player
