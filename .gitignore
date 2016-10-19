@@ -29,19 +29,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-ProjectSettings/QualitySettings.asset
-ProjectSettings/AudioManager.asset
-ProjectSettings/ClusterInputManager.asset
-ProjectSettings/DynamicsManager.asset
-ProjectSettings/EditorBuildSettings.asset
-ProjectSettings/EditorSettings.asset
-ProjectSettings/GraphicsSettings.asset
-ProjectSettings/InputManager.asset
-ProjectSettings/NavMeshAreas.asset
-ProjectSettings/NetworkManager.asset
-ProjectSettings/Physics2DSettings.asset
-ProjectSettings/ProjectSettings.asset
-ProjectSettings/ProjectVersion.txt
-ProjectSettings/UnityAdsSettings.asset
-ProjectSettings/UnityConnectSettings.asset
-ProjectSettings/TimeManager.asset
+ProjectSettings/*
+!ProjectSettings/TagManager.asset
