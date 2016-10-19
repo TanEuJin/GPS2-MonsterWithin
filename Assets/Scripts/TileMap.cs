@@ -51,29 +51,21 @@ public class TileMap : MonoBehaviour
 		//! Patrolling Behavior
 		if(EnemyManager.Instance.state == EnemyBehavior.PATROLLING)
 		{
-
-			if(EnemyManager.Instance.tileX == (int)waypoints[waypointCounter].x && EnemyManager.Instance.tileZ ==(int)waypoints[waypointCounter].z)
+			if(EnemyManager.Instance.tileX == (int)waypoints[waypointCounter].x && EnemyManager.Instance.tileZ == (int)waypoints[waypointCounter].z)
 			{
 				waypointCounter++;
 				this.EnemyGeneratePathTo((int)waypoints[waypointCounter].x, (int)waypoints[waypointCounter].z);
 			}
-			/*else
+			else
 			{
-				if(this.GetComponentInChildren<ClickableTile>().tileX == EnemyManager.Instance.tileX && this.GetComponentInChildren<ClickableTile>().tileZ == EnemyManager.Instance.tileZ)
-				{
-					this.EnemyGeneratePathTo((int)waypoints[waypointCounter].x, (int)waypoints[waypointCounter].z);
-				}
-			}*/
-		}
-		else if(EnemyManager.Instance.state == EnemyBehavior.DISTRACTED)
-		{
-			
+				this.EnemyGeneratePathTo ((int)waypoints [waypointCounter].x, (int)waypoints [waypointCounter].z);
+			}
 		}
 		else if(EnemyManager.Instance.state == EnemyBehavior.CHASING)
 		{
 			if(EnemyManager.Instance.transform.position != PlayerManager.Instance.transform.position)
 			{
-				this.EnemyGeneratePathTo(this.GetComponentInChildren<ClickableTile>().playerPosX, this.GetComponentInChildren<ClickableTile>().playerPosZ);
+				this.EnemyGeneratePathTo((int)PlayerManager.Instance.transform.position.x, (int)PlayerManager.Instance.transform.position.z);
 			}
 		}
 	}

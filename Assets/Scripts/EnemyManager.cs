@@ -4,8 +4,7 @@ using System.Collections.Generic;
 public enum EnemyBehavior
 {
 	PATROLLING 	= 0,
-	DISTRACTED 	= 1,
-	CHASING		= 2,
+	CHASING		= 1,
 
 	TOTAL = 10
 }
@@ -58,7 +57,7 @@ public class EnemyManager : MonoBehaviour
 	void Update()
 	{
 		//! Setting Enemy Behavior
-		if(PlayerManager.Instance.lanternOn == true)//gotLight as in torch is on
+		if(PlayerManager.Instance.hasLight == true)//gotLight as in torch is on
 		{
 			state = EnemyBehavior.CHASING;
 		}

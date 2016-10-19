@@ -56,8 +56,7 @@ public class PlayerManager : MonoBehaviour
 	public int keys;
 
 	// Sanity
-	public bool lanternOn = false;
-	public bool gotOtherLight = false;
+	public bool hasLight = false;
 	public int currentSanityLevel = 4;
 	public int maxSanityLevel = 6;
 	public bool enemyInRange = false;
@@ -170,7 +169,7 @@ public class PlayerManager : MonoBehaviour
 	{
 		if(other.CompareTag("Light"))
 		{
-			gotOtherLight = true;
+			hasLight = true;
 		}
 
 		if(other.CompareTag("Memory"))
@@ -199,7 +198,7 @@ public class PlayerManager : MonoBehaviour
 	{
 		if(other.CompareTag("Light"))
 		{
-			gotOtherLight = false;
+			hasLight = false;
 		}
 
 		if (other.gameObject.CompareTag ("HideObject")) 
