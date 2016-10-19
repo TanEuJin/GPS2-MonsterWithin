@@ -120,6 +120,20 @@ public class PlayerManager : MonoBehaviour
 		if(tileX + 1 == currentPath[1].x)
 		{
 			//modalTransform.Rotate(new Vector3(0.0f, 90.0f, 0.0f), Space.World);
+			modalTransform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+		}
+		else if(tileX - 1 == currentPath[1].x)
+		{
+			modalTransform.rotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
+		}
+		else if(tileZ + 1 == currentPath[1].z)
+		{
+			//modalTransform.Rotate(new Vector3(0.0f, 90.0f, 0.0f), Space.World);
+			modalTransform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+		}
+		else if(tileZ - 1 == currentPath[1].z)
+		{
+			modalTransform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
 		}
 
 		tileX = currentPath[1].x;
