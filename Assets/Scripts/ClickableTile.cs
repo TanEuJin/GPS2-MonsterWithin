@@ -81,6 +81,7 @@ public class ClickableTile : MonoBehaviour
 			{
 				if(EventSystem.current.IsPointerOverGameObject())
 				{
+					Debug.Log("Test");
 					return;
 				}
 				if (hitInfo.transform.gameObject.layer == LayerTile) 
