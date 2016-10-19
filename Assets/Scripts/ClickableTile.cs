@@ -23,8 +23,10 @@ public class ClickableTile : MonoBehaviour
 		playerPosX = (int)PlayerManager.Instance.transform.position.x;
 		playerPosZ = (int)PlayerManager.Instance.transform.position.z;
 
-		if (EnemyManager.Instance.state == EnemyBehavior.PATROLLING) {
-			if (tileX == EnemyManager.Instance.tileX && tileZ == EnemyManager.Instance.tileZ) {
+		if (EnemyManager.Instance.state == EnemyBehavior.PATROLLING)
+		{
+			if (tileX == EnemyManager.Instance.tileX && tileZ == EnemyManager.Instance.tileZ) 
+			{
 				this.map.EnemyGeneratePathTo ((int)map.waypoints [map.waypointCounter].x, (int)map.waypoints [map.waypointCounter].z);
 			}
 		}
@@ -70,23 +72,22 @@ public class ClickableTile : MonoBehaviour
 	{
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		RaycastHit hitInfo;
-		Collider playerCol = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider>();
+		//Collider playerCol = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider>();
+
 		if (PlayerManager.Instance.isHidden == false) 
 		{
-			Physics.IgnoreCollision(playerCol, playerCol, true);
+			//Physics.IgnoreCollision(playerCol, playerCol, true);
+
 			if (Physics.Raycast (ray, out hitInfo)) 
 			{
 				if(EventSystem.current.IsPointerOverGameObject())
 				{
-					Debug.Log("Test");
 					return;
 				}
 				if (hitInfo.transform.gameObject.layer == LayerTile) 
 				{
 					//Newly added.
 					GameObject ourHitObject = hitInfo.collider.transform.gameObject;
-					Debug.Log(ourHitObject.name);
-					Debug.Log (LayerTile);
 					map.PlayerGeneratePathTo ((int)ourHitObject.transform.position.x, (int)ourHitObject.transform.position.z);
 					return;
 				}
