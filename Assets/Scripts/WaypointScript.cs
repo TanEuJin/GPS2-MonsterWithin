@@ -1,0 +1,26 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class WaypointScript : MonoBehaviour {
+
+	public int index = -1;
+
+	// Use this for initialization
+	void Start () {
+		if (transform.parent.GetComponent<TileMap> ().waypoints [index] == Vector3.zero) {
+			transform.parent.GetComponent<TileMap> ().waypoints [index] = ConvertPosToGridPos (transform.position);
+		} else {
+			Debug.LogError ("Got value edy" + ConvertPosToGridPos (transform.position) + " " + this.name);
+		}
+	}
+
+	// Update is called once per frame
+	void Update () {
+
+	}
+
+	Vector3 ConvertPosToGridPos(Vector3 pos)
+	{
+		return pos;
+	}
+}

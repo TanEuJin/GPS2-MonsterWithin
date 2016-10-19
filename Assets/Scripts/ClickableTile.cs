@@ -29,8 +29,6 @@ public class ClickableTile : MonoBehaviour
 			}
 		}
 
-
-
 		/* Reset Patrolling waypoint
 		if(waypointCounter == 25)
 		{
@@ -66,7 +64,6 @@ public class ClickableTile : MonoBehaviour
 			}
 		}
 		*/
-
 	}
 
 	void OnMouseUp()
@@ -96,11 +93,6 @@ public class ClickableTile : MonoBehaviour
 			}
 		} 
 	} //! End of OnMouseDown
-
-
-
-
-
 }
 
 

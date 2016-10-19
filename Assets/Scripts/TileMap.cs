@@ -16,6 +16,14 @@ public class TileMap : MonoBehaviour
 	const int mapSizeX = 31;
 	const int mapSizeY = 24;
 
+	void Awake()
+	{
+		waypoints = new Vector3[GetComponentsInChildren<WaypointScript> ().Length];
+		for (int i = 0; i < waypoints.Length; i++) {
+			waypoints [i] = Vector3.zero;
+		}
+	}
+
 	void Start()
 	{
 		// Setup the enemy's variable
@@ -35,7 +43,7 @@ public class TileMap : MonoBehaviour
 	void Update()
 	{
 		//! Reset Patrolling waypoint
-		if(waypointCounter == 25)
+		if(waypointCounter == waypoints.Length-1)
 		{
 			waypointCounter = 0;
 		}
