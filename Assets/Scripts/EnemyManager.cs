@@ -3,8 +3,12 @@ using System.Collections.Generic;
 
 public enum EnemyBehavior
 {
-	PATROLLING 	= 0,
-	CHASING		= 1,
+	PATROLLING 		= 0,
+	CHASING			= 1,
+	CHASING_LOST	= 2,
+	ROAM_KITCHEN	= 3,
+	ROAM_LIVINGROOM	= 4,
+	ROAM_CORRIDOR	= 5,
 
 	TOTAL = 10
 }
@@ -52,6 +56,7 @@ public class EnemyManager : MonoBehaviour
 	// How far this unit can move in one turn. Note that some tiles cost extra.
 	int moveSpeed = 2;
 	public float remainingMovement=2;
+	public float distFromPlayer;
 	public EnemyBehavior state;
 
 	Animator anim;
@@ -66,7 +71,7 @@ public class EnemyManager : MonoBehaviour
 	void Update()
 	{
 		//! Setting Enemy Behavior
-		if(PlayerManager.Instance.hasLight == true)//gotLight as in torch is on
+		if(PlayerManager.Instance.hasLight == true && distFromPlayer <= 4)//gotLight as in torch is on
 		{
 			state = EnemyBehavior.CHASING;
 		}
@@ -100,9 +105,11 @@ public class EnemyManager : MonoBehaviour
 
 	// Advances our pathfinding progress by one tile.
 	void AdvancePathing()
-	{
+	{		
 		if(currentPath==null || remainingMovement <= 0)
 		{
+			// Update distance calculation only when move
+			distFromPlayer = Vector3.Distance(PlayerManager.Instance.transform.position, this.transform.position);
 			anim.SetBool("IsWalk", false);
 			return;
 		}
