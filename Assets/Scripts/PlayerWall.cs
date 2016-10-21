@@ -10,7 +10,7 @@ public class PlayerWall : MonoBehaviour
 	public GameObject camera1;
 
 	//List of all objects that we have hidden.
-	//public List<Transform> hiddenObjects;
+	public List<Transform> hiddenObjects;
 
 	//Layers to hide
 	public LayerMask layerMask;
@@ -21,7 +21,7 @@ public class PlayerWall : MonoBehaviour
 	private void Start()
 	{
 		//Initialize the list
-		//hiddenObjects = new List<Transform>();
+		hiddenObjects = new List<Transform>();
 
 		layerMask = LayerMask.NameToLayer ("Wall");
 		//Debug.Log ("ccccccccc " + layerMask.value);
@@ -30,7 +30,7 @@ public class PlayerWall : MonoBehaviour
 
 	void Update()
 	{
-		Vector3 screenPos = Camera.main.WorldToScreenPoint (transform.position);
+		/*Vector3 screenPos = Camera.main.WorldToScreenPoint (transform.position);
 		Ray rayToPlayerPos = Camera.main.ScreenPointToRay (screenPos);
 
 		//Debug.Log ("aaaaaaaaaaaaaaa " + layerMask.value);
@@ -40,17 +40,17 @@ public class PlayerWall : MonoBehaviour
 			if (hit.collider != null) {
 				hit.collider.gameObject.GetComponent<Renderer> ().material = transparent;
 			}
-		} 
+		} */
 
 
-		/*Find the direction from the camera to the player
-		Vector3 direction = player.transform.position - camera.transform.position;
+		//Find the direction from the camera to the player
+		Vector3 direction = player.transform.position - camera1.transform.position;
 
 		//The magnitude of the direction is the distance of the ray
 		float distance = direction.magnitude;
 
 		//Raycast and store all hit objects in an array. Also include the layermaks so we only hit the layers we have specified
-		RaycastHit[] hits = Physics.RaycastAll(camera.transform.position, direction, distance, layerMask);
+		RaycastHit[] hits = Physics.RaycastAll(camera1.transform.position, direction, distance, layerMask);
 
 		//Go through the objects
 		for (int i = 0; i < hits.Length; i++)
@@ -62,7 +62,7 @@ public class PlayerWall : MonoBehaviour
 			{
 				//Add to list and disable renderer
 				hiddenObjects.Add(currentHit);
-				currentHit.gameObject.SetActive(false);
+				currentHit.gameObject.GetComponent<Renderer>().material = transparent;
 			}
 		}
 
@@ -85,10 +85,10 @@ public class PlayerWall : MonoBehaviour
 			{
 				//Enable renderer, remove from list, and decrement the counter because the list is one smaller now
 				Transform wasHidden = hiddenObjects[i];
-				wasHidden.gameObject.SetActive(false);
+				wasHidden.gameObject.GetComponent<Renderer>().material = opaque;
 				hiddenObjects.RemoveAt(i);
 				i--;
 			}
-		}*/
+		}
 	}
 }
