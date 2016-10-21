@@ -48,27 +48,6 @@ public class TileMap : MonoBehaviour
 		{
 			waypointCounter = 0;
 		}
-
-		//! Patrolling Behavior
-		if(EnemyManager.Instance.state == EnemyBehavior.PATROLLING)
-		{
-			if(EnemyManager.Instance.tileX == (int)waypoints[waypointCounter].x && EnemyManager.Instance.tileZ == (int)waypoints[waypointCounter].z)
-			{
-				waypointCounter++;
-				this.EnemyGeneratePathTo((int)waypoints[waypointCounter].x, (int)waypoints[waypointCounter].z);
-			}
-			else
-			{
-				this.EnemyGeneratePathTo ((int)waypoints [waypointCounter].x, (int)waypoints [waypointCounter].z);
-			}
-		}
-		else if(EnemyManager.Instance.state == EnemyBehavior.CHASING)
-		{
-			if(EnemyManager.Instance.transform.position != PlayerManager.Instance.transform.position)
-			{
-				this.EnemyGeneratePathTo((int)PlayerManager.Instance.transform.position.x, (int)PlayerManager.Instance.transform.position.z);
-			}
-		}
 	}
 
 	void GenerateMapData()

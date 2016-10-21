@@ -108,8 +108,6 @@ public class EnemyManager : MonoBehaviour
 	{		
 		if(currentPath==null || remainingMovement <= 0)
 		{
-			// Update distance calculation only when move
-			distFromPlayer = Vector3.Distance(PlayerManager.Instance.transform.position, this.transform.position);
 			anim.SetBool("IsWalk", false);
 			return;
 		}
@@ -164,6 +162,30 @@ public class EnemyManager : MonoBehaviour
 		while(currentPath!=null && remainingMovement > 0)
 		{
 			AdvancePathing();
+		}
+
+		// Update distance calculation only when move
+		distFromPlayer = Vector3.Distance(PlayerManager.Instance.transform.position, this.transform.position);
+
+		// Behavior switch
+		if(EnemyManager.Instance.state == EnemyBehavior.PATROLLING)
+		{
+			if(EnemyManager.Instance.tileX == (int)map.waypoints[map.waypointCounter].x && EnemyManager.Instance.tileZ == (int)map.waypoints[map.waypointCounter].z)
+			{
+				map.waypointCounter++;
+				map.GetComponent<TileMap>().EnemyGeneratePathTo((int)map.waypoints[map.waypointCounter].x, (int)map.waypoints[map.waypointCounter].z);
+			}
+			else
+			{
+				map.GetComponent<TileMap>().EnemyGeneratePathTo((int)map.waypoints [map.waypointCounter].x, (int)map.waypoints [map.waypointCounter].z);
+			}
+		}
+		else if(EnemyManager.Instance.state == EnemyBehavior.CHASING)
+		{
+			if(EnemyManager.Instance.transform.position != PlayerManager.Instance.transform.position)
+			{
+				map.GetComponent<TileMap>().EnemyGeneratePathTo((int)PlayerManager.Instance.transform.position.x, (int)PlayerManager.Instance.transform.position.z);
+			}
 		}
 
 		// Reset our available movement points.
