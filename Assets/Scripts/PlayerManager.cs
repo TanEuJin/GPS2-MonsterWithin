@@ -193,11 +193,11 @@ public class PlayerManager : MonoBehaviour
 			hasLight = true;
 		}
 
-		if(other.CompareTag("Memory"))
+		if(other.CompareTag("Shard"))
 		{
 			currentSanityLevel ++;
 			GUIManagerScript.Instance.UpdateSanityBar();
-			Destroy(other.gameObject);
+			ShardScript.Instance.transform.gameObject.SetActive(false);
 		}
 
 		if (other.gameObject.CompareTag ("HideObject")) 

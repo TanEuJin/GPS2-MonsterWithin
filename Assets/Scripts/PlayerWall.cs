@@ -24,7 +24,7 @@ public class PlayerWall : MonoBehaviour
 		//hiddenObjects = new List<Transform>();
 
 		layerMask = LayerMask.NameToLayer ("Wall");
-		Debug.Log ("ccccccccc " + layerMask.value);
+		//Debug.Log ("ccccccccc " + layerMask.value);
 		layerMask = (1 << layerMask.value);
 	}
 
@@ -33,10 +33,10 @@ public class PlayerWall : MonoBehaviour
 		Vector3 screenPos = Camera.main.WorldToScreenPoint (transform.position);
 		Ray rayToPlayerPos = Camera.main.ScreenPointToRay (screenPos);
 
-		Debug.Log ("aaaaaaaaaaaaaaa " + layerMask.value);
+		//Debug.Log ("aaaaaaaaaaaaaaa " + layerMask.value);
 		RaycastHit hit;
 		if (Physics.Raycast (rayToPlayerPos, out hit, 1000, layerMask)) {
-			Debug.Log ("aaaaaaaaaaaaaaa " + hit.collider.name);
+			//Debug.Log ("aaaaaaaaaaaaaaa " + hit.collider.name);
 			if (hit.collider != null) {
 				hit.collider.gameObject.GetComponent<Renderer> ().material = transparent;
 			}

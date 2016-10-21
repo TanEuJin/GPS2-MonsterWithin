@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WaypointScript : MonoBehaviour
+public class ShardSpawnpointScript : MonoBehaviour
 {
-
 	public int index = -1;
 
 	// Use this for initialization
 	void Start ()
 	{
-		if (transform.parent.GetComponent<TileMap> ().waypoints [index] == Vector3.zero)
+		if (transform.parent.GetComponent<ShardSpawnManagerScript> ().shardSpawnpoints [index] == Vector3.zero)
 		{
-			transform.parent.GetComponent<TileMap> ().waypoints [index] = ConvertPosToGridPos (transform.position);
+			transform.parent.GetComponent<ShardSpawnManagerScript> ().shardSpawnpoints [index] = ConvertPosToGridPos (transform.position);
 		}
 		else
 		{

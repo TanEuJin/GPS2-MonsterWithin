@@ -19,7 +19,8 @@ public class TileMap : MonoBehaviour
 	void Awake()
 	{
 		waypoints = new Vector3[GetComponentsInChildren<WaypointScript> ().Length];
-		for (int i = 0; i < waypoints.Length; i++) {
+		for (int i = 0; i < waypoints.Length; i++)
+		{
 			waypoints [i] = Vector3.zero;
 		}
 	}
