@@ -158,6 +158,7 @@ public class EnemyManager : MonoBehaviour
 	// The "Next Turn" button calls this.
 	public void NextTurn()
 	{
+		SoundManagerScript.Instance.EnemyMove.Play();
 		// Make sure to wrap-up any outstanding movement left over.
 		while(currentPath!=null && remainingMovement > 0)
 		{

@@ -34,9 +34,13 @@ public class SoundManagerScript : MonoBehaviour
 {
 	public AudioMixerSnapshot notSeenByEnemy;
 	public AudioMixerSnapshot seenByEnemy;
+	public AudioMixerSnapshot sanityLow;
 	public AudioClip Spotted;
 	public AudioSource seenByTheEnemy;
 	public AudioSource SpottedSource;
+	public AudioSource Horrified;
+	public AudioSource PlayerMove;
+	public AudioSource EnemyMove;
 	public float bpm = 128;
 
 	public float m_TransitionIn;
@@ -282,7 +286,7 @@ public class SoundManagerScript : MonoBehaviour
 		sfxVolume = value;
 	}
 
-	void OnTriggerEnter(Collider Other)
+	/*void OnTriggerEnter(Collider Other)
 	{
 		if (Other.CompareTag ("Monster")) 
 		{
@@ -298,7 +302,7 @@ public class SoundManagerScript : MonoBehaviour
 		{
 			notSeenByEnemy.TransitionTo (m_TransitionOut);
 		}
-	}
+	}*/
 
 	public void playTransition()
 	{

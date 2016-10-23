@@ -40,6 +40,7 @@ public class ClickableTile : MonoBehaviour
 				if (hitInfo.transform.gameObject.layer == LayerTile) 
 				{
 					//Newly added.
+					SoundManagerScript.Instance.PlayerMove.Play();
 					GameObject ourHitObject = hitInfo.collider.transform.gameObject;
 					map.PlayerGeneratePathTo ((int)ourHitObject.transform.position.x, (int)ourHitObject.transform.position.z);
 					return;

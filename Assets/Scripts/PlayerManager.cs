@@ -168,6 +168,8 @@ public class PlayerManager : MonoBehaviour
 		if(currentSanityLevel <= 2)
 		{
 			remainingMovement = 2;
+			SoundManagerScript.Instance.Horrified.Play();
+			SoundManagerScript.Instance.sanityLow.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
 		}
 		else if(currentSanityLevel >=3 && currentSanityLevel <= 4)
 		{
