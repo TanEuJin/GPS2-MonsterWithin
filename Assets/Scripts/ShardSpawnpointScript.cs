@@ -14,7 +14,7 @@ public class ShardSpawnpointScript : MonoBehaviour
 		}
 		else
 		{
-			Debug.LogError ("Got value edy" + ConvertPosToGridPos (transform.position) + " " + this.name);
+			Debug.LogError ("Value taken, conflict number" + ConvertPosToGridPos (transform.position) + " " + this.name);
 		}
 	}
 
