@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: a5c806400a9a49a43955e56b0a69c058
-timeCreated: 1475721656
+guid: ced0446c08de0354980d87d97b499ed1
+timeCreated: 1477498947
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -433,7 +433,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
   importAnimation: 1
-  copyAvatar: 1
+  copyAvatar: 0
   humanDescription:
     human: []
     skeleton: []
@@ -446,8 +446,7 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 3b562183566b01447b6d16b4aedc6b44,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
