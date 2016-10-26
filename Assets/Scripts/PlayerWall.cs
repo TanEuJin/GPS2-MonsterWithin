@@ -30,19 +30,6 @@ public class PlayerWall : MonoBehaviour
 
 	void Update()
 	{
-		/*Vector3 screenPos = Camera.main.WorldToScreenPoint (transform.position);
-		Ray rayToPlayerPos = Camera.main.ScreenPointToRay (screenPos);
-
-		//Debug.Log ("aaaaaaaaaaaaaaa " + layerMask.value);
-		RaycastHit hit;
-		if (Physics.Raycast (rayToPlayerPos, out hit, 1000, layerMask)) {
-			//Debug.Log ("aaaaaaaaaaaaaaa " + hit.collider.name);
-			if (hit.collider != null) {
-				hit.collider.gameObject.GetComponent<Renderer> ().material = transparent;
-			}
-		} */
-
-
 		//Find the direction from the camera to the player
 		Vector3 direction = player.transform.position - camera1.transform.position;
 
