@@ -46,8 +46,7 @@ public class PlayerManager : MonoBehaviour
 	public List<Node> currentPath = null;
 
 	// How far this unit can move in one turn. Note that some tiles cost extra.
-	public int moveSpeed = 2;
-	public float remainingMovement=2;
+	public float remainingMovement = 2;
 
 	//! Object Interaction
 	public GameObject InteractButton, playerModel;
@@ -60,22 +59,26 @@ public class PlayerManager : MonoBehaviour
 	public int currentSanityLevel = 4;
 	public int maxSanityLevel = 6;
 	public bool enemyInRange = false;
-
+	public int turnsInDark = 0;
+	public int maxTurnInDark = 3;
 	Animator anim;
-	Transform modalTransform;
+	Transform playerTransform;
 
 	void Start()
 	{
 		GUIManagerScript.Instance.UpdateSanityBar();
 		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
-		//SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
 
 		anim = GetComponentInChildren<Animator>();
-		modalTransform = transform.GetChild(0).gameObject.transform;
+		playerTransform = transform.GetChild(0).gameObject.transform;
 	}
 
 	void Update()
 	{
+		if(!enabled)
+		{
+			return;
+		}
 		// Draw our debug line showing the pathfinding!
 
 		// NOTE: This won't appear in the actual game view.
@@ -120,20 +123,20 @@ public class PlayerManager : MonoBehaviour
 		if(tileX + 1 == currentPath[1].x)
 		{
 			//modalTransform.Rotate(new Vector3(0.0f, 90.0f, 0.0f), Space.World);
-			modalTransform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+			playerTransform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
 		}
 		else if(tileX - 1 == currentPath[1].x)
 		{
-			modalTransform.rotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
+			playerTransform.rotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
 		}
 		else if(tileZ + 1 == currentPath[1].z)
 		{
 			//modalTransform.Rotate(new Vector3(0.0f, 90.0f, 0.0f), Space.World);
-			modalTransform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+			playerTransform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 		}
 		else if(tileZ - 1 == currentPath[1].z)
 		{
-			modalTransform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+			playerTransform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
 		}
 
 		tileX = currentPath[1].x;
@@ -180,11 +183,6 @@ public class PlayerManager : MonoBehaviour
 			remainingMovement = 4;
 		}
 
-		if(enemyInRange)
-		{
-			currentSanityLevel--;
-		}
-
 		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
 	}
 
@@ -213,6 +211,7 @@ public class PlayerManager : MonoBehaviour
 			SoundManagerScript.Instance.seenByTheEnemy.Play();
 			SoundManagerScript.Instance.seenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
 			SoundManagerScript.Instance.playTransition ();
+			enemyInRange = true;
 		}
 
 	}

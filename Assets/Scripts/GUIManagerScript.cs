@@ -33,7 +33,10 @@ public class GUIManagerScript : MonoBehaviour
 	public Image sanityBar;
 	public Text movesCount;
 
-	bool turnPlayer = true;
+	public bool turnPlayer = true;
+
+	public Canvas gameUI;
+	public Canvas pauseMenu;
 
 	void Start()
 	{
@@ -42,9 +45,9 @@ public class GUIManagerScript : MonoBehaviour
 
 	void Update()
 	{
-		if (turnPlayer == false)
+		if(turnPlayer == false)
 		{
-			EnemyManager.Instance.NextTurn ();
+			EnemyManager.Instance.NextTurn();
 			turnPlayer = true;
 		}
 	}
@@ -128,37 +131,56 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		if (turnPlayer == true) 
 		{
-			/*if(PlayerManager.Instance.currentSanityLevel <= 2)
+			if(PlayerManager.Instance.hasLight)
 			{
-				if(SoundManagerScript.Instance.gameObject.GetComponent<AudioSource>().name != "Heartbeat 180bpm")
+				if(PlayerManager.Instance.turnsInDark != 0)
 				{
-					SoundManagerScript.Instance.StopLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
-					SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT180);
+					PlayerManager.Instance.turnsInDark = 0;
+				}
+
+				PlayerManager.Instance.currentSanityLevel ++;
+				UpdateSanityBar();
+			}
+			else
+			{
+				PlayerManager.Instance.turnsInDark ++;
+
+				if(PlayerManager.Instance.turnsInDark == PlayerManager.Instance.maxTurnInDark)
+				{
+					PlayerManager.Instance.currentSanityLevel --;
+					UpdateSanityBar();
+					PlayerManager.Instance.turnsInDark = 0;
 				}
 			}
-			else if(PlayerManager.Instance.currentSanityLevel >=3 && PlayerManager.Instance.currentSanityLevel <= 4)
+
+			if(PlayerManager.Instance.enemyInRange)
 			{
-				if(SoundManagerScript.Instance.gameObject.GetComponent<AudioSource>().name != "Heartbeat 120bpm")
-				{
-					SoundManagerScript.Instance.StopLoopingSFX(AudioClipID.SFX_HEARTBEAT60);
-					SoundManagerScript.Instance.StopLoopingSFX(AudioClipID.SFX_HEARTBEAT180);
-					SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
-				}
+				PlayerManager.Instance.currentSanityLevel --;
+				UpdateSanityBar();
 			}
-			else if(PlayerManager.Instance.currentSanityLevel >=5 && PlayerManager.Instance.currentSanityLevel <= 6)
-			{
-				if(SoundManagerScript.Instance.gameObject.GetComponent<AudioSource>().name != "Heartbeat 60bpm")
-				{
-					SoundManagerScript.Instance.StopLoopingSFX(AudioClipID.SFX_HEARTBEAT120);
-					SoundManagerScript.Instance.PlayLoopingSFX(AudioClipID.SFX_HEARTBEAT60);
-				}
-			}*/
 
 			PlayerManager.Instance.NextTurn ();
 			PlayerManager.Instance.currentPath = null;
-			GUIManagerScript.Instance.UpdateSanityBar();
 
 			turnPlayer = false;
 		}
+	}
+
+	public void PauseMenu()
+	{
+		Time.timeScale = 0;
+
+		gameUI.gameObject.SetActive(false);
+		pauseMenu.gameObject.SetActive(true);
+		PlayerManager.Instance.enabled = false;
+	}
+
+	public void ResumeGame()
+	{
+		Time.timeScale = 1;
+
+		gameUI.gameObject.SetActive(true);
+		pauseMenu.gameObject.SetActive(false);
+		PlayerManager.Instance.enabled = true;
 	}
 }

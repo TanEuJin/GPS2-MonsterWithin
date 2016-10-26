@@ -21,6 +21,11 @@ public class SceneManagerScript : MonoBehaviour
 
 	public void RestartScene()
 	{
+		if(Time.timeScale == 0)
+		{
+			Time.timeScale = 1;
+		}
+
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }

@@ -104,7 +104,7 @@ public class EnemyManager : MonoBehaviour
 	}
 
 	// Advances our pathfinding progress by one tile.
-	void AdvancePathing()
+	public void AdvancePathing()
 	{		
 		if(currentPath==null || remainingMovement <= 0)
 		{
