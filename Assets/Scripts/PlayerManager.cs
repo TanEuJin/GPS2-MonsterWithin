@@ -89,6 +89,10 @@ public class PlayerManager : MonoBehaviour
 		}
 		// Draw our debug line showing the pathfinding!
 
+		/*if (currentPath == null && remainingMovement > 0);
+		{
+		} */
+
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 		if(Input.GetMouseButtonDown(0))
