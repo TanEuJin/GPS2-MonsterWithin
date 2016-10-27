@@ -197,7 +197,7 @@ public class EnemyManager : MonoBehaviour
 	{
 		if(other.CompareTag("Player"))
 		{
-			PlayerManager.Instance.currentSanityLevel --;
+			PlayerManager.Instance.ReduceSanity();
 			PlayerManager.Instance.enemyInRange = true;
 			GUIManagerScript.Instance.UpdateSanityBar();
 		}

@@ -28,4 +28,14 @@ public class SceneManagerScript : MonoBehaviour
 
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
+
+	public void MainMenu()
+	{
+		if(Time.timeScale == 0)
+		{
+			Time.timeScale = 1;
+		}
+
+		SceneManager.LoadScene("MainMenu");
+	}
 }
