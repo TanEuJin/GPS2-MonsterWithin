@@ -221,13 +221,6 @@ public class PlayerManager : MonoBehaviour
 			hasLight = true;
 		}
 
-		if(other.CompareTag("Shard"))
-		{
-			currentSanityLevel ++;
-			GUIManagerScript.Instance.UpdateSanityBar();
-			ShardScript.Instance.transform.gameObject.SetActive(false);
-		}
-
 		if (other.gameObject.CompareTag ("HideObject")) 
 		{
 			HideInteract = true;

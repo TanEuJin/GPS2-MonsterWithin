@@ -39,4 +39,14 @@ public class ShardScript : MonoBehaviour
 	{
 		
 	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if(other.CompareTag("ShardCollector"))
+		{
+			PlayerManager.Instance.currentSanityLevel ++;
+			GUIManagerScript.Instance.UpdateSanityBar();
+			this.gameObject.SetActive(false);
+		}
+	}
 }
