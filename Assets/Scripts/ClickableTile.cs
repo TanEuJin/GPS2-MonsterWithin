@@ -13,14 +13,14 @@ public class ClickableTile : MonoBehaviour
 	private int LayerTile;
 	void Start()
 	{
-		LayerTile = LayerMask.NameToLayer ("ClickableTile");
+		//! LayerTile = LayerMask.NameToLayer ("ClickableTile");
 	}
 
 	void Update()
 	{
 		
 	}
-
+	/*
 	void OnMouseUp()
 	{
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -48,6 +48,7 @@ public class ClickableTile : MonoBehaviour
 			}
 		} 
 	} //! End of OnMouseDown
+	*/
 }
 
 

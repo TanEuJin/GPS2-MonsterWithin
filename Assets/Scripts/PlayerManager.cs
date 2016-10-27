@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
@@ -64,6 +65,11 @@ public class PlayerManager : MonoBehaviour
 	Animator anim;
 	Transform playerTransform;
 
+	//! Raycast
+	public LayerMask LayerTile;
+	public LayerMask WallTile;
+	RaycastHit tileHit;
+
 	void Start()
 	{
 		GUIManagerScript.Instance.UpdateSanityBar();
@@ -71,6 +77,10 @@ public class PlayerManager : MonoBehaviour
 
 		anim = GetComponentInChildren<Animator>();
 		playerTransform = transform.GetChild(0).gameObject.transform;
+
+		LayerTile = LayerMask.NameToLayer ("ClickableTile");
+		LayerTile.value = 1<<LayerTile.value;
+		WallTile = LayerMask.NameToLayer ("Wall");
 	}
 
 	void Update()
@@ -80,6 +90,24 @@ public class PlayerManager : MonoBehaviour
 			return;
 		}
 		// Draw our debug line showing the pathfinding!
+
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+		if(Input.GetMouseButtonDown(0))
+		{
+			if(EventSystem.current.IsPointerOverGameObject())
+			{
+				return;
+			}
+			if(Physics.Raycast(ray,out tileHit, Mathf.Infinity, LayerTile.value))
+			{
+				if(tileHit.transform.gameObject != null)
+				{
+					Debug.DrawRay(tileHit.transform.position, Vector3.up, Color.red, Mathf.Infinity);
+					map.PlayerGeneratePathTo ((int)tileHit.transform.position.x, (int)tileHit.transform.position.z);
+				}
+			}
+		}
 
 		// NOTE: This won't appear in the actual game view.
 		if(currentPath != null)
