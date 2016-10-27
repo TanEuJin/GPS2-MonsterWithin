@@ -67,7 +67,6 @@ public class PlayerManager : MonoBehaviour
 
 	//! Raycast
 	public LayerMask LayerTile;
-	public LayerMask WallTile;
 	RaycastHit tileHit;
 
 	void Start()
@@ -80,7 +79,6 @@ public class PlayerManager : MonoBehaviour
 
 		LayerTile = LayerMask.NameToLayer ("ClickableTile");
 		LayerTile.value = 1<<LayerTile.value;
-		WallTile = LayerMask.NameToLayer ("Wall");
 	}
 
 	void Update()
@@ -212,6 +210,14 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
+	}
+
+	public void ReduceSanity()
+	{
+		if(currentSanityLevel - 1 >= 0)
+		{
+			currentSanityLevel --;
+		}
 	}
 
 	void OnTriggerEnter(Collider other)

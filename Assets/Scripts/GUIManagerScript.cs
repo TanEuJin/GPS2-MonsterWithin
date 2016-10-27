@@ -147,7 +147,7 @@ public class GUIManagerScript : MonoBehaviour
 
 				if(PlayerManager.Instance.turnsInDark == PlayerManager.Instance.maxTurnInDark)
 				{
-					PlayerManager.Instance.currentSanityLevel --;
+					PlayerManager.Instance.ReduceSanity();
 					UpdateSanityBar();
 					PlayerManager.Instance.turnsInDark = 0;
 				}
@@ -155,7 +155,7 @@ public class GUIManagerScript : MonoBehaviour
 
 			if(PlayerManager.Instance.enemyInRange)
 			{
-				PlayerManager.Instance.currentSanityLevel --;
+				PlayerManager.Instance.ReduceSanity();
 				UpdateSanityBar();
 			}
 
