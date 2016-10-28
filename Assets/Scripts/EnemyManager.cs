@@ -71,7 +71,7 @@ public class EnemyManager : MonoBehaviour
 	void Update()
 	{
 		//! Setting Enemy Behavior
-		if(PlayerManager.Instance.hasLight == true && distFromPlayer <= 4)//gotLight as in torch is on
+		if(PlayerManager.Instance.hasLight == true && distFromPlayer <= 4)
 		{
 			state = EnemyBehavior.CHASING;
 		}
