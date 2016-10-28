@@ -218,6 +218,14 @@ public class PlayerManager : MonoBehaviour
 		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
 	}
 
+	public void IncreaseSanity()
+	{
+		if(currentSanityLevel + 1 <= maxSanityLevel)
+		{
+			currentSanityLevel ++;
+		}
+	}
+
 	public void ReduceSanity()
 	{
 		if(currentSanityLevel - 1 >= 0)

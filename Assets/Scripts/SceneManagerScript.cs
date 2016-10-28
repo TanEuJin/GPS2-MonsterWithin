@@ -38,4 +38,9 @@ public class SceneManagerScript : MonoBehaviour
 
 		SceneManager.LoadScene("MainMenu");
 	}
+
+	public void LoseScene()
+	{
+		SceneManager.LoadScene("LoseScene");
+	}
 }

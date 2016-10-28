@@ -58,7 +58,7 @@ public class ShardScript : MonoBehaviour
 	{
 		if(other.CompareTag("ShardCollector"))
 		{
-			PlayerManager.Instance.currentSanityLevel ++;
+			PlayerManager.Instance.IncreaseSanity();
 			GUIManagerScript.Instance.UpdateSanityBar();
 			this.gameObject.SetActive(false);
 		}

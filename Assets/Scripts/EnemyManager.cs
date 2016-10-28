@@ -229,6 +229,16 @@ public class EnemyManager : MonoBehaviour
 		{
 			PlayerLose();
 		}
+		else if(tileX - 1 == PlayerManager.Instance.tileX - 1 && tileZ - 1 == PlayerManager.Instance.tileZ - 1 ||
+			tileX - 1 == PlayerManager.Instance.tileX - 1 && tileZ + 1 == PlayerManager.Instance.tileZ + 1)
+		{
+			PlayerLose();
+		}
+		else if(tileX + 1 == PlayerManager.Instance.tileX - 1 && tileZ - 1 == PlayerManager.Instance.tileZ - 1 ||
+			tileX + 1 == PlayerManager.Instance.tileX - 1 && tileZ + 1 == PlayerManager.Instance.tileZ + 1)
+		{
+			PlayerLose();
+		}
 	}
 
 	void PlayerLose()

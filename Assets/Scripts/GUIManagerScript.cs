@@ -37,6 +37,7 @@ public class GUIManagerScript : MonoBehaviour
 
 	public Canvas gameUI;
 	public Canvas pauseMenu;
+	public Canvas losingMenu;
 
 	void Start()
 	{
@@ -138,7 +139,7 @@ public class GUIManagerScript : MonoBehaviour
 					PlayerManager.Instance.turnsInDark = 0;
 				}
 
-				PlayerManager.Instance.currentSanityLevel ++;
+				PlayerManager.Instance.IncreaseSanity();
 				UpdateSanityBar();
 			}
 			else
@@ -182,5 +183,14 @@ public class GUIManagerScript : MonoBehaviour
 		gameUI.gameObject.SetActive(true);
 		pauseMenu.gameObject.SetActive(false);
 		PlayerManager.Instance.enabled = true;
+	}
+
+	public void LoseGame()
+	{
+		Time.timeScale = 0;
+
+		gameUI.gameObject.SetActive(false);
+		losingMenu.gameObject.SetActive(false);
+		PlayerManager.Instance.enabled = false;
 	}
 }
