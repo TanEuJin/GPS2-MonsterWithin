@@ -122,7 +122,6 @@ public class EnemyManager : MonoBehaviour
 		// Move us to the next tile in the sequence
 		if(tileX + 1 == currentPath[1].x)
 		{
-			//modalTransform.Rotate(new Vector3(0.0f, 90.0f, 0.0f), Space.World);
 			modalTransform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
 		}
 		else if(tileX - 1 == currentPath[1].x)
@@ -145,6 +144,7 @@ public class EnemyManager : MonoBehaviour
 		
 		// Remove the old "current" tile from the pathfinding list
 		currentPath.RemoveAt(0);
+		CheckLosingCondition();
 		
 		if(currentPath.Count == 1)
 		{
@@ -191,6 +191,30 @@ public class EnemyManager : MonoBehaviour
 
 		// Reset our available movement points.
 		remainingMovement = moveSpeed;
+	}
+
+	void CheckLosingCondition()
+	{
+		if(tileX - 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ)
+		{
+			PlayerManager.Instance.playerDie = true;
+			currentPath = null;
+		}
+		else if(tileX + 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ)
+		{
+			PlayerManager.Instance.playerDie = true;
+			currentPath = null;
+		}
+		else if(tileX == PlayerManager.Instance.tileX && tileZ + 1 == PlayerManager.Instance.tileZ)
+		{
+			PlayerManager.Instance.playerDie = true;
+			currentPath = null;
+		}
+		else if(tileX == PlayerManager.Instance.tileX && tileZ - 1 == PlayerManager.Instance.tileZ)
+		{
+			PlayerManager.Instance.playerDie = true;
+			currentPath = null;
+		}
 	}
 
 	void OnTriggerEnter(Collider other)
