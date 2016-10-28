@@ -69,6 +69,9 @@ public class PlayerManager : MonoBehaviour
 	public LayerMask LayerTile;
 	RaycastHit tileHit;
 
+	public float speed = 1.0f;
+	public bool playerDie = false;
+
 	void Start()
 	{
 		GUIManagerScript.Instance.UpdateSanityBar();
@@ -130,7 +133,7 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		// Smoothly animate towards the correct map tile.
-		transform.position = Vector3.Lerp(transform.position, map.TileCoordToWorldCoord( tileX, tileZ ), 5f * Time.deltaTime);
+		transform.position = Vector3.Lerp(transform.position, map.TileCoordToWorldCoord( tileX, tileZ ), speed * Time.deltaTime);
 	}
 
 	// Advances our pathfinding progress by one tile.
@@ -152,7 +155,6 @@ public class PlayerManager : MonoBehaviour
 		// Move us to the next tile in the sequence
 		if(tileX + 1 == currentPath[1].x)
 		{
-			//modalTransform.Rotate(new Vector3(0.0f, 90.0f, 0.0f), Space.World);
 			playerTransform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
 		}
 		else if(tileX - 1 == currentPath[1].x)
