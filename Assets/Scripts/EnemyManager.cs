@@ -197,24 +197,26 @@ public class EnemyManager : MonoBehaviour
 	{
 		if(tileX - 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ)
 		{
-			PlayerManager.Instance.playerDie = true;
-			currentPath = null;
+			PlayerLose();
 		}
 		else if(tileX + 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ)
 		{
-			PlayerManager.Instance.playerDie = true;
-			currentPath = null;
+			PlayerLose();
 		}
 		else if(tileX == PlayerManager.Instance.tileX && tileZ + 1 == PlayerManager.Instance.tileZ)
 		{
-			PlayerManager.Instance.playerDie = true;
-			currentPath = null;
+			PlayerLose();
 		}
 		else if(tileX == PlayerManager.Instance.tileX && tileZ - 1 == PlayerManager.Instance.tileZ)
 		{
-			PlayerManager.Instance.playerDie = true;
-			currentPath = null;
+			PlayerLose();
 		}
+	}
+
+	void PlayerLose()
+	{
+		PlayerManager.Instance.playerDie = true;
+		currentPath = null;
 	}
 
 	void OnTriggerEnter(Collider other)
