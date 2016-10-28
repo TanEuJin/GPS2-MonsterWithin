@@ -1,6 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+public enum ShardLocation
+{
+	DINING	 	= 0,
+	KITCHEN 	= 1,
+	MORNING 	= 2,
+	LIVING	 	= 3,
+	LIBRARY 	= 4,
+	BEDROOM 	= 5,
+
+	TOTAL = 10
+}
+
 public class ShardScript : MonoBehaviour
 {
 	private static ShardScript mInstance;
@@ -27,6 +39,8 @@ public class ShardScript : MonoBehaviour
 			return mInstance;
 		}
 	}
+
+	public ShardLocation location;
 
 	// Use this for initialization
 	void Start ()

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class ShardSpawnManagerScript : MonoBehaviour
 {
 	public Vector3[] shardSpawnpoints;
 	public Vector3 lastShardSpawnpoint;
+
 	public GameObject shard;
 
 	int Rand_1;
@@ -35,6 +36,7 @@ public class ShardSpawnManagerScript : MonoBehaviour
 		{
 			RandomizePoint();
 			CheckSpawn();
+			SetLocationState();
 		}
 	}
 
@@ -73,5 +75,33 @@ public class ShardSpawnManagerScript : MonoBehaviour
 	{
 		lastShardSpawnpoint = shard.transform.position;
 		shard.SetActive(true);
+	}
+
+	void SetLocationState()
+	{
+		if(shard.transform.position == new Vector3(shardSpawnpoints[0].x, 1, shardSpawnpoints[0].z))
+		{
+			ShardScript.Instance.location = ShardLocation.DINING;
+		}
+		else if(shard.transform.position == new Vector3(shardSpawnpoints[1].x, 1, shardSpawnpoints[1].z))
+		{
+			ShardScript.Instance.location = ShardLocation.KITCHEN;
+		}
+		else if(shard.transform.position == new Vector3(shardSpawnpoints[2].x, 1, shardSpawnpoints[2].z))
+		{
+			ShardScript.Instance.location = ShardLocation.MORNING;
+		}
+		else if(shard.transform.position == new Vector3(shardSpawnpoints[3].x, 1, shardSpawnpoints[3].z))
+		{
+			ShardScript.Instance.location = ShardLocation.LIVING;
+		}
+		else if(shard.transform.position == new Vector3(shardSpawnpoints[4].x, 1, shardSpawnpoints[4].z))
+		{
+			ShardScript.Instance.location = ShardLocation.LIBRARY;
+		}
+		else if(shard.transform.position == new Vector3(shardSpawnpoints[5].x, 1, shardSpawnpoints[5].z))
+		{
+			ShardScript.Instance.location = ShardLocation.BEDROOM;
+		}
 	}
 }

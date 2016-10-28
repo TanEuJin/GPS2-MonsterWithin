@@ -6,9 +6,12 @@ public enum EnemyBehavior
 	PATROLLING 		= 0,
 	CHASING			= 1,
 	CHASING_LOST	= 2,
-	ROAM_KITCHEN	= 3,
-	ROAM_LIVINGROOM	= 4,
-	ROAM_CORRIDOR	= 5,
+	ROAM_DINING		= 3,
+	ROAM_KITCHEN	= 4,
+	ROAM_MORNING	= 5,
+	ROAM_LIVING		= 6,
+	ROAM_LIBRARY	= 7,
+	ROAM_BEDROOM	= 8,
 
 	TOTAL = 10
 }
@@ -59,6 +62,7 @@ public class EnemyManager : MonoBehaviour
 	public float distFromPlayer;
 	public EnemyBehavior state;
 
+	bool playerDetectable = false;
 	Animator anim;
 	Transform modalTransform;
 
@@ -70,8 +74,10 @@ public class EnemyManager : MonoBehaviour
 
 	void Update()
 	{
+		PlayerDetection();
+
 		//! Setting Enemy Behavior
-		if(PlayerManager.Instance.hasLight == true && distFromPlayer <= 4)
+		if(playerDetectable)
 		{
 			state = EnemyBehavior.CHASING;
 		}
@@ -191,6 +197,18 @@ public class EnemyManager : MonoBehaviour
 
 		// Reset our available movement points.
 		remainingMovement = moveSpeed;
+	}
+
+	void PlayerDetection()
+	{
+		if(PlayerManager.Instance.hasLight == true && distFromPlayer <= 4)
+		{
+			playerDetectable = true;
+		}
+		else
+		{
+			playerDetectable = false;
+		}
 	}
 
 	void CheckLosingCondition()
