@@ -51,9 +51,11 @@ public class PlayerManager : MonoBehaviour
 
 	//! Object Interaction
 	public GameObject InteractButton, playerModel;
-	public GameObject Door, Closet;
-	public bool closetInteract, doorInteract, HideInteract, isHidden;
-	public int keys;
+	public bool HideInteract, isHidden;
+	public List<GameObject>Interact = new List<GameObject>();
+	public List<GameObject>HideObject = new List<GameObject>();
+	//public GameObject[] Interact;
+	//public GameObject[] HideObject;
 
 	// Sanity
 	public bool hasLight = false;
@@ -241,11 +243,39 @@ public class PlayerManager : MonoBehaviour
 			hasLight = true;
 		}
 
-		if (other.gameObject.CompareTag ("HideObject")) 
+		/*if (other.CompareTag ("HideObject").Equals(HideObject[1])) 
 		{
-			HideInteract = true;
-			InteractButton.SetActive(true);
+			Debug.Log ("Test!");
+			Interact [1].SetActive (true);
+			//InteractButton.SetActive(true);
+
+			for (int i = 0; i < HideObject.Count; i++) 
+			{
+				Debug.Log (HideObject[i]);
+				if(Interact [i].Equals(HideObject[i]))
+				{
+					HideInteract = true;
+					Interact [i].SetActive (true);
+				}
+
+			}
+
+		}*/
+
+		for (int i = 0; i < HideObject.Count; i++) 
+		{
+			if (other.gameObject == HideObject [i]) 
+			{
+				HideInteract = true;
+				Debug.Log (HideObject [i]);
+				Debug.Log ("Test!");
+				Interact [i].SetActive (true);
+			}
 		}
+
+		//if (other.gameObject == HideObject [1]) {
+		//	Debug.Log ("Test!");
+		//}
 
 		if (other.CompareTag ("Enemy")) 
 		{
@@ -262,6 +292,17 @@ public class PlayerManager : MonoBehaviour
 		if(other.CompareTag("Light"))
 		{
 			hasLight = false;
+		}
+
+		for (int i = 0; i < HideObject.Count; i++) 
+		{
+			if (other.gameObject == HideObject [i]) 
+			{
+				HideInteract = false;
+				Debug.Log (HideObject [i]);
+				Debug.Log ("Test!");
+				Interact [i].SetActive (false);
+			}
 		}
 
 		if (other.gameObject.CompareTag ("HideObject")) 

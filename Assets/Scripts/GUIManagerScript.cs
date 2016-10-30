@@ -71,25 +71,6 @@ public class GUIManagerScript : MonoBehaviour
 		}
 	}
 
-	/*public void ClosetInteract()
-	{
-		Debug.Log ("Test");
-		if (PlayerManager.Instance.closetInteract == true) 
-		{
-			if (PlayerManager.Instance.isHidden == false)
-			{
-				PlayerManager.Instance.transform.position = PlayerManager.Instance.Closet.transform.position;
-				PlayerManager.Instance.isHidden = true;
-			} 
-
-			else if (PlayerManager.Instance.isHidden == true) 
-			{
-				PlayerManager.Instance.transform.position = Vector3.forward * 1.0f;
-				PlayerManager.Instance.isHidden = false;
-			}
-		}
-	}*/
-
 	public void HideInteract()
 	{
 		Debug.Log ("Test");
@@ -108,26 +89,7 @@ public class GUIManagerScript : MonoBehaviour
 			}
 		}
 	}
-
-	public void DoorInteract()
-	{
-		Debug.Log ("Test");
-		if (PlayerManager.Instance.doorInteract == true) 
-		{
-			if (PlayerManager.Instance.keys == 1)
-			{
-				SoundManagerScript.Instance.PlaySFX(AudioClipID.SFX_DOOROPEN);
-				PlayerManager.Instance.Door.transform.position = Vector3.up * 1.0f;
-				PlayerManager.Instance.keys -= 1;
-			}
-
-			else if (PlayerManager.Instance.keys < 1) 
-			{
-				Debug.Log("Insufficient Keys!");
-			}
-		}
-	}
-
+		
 	public void EndTurn()
 	{
 		if (turnPlayer == true) 
