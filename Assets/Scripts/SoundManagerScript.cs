@@ -35,7 +35,7 @@ public class SoundManagerScript : MonoBehaviour
 	public AudioMixerSnapshot notSeenByEnemy;
 	public AudioMixerSnapshot seenByEnemy;
 	public AudioMixerSnapshot sanityLow;
-	public AudioClip Spotted;
+	public AudioClip[] Spotted;
 	public AudioSource seenByTheEnemy;
 	public AudioSource SpottedSource;
 	public AudioSource Horrified;
@@ -306,9 +306,9 @@ public class SoundManagerScript : MonoBehaviour
 
 	public void playTransition()
 	{
-		SpottedSource.clip = Spotted;
+		int randSpottedSource = Random.Range (0, Spotted.Length);
+		SpottedSource.clip = Spotted[randSpottedSource];
 		SpottedSource.Play();
 	}
-
-
+		
 }

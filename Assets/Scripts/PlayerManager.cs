@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour
 	//public GameObject[] HideObject;
 
 	// Sanity
-	public bool hasLight = false;
+	public bool hasLight, AlreadyScreamed = false;
 	public int currentSanityLevel = 4;
 	public int maxSanityLevel = 6;
 	public bool enemyInRange = false;
@@ -110,6 +110,7 @@ public class PlayerManager : MonoBehaviour
 			{
 				if(tileHit.transform.gameObject != null)
 				{
+					SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERMOVE);
 					Debug.DrawRay(tileHit.transform.position, Vector3.up, Color.red, Mathf.Infinity);
 					map.PlayerGeneratePathTo ((int)tileHit.transform.position.x, (int)tileHit.transform.position.z);
 				}
@@ -205,11 +206,21 @@ public class PlayerManager : MonoBehaviour
 		if(currentSanityLevel <= 2)
 		{
 			remainingMovement = 2;
-			SoundManagerScript.Instance.Horrified.Play();
-			SoundManagerScript.Instance.sanityLow.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
+			if (AlreadyScreamed == false) 
+			{
+				SoundManagerScript.Instance.Horrified.Play();
+				SoundManagerScript.Instance.sanityLow.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
+				AlreadyScreamed = true;
+			}
+
+			if (AlreadyScreamed == true) {
+				//! Dont play audio
+			}
+
 		}
 		else if(currentSanityLevel >=3 && currentSanityLevel <= 4)
 		{
+			AlreadyScreamed = false;
 			remainingMovement = 3;
 		}
 		else if(currentSanityLevel >=5 && currentSanityLevel <= 6)
@@ -298,6 +309,7 @@ public class PlayerManager : MonoBehaviour
 		{
 			if (other.gameObject == HideObject [i]) 
 			{
+				
 				HideInteract = false;
 				Debug.Log (HideObject [i]);
 				Debug.Log ("Test!");
