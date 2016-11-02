@@ -109,7 +109,7 @@ public class EnemyManager : MonoBehaviour
 
 		// Have we moved our visible piece close enough to the target tile that we can
 		// advance to the next step in our pathfinding?
-		if(Vector3.Distance(transform.position, map.TileCoordToWorldCoord( tileX, tileZ )) < 0.1f && currentPath != null)
+		if(Vector3.Distance(transform.position, map.TileCoordToWorldCoord( tileX, tileZ )) < 0.1f)
 		{
 			AdvancePathing();
 		}
@@ -160,7 +160,6 @@ public class EnemyManager : MonoBehaviour
 		}
 		else if(tileZ + 1 == currentPath[1].z)
 		{
-			//modalTransform.Rotate(new Vector3(0.0f, 90.0f, 0.0f), Space.World);
 			modalTransform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 		}
 		else if(tileZ - 1 == currentPath[1].z)
