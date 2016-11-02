@@ -67,7 +67,7 @@ public class EnemyManager : MonoBehaviour
 	Transform modalTransform;
 
 	bool caughtPlayer = false;
-	public float loseDelayTimer = 0.0f;
+	float loseDelayTimer = 0.0f;
 	public float loseDelayDuration = 1.0f;
 
 	void Start()
@@ -175,7 +175,7 @@ public class EnemyManager : MonoBehaviour
 		if(CheckLosingCondition() == true)
 		{
 			remainingMovement = 0;
-			caughtPlayer = true;
+			//caughtPlayer = true;
 			return;
 		}
 		

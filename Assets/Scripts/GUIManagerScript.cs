@@ -159,7 +159,5 @@ public class GUIManagerScript : MonoBehaviour
 		{
 			losingMenu.GetComponent<CanvasGroup>().interactable = true;
 		}
-
-		PlayerManager.Instance.enabled = false;
 	}
 }

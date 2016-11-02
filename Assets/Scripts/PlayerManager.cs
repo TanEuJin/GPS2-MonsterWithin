@@ -3,9 +3,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-//! Test
-//! pls work
-
 public class PlayerManager : MonoBehaviour
 {
 	private static PlayerManager mInstance;
@@ -73,6 +70,10 @@ public class PlayerManager : MonoBehaviour
 
 	public float speed = 1.0f;
 
+	bool gotCaught = false;
+	float loseDelayTimer = 0.0f;
+	public float loseDelayDuration = 1.0f;
+
 	void Start()
 	{
 		GUIManagerScript.Instance.UpdateSanityBar();
@@ -91,16 +92,11 @@ public class PlayerManager : MonoBehaviour
 		{
 			return;
 		}
-		// Draw our debug line showing the pathfinding!
-
-		/*if (currentPath == null && remainingMovement > 0);
-		{
-		} */
-
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
 		if(Input.GetMouseButtonDown(0))
 		{
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
 			if(EventSystem.current.IsPointerOverGameObject())
 			{
 				return;
@@ -131,18 +127,32 @@ public class PlayerManager : MonoBehaviour
 		// advance to the next step in our pathfinding?
 		if(Vector3.Distance(transform.position, map.TileCoordToWorldCoord( tileX, tileZ )) < 0.1f && currentPath != null)
 		{
-			CheckLosingCondition();
 			AdvancePathing();
 		}
 
 		// Smoothly animate towards the correct map tile.
 		transform.position = Vector3.Lerp(transform.position, map.TileCoordToWorldCoord( tileX, tileZ ), speed * Time.deltaTime);
+
+		if(gotCaught)
+		{
+			loseDelayTimer += Time.deltaTime;
+
+			if(loseDelayTimer >= loseDelayDuration)
+			{
+				GUIManagerScript.Instance.LoseGame();
+			}
+
+			if(GUIManagerScript.Instance.losingMenu.GetComponent<CanvasGroup>().alpha == 1)
+			{
+				gotCaught = false;
+			}
+		}
 	}
 
 	// Advances our pathfinding progress by one tile.
 	void AdvancePathing()
 	{
-		if(currentPath==null || remainingMovement <= 0)
+		if(currentPath == null || remainingMovement <= 0)
 		{
 			anim.SetBool("IsWalk", false);
 			return;
@@ -178,6 +188,13 @@ public class PlayerManager : MonoBehaviour
 		tileZ = currentPath[1].z;
 		anim.SetBool("IsWalk", true);
 
+		if(CheckLosingCondition() == true)
+		{
+			remainingMovement = 0;
+			gotCaught = true;
+			return;
+		}
+
 		// Remove the old "current" tile from the pathfinding list
 		currentPath.RemoveAt(0);
 
@@ -187,7 +204,6 @@ public class PlayerManager : MonoBehaviour
 			// destination -- and we are standing on it!
 			// So let's just clear our pathfinding info.
 			currentPath = null;
-			//anim.SetBool("IsWalk", false);
 		}
 
 		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
@@ -197,7 +213,7 @@ public class PlayerManager : MonoBehaviour
 	public void NextTurn()
 	{
 		// Make sure to wrap-up any outstanding movement left over.
-		while(currentPath!=null && remainingMovement > 0)
+		while(currentPath != null && remainingMovement > 0)
 		{
 			AdvancePathing();
 		}
@@ -279,8 +295,6 @@ public class PlayerManager : MonoBehaviour
 			if (other.gameObject == HideObject [i]) 
 			{
 				HideInteract = true;
-				Debug.Log (HideObject [i]);
-				Debug.Log ("Test!");
 				Interact [i].SetActive (true);
 			}
 		}
@@ -312,8 +326,6 @@ public class PlayerManager : MonoBehaviour
 			{
 				
 				HideInteract = false;
-				Debug.Log (HideObject [i]);
-				Debug.Log ("Test!");
 				Interact [i].SetActive (false);
 			}
 		}
@@ -330,8 +342,29 @@ public class PlayerManager : MonoBehaviour
 		}
 	}
 
-	void CheckLosingCondition()
+	bool CheckLosingCondition()
 	{
-		
+		if(tileX - 1 == EnemyManager.Instance.tileX && tileZ == EnemyManager.Instance.tileZ ||
+			tileX + 1 == EnemyManager.Instance.tileX && tileZ == EnemyManager.Instance.tileZ)
+		{
+			return true;
+		}
+		else if(tileX == EnemyManager.Instance.tileX && tileZ + 1 == EnemyManager.Instance.tileZ || 
+			tileX == EnemyManager.Instance.tileX && tileZ  - 1 == EnemyManager.Instance.tileZ)
+		{
+			return true;
+		}
+		else if(tileX == EnemyManager.Instance.tileX - 1 && tileZ == EnemyManager.Instance.tileZ - 1 ||
+			tileX == EnemyManager.Instance.tileX - 1 && tileZ == EnemyManager.Instance.tileZ + 1)
+		{
+			return true;
+		}
+		else if(tileX == EnemyManager.Instance.tileX + 1 && tileZ == EnemyManager.Instance.tileZ - 1 ||
+			tileX == EnemyManager.Instance.tileX + 1 && tileZ == EnemyManager.Instance.tileZ + 1)
+		{
+			return true;
+		}
+
+		return  false;
 	}
 }
