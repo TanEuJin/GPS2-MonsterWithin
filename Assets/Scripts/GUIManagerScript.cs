@@ -33,23 +33,29 @@ public class GUIManagerScript : MonoBehaviour
 	public Image sanityBar;
 	public Text movesCount;
 
-	public bool turnPlayer = true;
+	public bool playerTurn = true;
 
 	public Canvas gameUI;
 	public Canvas pauseMenu;
 	public Canvas losingMenu;
 
+	public Button endTurnButton;
+	public Image test;
+
 	void Start()
 	{
 		Screen.orientation = ScreenOrientation.Landscape;
+
+		//test.GetComponent<CanvasRenderer>().SetAlpha(0f);
+		//test.CrossFadeAlpha(1.0f, 3.0f, false);
 	}
 
 	void Update()
 	{
-		if(turnPlayer == false)
+		if(!playerTurn)
 		{
 			EnemyManager.Instance.NextTurn();
-			turnPlayer = true;
+			playerTurn = true;
 		}
 	}
 
@@ -73,7 +79,6 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void HideInteract()
 	{
-		Debug.Log ("Test");
 		if (PlayerManager.Instance.HideInteract == true) 
 		{
 			if (PlayerManager.Instance.isHidden == false)
@@ -92,41 +97,37 @@ public class GUIManagerScript : MonoBehaviour
 		
 	public void EndTurn()
 	{
-		if (turnPlayer == true) 
+		if(PlayerManager.Instance.hasLight)
 		{
-			if(PlayerManager.Instance.hasLight)
+			if(PlayerManager.Instance.turnsInDark != 0)
 			{
-				if(PlayerManager.Instance.turnsInDark != 0)
-				{
-					PlayerManager.Instance.turnsInDark = 0;
-				}
-
-				PlayerManager.Instance.IncreaseSanity();
-				UpdateSanityBar();
-			}
-			else
-			{
-				PlayerManager.Instance.turnsInDark ++;
-
-				if(PlayerManager.Instance.turnsInDark == PlayerManager.Instance.maxTurnInDark)
-				{
-					PlayerManager.Instance.ReduceSanity();
-					UpdateSanityBar();
-					PlayerManager.Instance.turnsInDark = 0;
-				}
+				PlayerManager.Instance.turnsInDark = 0;
 			}
 
-			if(PlayerManager.Instance.enemyInRange)
+			PlayerManager.Instance.IncreaseSanity();
+			UpdateSanityBar();
+		}
+		else
+		{
+			PlayerManager.Instance.turnsInDark ++;
+
+			if(PlayerManager.Instance.turnsInDark == PlayerManager.Instance.maxTurnInDark)
 			{
 				PlayerManager.Instance.ReduceSanity();
 				UpdateSanityBar();
+				PlayerManager.Instance.turnsInDark = 0;
 			}
-
-			PlayerManager.Instance.NextTurn ();
-			PlayerManager.Instance.currentPath = null;
-
-			turnPlayer = false;
 		}
+
+		if(PlayerManager.Instance.enemyInRange)
+		{
+			PlayerManager.Instance.ReduceSanity();
+			UpdateSanityBar();
+		}
+
+		PlayerManager.Instance.NextTurn ();
+		PlayerManager.Instance.currentPath = null;
+		playerTurn = false;
 	}
 
 	public void PauseMenu()
@@ -149,10 +150,16 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void LoseGame()
 	{
-		Time.timeScale = 0;
-
 		gameUI.gameObject.SetActive(false);
-		losingMenu.gameObject.SetActive(false);
+		losingMenu.gameObject.SetActive(true);
+
+		losingMenu.GetComponent<CanvasGroup>().alpha += Time.deltaTime/3;
+
+		if(losingMenu.GetComponent<CanvasGroup>().alpha >= 0.75f)
+		{
+			losingMenu.GetComponent<CanvasGroup>().interactable = true;
+		}
+
 		PlayerManager.Instance.enabled = false;
 	}
 }

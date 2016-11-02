@@ -72,7 +72,6 @@ public class PlayerManager : MonoBehaviour
 	RaycastHit tileHit;
 
 	public float speed = 1.0f;
-	public bool playerDie = false;
 
 	void Start()
 	{
@@ -130,8 +129,9 @@ public class PlayerManager : MonoBehaviour
 
 		// Have we moved our visible piece close enough to the target tile that we can
 		// advance to the next step in our pathfinding?
-		if(Vector3.Distance(transform.position, map.TileCoordToWorldCoord( tileX, tileZ )) < 0.1f)
+		if(Vector3.Distance(transform.position, map.TileCoordToWorldCoord( tileX, tileZ )) < 0.1f && currentPath != null)
 		{
+			CheckLosingCondition();
 			AdvancePathing();
 		}
 
@@ -213,7 +213,8 @@ public class PlayerManager : MonoBehaviour
 				AlreadyScreamed = true;
 			}
 
-			if (AlreadyScreamed == true) {
+			if (AlreadyScreamed == true) 
+			{
 				//! Dont play audio
 			}
 
@@ -327,5 +328,10 @@ public class PlayerManager : MonoBehaviour
 		{
 			SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionOut);
 		}
+	}
+
+	void CheckLosingCondition()
+	{
+		
 	}
 }

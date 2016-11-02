@@ -57,14 +57,18 @@ public class EnemyManager : MonoBehaviour
 	public List<Node> currentPath = null;
 
 	// How far this unit can move in one turn. Note that some tiles cost extra.
-	int moveSpeed = 2;
-	public float remainingMovement=2;
+	public int moveSpeed = 2;
+	public float remainingMovement = 2;
 	public float distFromPlayer;
 	public EnemyBehavior state;
 
 	bool playerDetectable = false;
 	Animator anim;
 	Transform modalTransform;
+
+	bool caughtPlayer = false;
+	public float loseDelayTimer = 0.0f;
+	public float loseDelayDuration = 1.0f;
 
 	void Start()
 	{
@@ -74,6 +78,11 @@ public class EnemyManager : MonoBehaviour
 
 	void Update()
 	{
+		if(!enabled)
+		{
+			return;
+		}
+
 		PlayerDetection();
 
 		//! Setting Enemy Behavior
@@ -100,19 +109,34 @@ public class EnemyManager : MonoBehaviour
 
 		// Have we moved our visible piece close enough to the target tile that we can
 		// advance to the next step in our pathfinding?
-		if(Vector3.Distance(transform.position, map.TileCoordToWorldCoord( tileX, tileZ )) < 0.1f)
+		if(Vector3.Distance(transform.position, map.TileCoordToWorldCoord( tileX, tileZ )) < 0.1f && currentPath != null)
 		{
 			AdvancePathing();
 		}
 
 		// Smoothly animate towards the correct map tile.
 		transform.position = Vector3.Lerp(transform.position, map.TileCoordToWorldCoord( tileX, tileZ ), 5f * Time.deltaTime);
+
+		if(caughtPlayer)
+		{
+			loseDelayTimer += Time.deltaTime;
+
+			if(loseDelayTimer >= loseDelayDuration)
+			{
+				GUIManagerScript.Instance.LoseGame();
+			}
+
+			if(GUIManagerScript.Instance.losingMenu.GetComponent<CanvasGroup>().alpha == 1)
+			{
+				caughtPlayer = false;
+			}
+		}
 	}
 
 	// Advances our pathfinding progress by one tile.
 	public void AdvancePathing()
 	{		
-		if(currentPath==null || remainingMovement <= 0)
+		if(currentPath == null || remainingMovement <= 0)
 		{
 			anim.SetBool("IsWalk", false);
 			return;
@@ -147,10 +171,16 @@ public class EnemyManager : MonoBehaviour
 		tileX = currentPath[1].x;
 		tileZ = currentPath[1].z;
 		anim.SetBool("IsWalk", true);
+
+		if(CheckLosingCondition() == true)
+		{
+			remainingMovement = 0;
+			caughtPlayer = true;
+			return;
+		}
 		
 		// Remove the old "current" tile from the pathfinding list
 		currentPath.RemoveAt(0);
-		CheckLosingCondition();
 		
 		if(currentPath.Count == 1)
 		{
@@ -166,7 +196,7 @@ public class EnemyManager : MonoBehaviour
 	{
 		SoundManagerScript.Instance.EnemyMove.Play();
 		// Make sure to wrap-up any outstanding movement left over.
-		while(currentPath!=null && remainingMovement > 0)
+		while(currentPath != null && remainingMovement > 0)
 		{
 			AdvancePathing();
 		}
@@ -211,40 +241,30 @@ public class EnemyManager : MonoBehaviour
 		}
 	}
 
-	void CheckLosingCondition()
+	bool CheckLosingCondition()
 	{
-		if(tileX - 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ)
+		if(tileX - 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ ||
+			tileX + 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ)
 		{
-			PlayerLose();
+			return true;
 		}
-		else if(tileX + 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ)
+		else if(tileX == PlayerManager.Instance.tileX && tileZ + 1 == PlayerManager.Instance.tileZ || 
+			tileX == PlayerManager.Instance.tileX && tileZ  - 1 == PlayerManager.Instance.tileZ)
 		{
-			PlayerLose();
+			return true;
 		}
-		else if(tileX == PlayerManager.Instance.tileX && tileZ + 1 == PlayerManager.Instance.tileZ)
+		else if(tileX == PlayerManager.Instance.tileX - 1 && tileZ == PlayerManager.Instance.tileZ - 1 ||
+			tileX == PlayerManager.Instance.tileX - 1 && tileZ == PlayerManager.Instance.tileZ + 1)
 		{
-			PlayerLose();
+			return true;
 		}
-		else if(tileX == PlayerManager.Instance.tileX && tileZ - 1 == PlayerManager.Instance.tileZ)
+		else if(tileX == PlayerManager.Instance.tileX + 1 && tileZ == PlayerManager.Instance.tileZ - 1 ||
+			tileX == PlayerManager.Instance.tileX + 1 && tileZ == PlayerManager.Instance.tileZ + 1)
 		{
-			PlayerLose();
+			return true;
 		}
-		else if(tileX - 1 == PlayerManager.Instance.tileX - 1 && tileZ - 1 == PlayerManager.Instance.tileZ - 1 ||
-			tileX - 1 == PlayerManager.Instance.tileX - 1 && tileZ + 1 == PlayerManager.Instance.tileZ + 1)
-		{
-			PlayerLose();
-		}
-		else if(tileX + 1 == PlayerManager.Instance.tileX - 1 && tileZ - 1 == PlayerManager.Instance.tileZ - 1 ||
-			tileX + 1 == PlayerManager.Instance.tileX - 1 && tileZ + 1 == PlayerManager.Instance.tileZ + 1)
-		{
-			PlayerLose();
-		}
-	}
 
-	void PlayerLose()
-	{
-		PlayerManager.Instance.playerDie = true;
-		currentPath = null;
+		return  false;
 	}
 
 	void OnTriggerEnter(Collider other)
