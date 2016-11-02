@@ -23,7 +23,8 @@ public class HighlightScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		pX = Player.tileX;
 		pZ = Player.tileZ;
 		rMoves = Player.remainingMovement;
