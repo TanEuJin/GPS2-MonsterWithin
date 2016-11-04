@@ -58,6 +58,8 @@ public class EnemyManager : MonoBehaviour
 
 	// How far this unit can move in one turn. Note that some tiles cost extra.
 	public int moveSpeed = 2;
+	public int currentRoam_Value = 0; // for ROAM_ behaviour
+	public bool reachedRoam_ = false;
 	public float remainingMovement = 2;
 	public float distFromPlayer;
 	public EnemyBehavior state;
@@ -92,7 +94,34 @@ public class EnemyManager : MonoBehaviour
 		}
 		else
 		{
-			state = EnemyBehavior.PATROLLING;
+			if(ShardScript.Instance.location == ShardLocation.DINING)
+			{
+				state = EnemyBehavior.ROAM_DINING;
+			}
+			else if(ShardScript.Instance.location == ShardLocation.KITCHEN)
+			{
+				state = EnemyBehavior.ROAM_KITCHEN;
+			}
+			else if(ShardScript.Instance.location == ShardLocation.MORNING)
+			{
+				state = EnemyBehavior.ROAM_MORNING;
+			}
+			else if(ShardScript.Instance.location == ShardLocation.LIVING)
+			{
+				state = EnemyBehavior.ROAM_LIVING;
+			}
+			else if(ShardScript.Instance.location == ShardLocation.LIBRARY)
+			{
+				state = EnemyBehavior.ROAM_LIBRARY;
+			}
+			else if(ShardScript.Instance.location == ShardLocation.BEDROOM)
+			{
+				state = EnemyBehavior.ROAM_BEDROOM;
+			}
+			else
+			{
+				state = EnemyBehavior.PATROLLING;
+			}
 		}
 
 		// Draw our debug line showing the pathfinding!
@@ -190,6 +219,421 @@ public class EnemyManager : MonoBehaviour
 		}
 	}
 
+	void EnemyBehaviourCheck()
+	{
+		if(EnemyManager.Instance.tileX == (int)map.waypoints[currentRoam_Value].x && EnemyManager.Instance.tileZ == (int)map.waypoints[currentRoam_Value].z)
+		{
+			reachedRoam_ = true;
+		}
+
+		// Behavior switch
+		if(state == EnemyBehavior.PATROLLING)
+		{
+			reachedRoam_ = true;
+
+			if(EnemyManager.Instance.tileX == (int)map.waypoints[map.waypointCounter].x && EnemyManager.Instance.tileZ == (int)map.waypoints[map.waypointCounter].z)
+			{
+				map.waypointCounter++;
+			}
+
+			map.GetComponent<TileMap>().EnemyGeneratePathTo((int)map.waypoints [map.waypointCounter].x, (int)map.waypoints [map.waypointCounter].z);
+
+		}
+		else if(state == EnemyBehavior.CHASING)
+		{
+			reachedRoam_ = true;
+
+			if(EnemyManager.Instance.transform.position != PlayerManager.Instance.transform.position)
+			{
+				map.GetComponent<TileMap>().EnemyGeneratePathTo((int)PlayerManager.Instance.transform.position.x, (int)PlayerManager.Instance.transform.position.z);
+			}
+		}
+		else if(state == EnemyBehavior.ROAM_DINING)
+		{
+			if(reachedRoam_)
+			{
+				if(EnemyManager.Instance.tileX == (int)map.waypoints[0].x && EnemyManager.Instance.tileZ == (int)map.waypoints[0].z)
+				{
+					currentRoam_Value = 1;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[1].x && EnemyManager.Instance.tileZ == (int)map.waypoints[1].z)
+				{
+					currentRoam_Value = 3;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[3].x && EnemyManager.Instance.tileZ == (int)map.waypoints[3].z)
+				{
+					currentRoam_Value = 22;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[22].x && EnemyManager.Instance.tileZ == (int)map.waypoints[22].z)
+				{
+					currentRoam_Value = 21;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[21].x && EnemyManager.Instance.tileZ == (int)map.waypoints[21].z)
+				{
+					currentRoam_Value = 19;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[19].x && EnemyManager.Instance.tileZ == (int)map.waypoints[19].z)
+				{
+					currentRoam_Value = 11;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[11].x && EnemyManager.Instance.tileZ == (int)map.waypoints[11].z)
+				{
+					currentRoam_Value = 7;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[7].x && EnemyManager.Instance.tileZ == (int)map.waypoints[7].z)
+				{
+					currentRoam_Value = 8;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[8].x && EnemyManager.Instance.tileZ == (int)map.waypoints[8].z)
+				{
+					currentRoam_Value = 12;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[12].x && EnemyManager.Instance.tileZ == (int)map.waypoints[12].z)
+				{
+					currentRoam_Value = 10;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[10].x && EnemyManager.Instance.tileZ == (int)map.waypoints[10].z)
+				{
+					currentRoam_Value = 6;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[6].x && EnemyManager.Instance.tileZ == (int)map.waypoints[6].z)
+				{
+					currentRoam_Value = 5;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[5].x && EnemyManager.Instance.tileZ == (int)map.waypoints[5].z)
+				{
+					currentRoam_Value = 2;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[2].x && EnemyManager.Instance.tileZ == (int)map.waypoints[2].z)
+				{
+					currentRoam_Value = 0;
+				}
+				else
+				{
+					currentRoam_Value = 0;
+				}
+
+				reachedRoam_ = false;
+			}
+
+			map.GetComponent<TileMap>().EnemyGeneratePathTo((int)map.waypoints[currentRoam_Value].x, (int)map.waypoints[currentRoam_Value].z);
+		}
+		else if(state == EnemyBehavior.ROAM_KITCHEN)
+		{
+			if(reachedRoam_)
+			{
+				if(EnemyManager.Instance.tileX == (int)map.waypoints[11].x && EnemyManager.Instance.tileZ == (int)map.waypoints[11].z)
+				{
+					currentRoam_Value = 7;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[7].x && EnemyManager.Instance.tileZ == (int)map.waypoints[7].z)
+				{
+					currentRoam_Value = 8;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[8].x && EnemyManager.Instance.tileZ == (int)map.waypoints[8].z)
+				{
+					currentRoam_Value = 12;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[12].x && EnemyManager.Instance.tileZ == (int)map.waypoints[12].z)
+				{
+					currentRoam_Value = 10;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[10].x && EnemyManager.Instance.tileZ == (int)map.waypoints[10].z)
+				{
+					currentRoam_Value = 6;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[6].x && EnemyManager.Instance.tileZ == (int)map.waypoints[6].z)
+				{
+					currentRoam_Value = 4;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[4].x && EnemyManager.Instance.tileZ == (int)map.waypoints[4].z)
+				{
+					currentRoam_Value = 3;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[3].x && EnemyManager.Instance.tileZ == (int)map.waypoints[3].z)
+				{
+					currentRoam_Value = 22;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[22].x && EnemyManager.Instance.tileZ == (int)map.waypoints[22].z)
+				{
+					currentRoam_Value = 21;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[21].x && EnemyManager.Instance.tileZ == (int)map.waypoints[21].z)
+				{
+					currentRoam_Value = 19;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[19].x && EnemyManager.Instance.tileZ == (int)map.waypoints[19].z)
+				{
+					currentRoam_Value = 13;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[13].x && EnemyManager.Instance.tileZ == (int)map.waypoints[13].z)
+				{
+					currentRoam_Value = 9;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[9].x && EnemyManager.Instance.tileZ == (int)map.waypoints[9].z)
+				{
+					currentRoam_Value = 11;
+				}
+				else
+				{
+					currentRoam_Value = 11;
+				}
+
+				reachedRoam_ = false;
+			}
+
+			map.GetComponent<TileMap>().EnemyGeneratePathTo((int)map.waypoints[currentRoam_Value].x, (int)map.waypoints[currentRoam_Value].z);
+		}
+		else if(state == EnemyBehavior.ROAM_MORNING)
+		{
+			if(reachedRoam_)
+			{
+				if(EnemyManager.Instance.tileX == (int)map.waypoints[13].x && EnemyManager.Instance.tileZ == (int)map.waypoints[13].z)
+				{
+					currentRoam_Value = 14;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[14].x && EnemyManager.Instance.tileZ == (int)map.waypoints[14].z)
+				{
+					currentRoam_Value = 16;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[16].x && EnemyManager.Instance.tileZ == (int)map.waypoints[16].z)
+				{
+					currentRoam_Value = 15;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[15].x && EnemyManager.Instance.tileZ == (int)map.waypoints[15].z)
+				{
+					currentRoam_Value = 17;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[17].x && EnemyManager.Instance.tileZ == (int)map.waypoints[17].z)
+				{
+					currentRoam_Value = 18;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[18].x && EnemyManager.Instance.tileZ == (int)map.waypoints[18].z)
+				{
+					currentRoam_Value = 20;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[20].x && EnemyManager.Instance.tileZ == (int)map.waypoints[20].z)
+				{
+					currentRoam_Value = 21;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[21].x && EnemyManager.Instance.tileZ == (int)map.waypoints[21].z)
+				{
+					currentRoam_Value = 19;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[19].x && EnemyManager.Instance.tileZ == (int)map.waypoints[19].z)
+				{
+					currentRoam_Value = 9;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[9].x && EnemyManager.Instance.tileZ == (int)map.waypoints[9].z)
+				{
+					currentRoam_Value = 11;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[11].x && EnemyManager.Instance.tileZ == (int)map.waypoints[11].z)
+				{
+					currentRoam_Value = 7;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[7].x && EnemyManager.Instance.tileZ == (int)map.waypoints[7].z)
+				{
+					currentRoam_Value = 12;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[12].x && EnemyManager.Instance.tileZ == (int)map.waypoints[12].z)
+				{
+					currentRoam_Value = 13;
+				}
+				else
+				{
+					currentRoam_Value = 13;
+				}
+
+				reachedRoam_ = false;
+			}
+
+			map.GetComponent<TileMap>().EnemyGeneratePathTo((int)map.waypoints[currentRoam_Value].x, (int)map.waypoints[currentRoam_Value].z);
+		}
+		else if(state == EnemyBehavior.ROAM_LIVING)
+		{
+			if(reachedRoam_)
+			{
+				if(EnemyManager.Instance.tileX == (int)map.waypoints[25].x && EnemyManager.Instance.tileZ == (int)map.waypoints[25].z)
+				{
+					currentRoam_Value = 30;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[30].x && EnemyManager.Instance.tileZ == (int)map.waypoints[30].z)
+				{
+					currentRoam_Value = 42;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[42].x && EnemyManager.Instance.tileZ == (int)map.waypoints[42].z)
+				{
+					currentRoam_Value = 41;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[41].x && EnemyManager.Instance.tileZ == (int)map.waypoints[41].z)
+				{
+					currentRoam_Value = 43;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[43].x && EnemyManager.Instance.tileZ == (int)map.waypoints[43].z)
+				{
+					currentRoam_Value = 28;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[28].x && EnemyManager.Instance.tileZ == (int)map.waypoints[28].z)
+				{
+					currentRoam_Value = 24;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[24].x && EnemyManager.Instance.tileZ == (int)map.waypoints[24].z)
+				{
+					currentRoam_Value = 23;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[23].x && EnemyManager.Instance.tileZ == (int)map.waypoints[23].z)
+				{
+					currentRoam_Value = 29;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[29].x && EnemyManager.Instance.tileZ == (int)map.waypoints[29].z)
+				{
+					currentRoam_Value = 27;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[27].x && EnemyManager.Instance.tileZ == (int)map.waypoints[27].z)
+				{
+					currentRoam_Value = 31;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[31].x && EnemyManager.Instance.tileZ == (int)map.waypoints[31].z)
+				{
+					currentRoam_Value = 26;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[26].x && EnemyManager.Instance.tileZ == (int)map.waypoints[26].z)
+				{
+					currentRoam_Value = 25;
+				}
+				else
+				{
+					currentRoam_Value = 25;
+				}
+
+				reachedRoam_ = false;
+			}
+
+			map.GetComponent<TileMap>().EnemyGeneratePathTo((int)map.waypoints[currentRoam_Value].x, (int)map.waypoints[currentRoam_Value].z);
+		}
+		else if(state == EnemyBehavior.ROAM_LIBRARY)
+		{
+			if(reachedRoam_)
+			{
+				if(EnemyManager.Instance.tileX == (int)map.waypoints[34].x && EnemyManager.Instance.tileZ == (int)map.waypoints[34].z)
+				{
+					currentRoam_Value = 33;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[33].x && EnemyManager.Instance.tileZ == (int)map.waypoints[33].z)
+				{
+					currentRoam_Value = 35;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[35].x && EnemyManager.Instance.tileZ == (int)map.waypoints[35].z)
+				{
+					currentRoam_Value = 38;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[38].x && EnemyManager.Instance.tileZ == (int)map.waypoints[38].z)
+				{
+					currentRoam_Value = 36;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[36].x && EnemyManager.Instance.tileZ == (int)map.waypoints[36].z)
+				{
+					currentRoam_Value = 39;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[39].x && EnemyManager.Instance.tileZ == (int)map.waypoints[39].z)
+				{
+					currentRoam_Value = 37;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[37].x && EnemyManager.Instance.tileZ == (int)map.waypoints[37].z)
+				{
+					currentRoam_Value = 17;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[17].x && EnemyManager.Instance.tileZ == (int)map.waypoints[17].z)
+				{
+					currentRoam_Value = 15;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[15].x && EnemyManager.Instance.tileZ == (int)map.waypoints[15].z)
+				{
+					currentRoam_Value = 20;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[20].x && EnemyManager.Instance.tileZ == (int)map.waypoints[20].z)
+				{
+					currentRoam_Value = 29;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[29].x && EnemyManager.Instance.tileZ == (int)map.waypoints[29].z)
+				{
+					currentRoam_Value = 32;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[32].x && EnemyManager.Instance.tileZ == (int)map.waypoints[32].z)
+				{
+					currentRoam_Value = 34;
+				}
+				else
+				{
+					currentRoam_Value = 34;
+				}
+
+				reachedRoam_ = false;
+			}
+
+			map.GetComponent<TileMap>().EnemyGeneratePathTo((int)map.waypoints[currentRoam_Value].x, (int)map.waypoints[currentRoam_Value].z);
+		}
+		else if(state == EnemyBehavior.ROAM_BEDROOM)
+		{
+			if(reachedRoam_)
+			{
+				if(EnemyManager.Instance.tileX == (int)map.waypoints[42].x && EnemyManager.Instance.tileZ == (int)map.waypoints[42].z)
+				{
+					currentRoam_Value = 41;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[41].x && EnemyManager.Instance.tileZ == (int)map.waypoints[41].z)
+				{
+					currentRoam_Value = 43;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[43].x && EnemyManager.Instance.tileZ == (int)map.waypoints[43].z)
+				{
+					currentRoam_Value = 30;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[30].x && EnemyManager.Instance.tileZ == (int)map.waypoints[30].z)
+				{
+					currentRoam_Value = 31;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[31].x && EnemyManager.Instance.tileZ == (int)map.waypoints[31].z)
+				{
+					currentRoam_Value = 27;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[27].x && EnemyManager.Instance.tileZ == (int)map.waypoints[27].z)
+				{
+					currentRoam_Value = 28;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[28].x && EnemyManager.Instance.tileZ == (int)map.waypoints[28].z)
+				{
+					currentRoam_Value = 33;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[33].x && EnemyManager.Instance.tileZ == (int)map.waypoints[33].z)
+				{
+					currentRoam_Value = 35;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[35].x && EnemyManager.Instance.tileZ == (int)map.waypoints[35].z)
+				{
+					currentRoam_Value = 38;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[38].x && EnemyManager.Instance.tileZ == (int)map.waypoints[38].z)
+				{
+					currentRoam_Value = 40;
+				}
+				else if(EnemyManager.Instance.tileX == (int)map.waypoints[40].x && EnemyManager.Instance.tileZ == (int)map.waypoints[40].z)
+				{
+					currentRoam_Value = 42;
+				}
+				else
+				{
+					currentRoam_Value = 42;
+				}
+
+				reachedRoam_ = false;
+			}
+
+			map.GetComponent<TileMap>().EnemyGeneratePathTo((int)map.waypoints[currentRoam_Value].x, (int)map.waypoints[currentRoam_Value].z);
+		}
+	}
+
 	// The "Next Turn" button calls this.
 	public void NextTurn()
 	{
@@ -203,26 +647,7 @@ public class EnemyManager : MonoBehaviour
 		// Update distance calculation only when move
 		distFromPlayer = Vector3.Distance(PlayerManager.Instance.transform.position, this.transform.position);
 
-		// Behavior switch
-		if(EnemyManager.Instance.state == EnemyBehavior.PATROLLING)
-		{
-			if(EnemyManager.Instance.tileX == (int)map.waypoints[map.waypointCounter].x && EnemyManager.Instance.tileZ == (int)map.waypoints[map.waypointCounter].z)
-			{
-				map.waypointCounter++;
-				map.GetComponent<TileMap>().EnemyGeneratePathTo((int)map.waypoints[map.waypointCounter].x, (int)map.waypoints[map.waypointCounter].z);
-			}
-			else
-			{
-				map.GetComponent<TileMap>().EnemyGeneratePathTo((int)map.waypoints [map.waypointCounter].x, (int)map.waypoints [map.waypointCounter].z);
-			}
-		}
-		else if(EnemyManager.Instance.state == EnemyBehavior.CHASING)
-		{
-			if(EnemyManager.Instance.transform.position != PlayerManager.Instance.transform.position)
-			{
-				map.GetComponent<TileMap>().EnemyGeneratePathTo((int)PlayerManager.Instance.transform.position.x, (int)PlayerManager.Instance.transform.position.z);
-			}
-		}
+		EnemyBehaviourCheck();
 
 		// Reset our available movement points.
 		remainingMovement = moveSpeed;
