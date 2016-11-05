@@ -5,10 +5,6 @@ using System.Collections.Generic;
 
 public enum AudioClipID
 {
-	BGM_MAIN_MENU = 0,
-	BGM_MANSION = 1,
-	BGM_GAMEOVER = 2,
-
 	SFX_PLAYERMOVE = 101,
 	SFX_DOOROPEN = 100,
 	SFX_ENEMYMOVE = 99,
@@ -73,17 +69,13 @@ public class SoundManagerScript : MonoBehaviour
 		}
 	}
 
-	public float bgmVolume = 1.0f;
 	public float sfxVolume = 1.0f;
 
 
 	public List<AudioClipInfo> audioClipInfoList = new List<AudioClipInfo>();
 
-	public AudioSource bgmAudioSource;
 	public AudioSource sfxAudioSource;
-
 	public List<AudioSource> sfxAudioSourceList = new List<AudioSource>();
-	public List<AudioSource> bgmAudioSourceList = new List<AudioSource>();
 
 	void Start()
 	{
@@ -101,12 +93,10 @@ public class SoundManagerScript : MonoBehaviour
 
 		if(audioSourceList[0].gameObject.name == "BGMAudioSource")
 		{
-			bgmAudioSource = audioSourceList[0];
 			sfxAudioSource = audioSourceList[1];
 		}
 		else 
 		{
-			bgmAudioSource = audioSourceList[1];
 			sfxAudioSource = audioSourceList[0];
 		}
 	}
@@ -131,88 +121,6 @@ public class SoundManagerScript : MonoBehaviour
 
 		return null;
 	}
-
-	//! BACKGROUND MUSIC (BGM)
-	public void PlayBGM(AudioClipID audioClipID)
-	{
-		bgmAudioSource.clip = FindAudioClip(audioClipID);
-		Debug.Log (audioClipID);
-		bgmAudioSource.volume = bgmVolume;
-		bgmAudioSource.Play();
-	}
-
-	public void PauseBGM()
-	{
-		if(bgmAudioSource.isPlaying)
-		{
-			bgmAudioSource.Pause();
-		}
-	}
-
-	public void StopBGM()
-	{
-		if(bgmAudioSource.isPlaying)
-		{
-			bgmAudioSource.Stop();
-		}
-	}
-
-	public void PlayLoopingBGM(AudioClipID audioClipID)
-	{
-		AudioClip clipToPlay = FindAudioClip(audioClipID);
-
-		for(int i=0; i<bgmAudioSourceList.Count; i++)
-		{
-			if(bgmAudioSourceList[i].clip == clipToPlay)
-			{
-				if(bgmAudioSourceList[i].isPlaying)
-				{
-					return;
-				}
-
-				bgmAudioSourceList[i].volume = sfxVolume;
-				bgmAudioSourceList[i].Play();
-				return;
-			}
-		}
-
-		AudioSource newInstance = gameObject.AddComponent<AudioSource>();
-		newInstance.clip = clipToPlay;
-		newInstance.volume = sfxVolume;
-		newInstance.loop = true;
-		newInstance.Play();
-		bgmAudioSourceList.Add(newInstance);
-	}
-
-	public void PauseLoopingBGM(AudioClipID audioClipID)
-	{
-		AudioClip clipToPause = FindAudioClip(audioClipID);
-
-		for(int i=0; i<bgmAudioSourceList.Count; i++)
-		{
-			if(bgmAudioSourceList[i].clip == clipToPause)
-			{
-				bgmAudioSourceList[i].Pause();
-				return;
-			}
-		}
-	}
-
-
-	public void StopLoopingBGM(AudioClipID audioClipID)
-	{
-		AudioClip clipToStop = FindAudioClip(audioClipID);
-
-		for(int i=0; i<bgmAudioSourceList.Count; i++)
-		{
-			if(bgmAudioSourceList[i].clip == clipToStop)
-			{
-				bgmAudioSourceList[i].Stop();
-				return;
-			}
-		}
-	}
-
 
 	//! SOUND EFFECTS (SFX)
 	public void PlaySFX(AudioClipID audioClipID)
@@ -275,12 +183,7 @@ public class SoundManagerScript : MonoBehaviour
 			}
 		}
 	}
-
-	public void SetBGMVolume(float value)
-	{
-		bgmVolume = value;
-	}
-
+		
 	public void SetSFXVolume(float value)
 	{
 		sfxVolume = value;

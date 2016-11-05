@@ -95,22 +95,26 @@ public class PlayerManager : MonoBehaviour
 
 		if(Input.GetMouseButtonDown(0))
 		{
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-			if(EventSystem.current.IsPointerOverGameObject())
+			if (isHidden == false) 
 			{
-				return;
-			}
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-			if(Physics.Raycast(ray,out tileHit, Mathf.Infinity, LayerTile.value))
-			{
-				if(tileHit.transform.gameObject != null)
+				if(EventSystem.current.IsPointerOverGameObject())
 				{
-					SoundManagerScript.Instance.PlaySFX (AudioClipID.SFX_PLAYERMOVE);
-					Debug.DrawRay(tileHit.transform.position, Vector3.up, Color.red, Mathf.Infinity);
-					map.PlayerGeneratePathTo ((int)tileHit.transform.position.x, (int)tileHit.transform.position.z);
+					return;
+				}
+
+				if(Physics.Raycast(ray,out tileHit, Mathf.Infinity, LayerTile.value))
+				{
+					if(tileHit.transform.gameObject != null)
+					{
+						SoundManagerScript.Instance.PlayerMove.Play();
+						Debug.DrawRay(tileHit.transform.position, Vector3.up, Color.red, Mathf.Infinity);
+						map.PlayerGeneratePathTo ((int)tileHit.transform.position.x, (int)tileHit.transform.position.z);
+					}
 				}
 			}
+
 		}
 
 		// NOTE: This won't appear in the actual game view.

@@ -17,7 +17,7 @@ public class LightSourceScript : MonoBehaviour {
 			GetComponent<Light> ().intensity -= 0.5f * Time.deltaTime;
 		}
 
-		if (GetComponent<Light> ().intensity >= 8.0f) 
+		if (GetComponent<Light> ().intensity >= 3.0f) 
 		{
 			canDecrease = true;
 			canIncrease = false;
@@ -27,7 +27,7 @@ public class LightSourceScript : MonoBehaviour {
 			GetComponent<Light> ().intensity += 0.5f * Time.deltaTime;
 		}
 
-		if (GetComponent<Light> ().intensity <= 7.5f) 
+		if (GetComponent<Light> ().intensity <= 2.5f) 
 		{
 			canDecrease = false;
 			canIncrease = true;
