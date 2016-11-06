@@ -270,11 +270,6 @@ public class PlayerManager : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.CompareTag("Light"))
-		{
-			hasLight = true;
-		}
-
 		/*if (other.CompareTag ("HideObject").Equals(HideObject[1])) 
 		{
 			Debug.Log ("Test!");
@@ -319,11 +314,6 @@ public class PlayerManager : MonoBehaviour
 
 	void OnTriggerExit(Collider other)
 	{
-		if(other.CompareTag("Light"))
-		{
-			hasLight = false;
-		}
-
 		for (int i = 0; i < HideObject.Count; i++) 
 		{
 			if (other.gameObject == HideObject [i]) 
