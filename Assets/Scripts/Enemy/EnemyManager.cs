@@ -68,6 +68,7 @@ public class EnemyManager : MonoBehaviour
 	Animator anim;
 	Transform modalTransform;
 
+	int RandChance;
 	bool caughtPlayer = false;
 	float loseDelayTimer = 0.0f;
 	public float loseDelayDuration = 1.0f;
@@ -86,6 +87,7 @@ public class EnemyManager : MonoBehaviour
 			return;
 		}
 
+		RandomChanceGenerator();
 		PlayerDetection();
 
 		//! Setting Enemy Behavior
@@ -228,6 +230,11 @@ public class EnemyManager : MonoBehaviour
 		}
 	}
 
+	void RandomChanceGenerator()
+	{
+		RandChance = Random.Range(1,5);
+	}
+
 	void EnemyBehaviourCheck()
 	{
 		if(EnemyManager.Instance.tileX == (int)map.waypoints[currentRoam_Value].x && EnemyManager.Instance.tileZ == (int)map.waypoints[currentRoam_Value].z)
@@ -295,7 +302,14 @@ public class EnemyManager : MonoBehaviour
 				}
 				else if(EnemyManager.Instance.tileX == (int)map.waypoints[8].x && EnemyManager.Instance.tileZ == (int)map.waypoints[8].z)
 				{
-					currentRoam_Value = 12;
+					if(RandChance == 1)
+					{
+						currentRoam_Value = 0;
+					}
+					else
+					{
+						currentRoam_Value = 12;
+					}
 				}
 				else if(EnemyManager.Instance.tileX == (int)map.waypoints[12].x && EnemyManager.Instance.tileZ == (int)map.waypoints[12].z)
 				{
@@ -361,7 +375,14 @@ public class EnemyManager : MonoBehaviour
 				}
 				else if(EnemyManager.Instance.tileX == (int)map.waypoints[3].x && EnemyManager.Instance.tileZ == (int)map.waypoints[3].z)
 				{
-					currentRoam_Value = 22;
+					if(RandChance == 1)
+					{
+						currentRoam_Value = 8;
+					}
+					else
+					{
+						currentRoam_Value = 22;
+					}
 				}
 				else if(EnemyManager.Instance.tileX == (int)map.waypoints[22].x && EnemyManager.Instance.tileZ == (int)map.waypoints[22].z)
 				{
@@ -431,7 +452,14 @@ public class EnemyManager : MonoBehaviour
 				}
 				else if(EnemyManager.Instance.tileX == (int)map.waypoints[19].x && EnemyManager.Instance.tileZ == (int)map.waypoints[19].z)
 				{
-					currentRoam_Value = 9;
+					if(RandChance == 1)
+					{
+						currentRoam_Value = 16;
+					}
+					else
+					{
+						currentRoam_Value = 9;
+					}
 				}
 				else if(EnemyManager.Instance.tileX == (int)map.waypoints[9].x && EnemyManager.Instance.tileZ == (int)map.waypoints[9].z)
 				{
@@ -497,7 +525,14 @@ public class EnemyManager : MonoBehaviour
 				}
 				else if(EnemyManager.Instance.tileX == (int)map.waypoints[29].x && EnemyManager.Instance.tileZ == (int)map.waypoints[29].z)
 				{
-					currentRoam_Value = 27;
+					if(RandChance == 1)
+					{
+						currentRoam_Value = 25;
+					}
+					else
+					{
+						currentRoam_Value = 27;
+					}
 				}
 				else if(EnemyManager.Instance.tileX == (int)map.waypoints[27].x && EnemyManager.Instance.tileZ == (int)map.waypoints[27].z)
 				{
@@ -559,7 +594,14 @@ public class EnemyManager : MonoBehaviour
 				}
 				else if(EnemyManager.Instance.tileX == (int)map.waypoints[15].x && EnemyManager.Instance.tileZ == (int)map.waypoints[15].z)
 				{
-					currentRoam_Value = 20;
+					if(RandChance == 1)
+					{
+						currentRoam_Value = 32;
+					}
+					else
+					{
+						currentRoam_Value = 20;
+					}
 				}
 				else if(EnemyManager.Instance.tileX == (int)map.waypoints[20].x && EnemyManager.Instance.tileZ == (int)map.waypoints[20].z)
 				{
@@ -617,7 +659,14 @@ public class EnemyManager : MonoBehaviour
 				}
 				else if(EnemyManager.Instance.tileX == (int)map.waypoints[33].x && EnemyManager.Instance.tileZ == (int)map.waypoints[33].z)
 				{
-					currentRoam_Value = 35;
+					if(RandChance == 1)
+					{
+						currentRoam_Value = 42;
+					}
+					else
+					{
+						currentRoam_Value = 35;
+					}
 				}
 				else if(EnemyManager.Instance.tileX == (int)map.waypoints[35].x && EnemyManager.Instance.tileZ == (int)map.waypoints[35].z)
 				{
