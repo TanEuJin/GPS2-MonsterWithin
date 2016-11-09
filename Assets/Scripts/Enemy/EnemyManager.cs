@@ -171,12 +171,18 @@ public class EnemyManager : MonoBehaviour
 			return;
 		}
 
-		// Teleport us to our correct "current" position, in case we
-		// haven't finished the animation yet.
+		// Teleport us to our correct "current" position, in case we haven't finished the animation yet.
 		transform.position = map.TileCoordToWorldCoord( tileX, tileZ );
 
 		// Get cost from current tile to next tile
 		remainingMovement -= map.CostToEnterTile(currentPath[0].x, currentPath[0].z, currentPath[1].x, currentPath[1].z );
+
+		// Reenable the End Turn button once enemy finish his movement
+		if(remainingMovement == 0)
+		{
+			GUIManagerScript.Instance.endTurnButton.interactable = true;
+			PlayerManager.Instance.NextTurn();
+		}
 		
 		// Move us to the next tile in the sequence
 		if(tileX + 1 == currentPath[1].x)
@@ -215,6 +221,8 @@ public class EnemyManager : MonoBehaviour
 			// We only have one tile left in the path, and that tile MUST be our ultimate
 			// destination -- and we are standing on it!
 			// So let's just clear our pathfinding info.
+			GUIManagerScript.Instance.endTurnButton.interactable = true; // Reenable the End Turn button once enemy finish his movement
+			PlayerManager.Instance.NextTurn();
 			currentPath = null;
 		}
 	}
@@ -655,7 +663,7 @@ public class EnemyManager : MonoBehaviour
 
 	void PlayerDetection()
 	{
-		if((PlayerManager.Instance.hasLight == true && distFromPlayer <= 4) || PlayerManager.Instance.currentSanityLevel <= 0)
+		if((PlayerManager.Instance.hasLight == true && distFromPlayer <= 8) || PlayerManager.Instance.currentSanityLevel <= 1)
 		{
 			playerDetectable = true;
 		}

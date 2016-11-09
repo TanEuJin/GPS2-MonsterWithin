@@ -93,7 +93,7 @@ public class PlayerManager : MonoBehaviour
 			return;
 		}
 
-		if(Input.GetMouseButtonDown(0))
+		if(Input.GetMouseButtonDown(0) && GUIManagerScript.Instance.endTurnButton.interactable != false)
 		{
 			if (isHidden == false) 
 			{
@@ -163,8 +163,7 @@ public class PlayerManager : MonoBehaviour
 			return;
 		}
 
-		// Teleport us to our correct "current" position, in case we
-		// haven't finished the animation yet.
+		// Teleport us to our correct "current" position, in case we haven't finished the animation yet.
 		transform.position = map.TileCoordToWorldCoord( tileX, tileZ );
 
 		// Get cost from current tile to next tile

@@ -40,14 +40,10 @@ public class GUIManagerScript : MonoBehaviour
 	public Canvas losingMenu;
 
 	public Button endTurnButton;
-	public Image test;
 
 	void Start()
 	{
 		Screen.orientation = ScreenOrientation.Landscape;
-
-		//test.GetComponent<CanvasRenderer>().SetAlpha(0f);
-		//test.CrossFadeAlpha(1.0f, 3.0f, false);
 	}
 
 	void Update()
@@ -125,8 +121,8 @@ public class GUIManagerScript : MonoBehaviour
 			UpdateSanityBar();
 		}
 
-		PlayerManager.Instance.NextTurn ();
 		PlayerManager.Instance.currentPath = null;
+		endTurnButton.interactable = false;
 		playerTurn = false;
 	}
 
