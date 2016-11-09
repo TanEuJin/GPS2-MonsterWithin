@@ -77,7 +77,7 @@ public class PlayerManager : MonoBehaviour
 	void Start()
 	{
 		GUIManagerScript.Instance.UpdateSanityBar();
-		GUIManagerScript.Instance.movesCount.text = "Movement Steps: " + remainingMovement;
+		GUIManagerScript.Instance.UpdateMovementSteps();
 
 		anim = GetComponentInChildren<Animator>();
 		playerTransform = transform.GetChild(0).gameObject.transform;
@@ -208,7 +208,8 @@ public class PlayerManager : MonoBehaviour
 			currentPath = null;
 		}
 
-		GUIManagerScript.Instance.movesCount.text = "Movement Steps: " + remainingMovement;
+		//GUIManagerScript.Instance.movesCount.text = "Movement Steps: " + remainingMovement;
+		GUIManagerScript.Instance.UpdateMovementSteps();
 	}
 
 	// The "Next Turn" button calls this.
@@ -251,7 +252,7 @@ public class PlayerManager : MonoBehaviour
 			remainingMovement = 4;
 		}
 
-		GUIManagerScript.Instance.movesCount.text = "Movement Steps: " + remainingMovement;
+		GUIManagerScript.Instance.UpdateMovementSteps();
 		GUIManagerScript.Instance.PlayerTurnText(true);
 	}
 

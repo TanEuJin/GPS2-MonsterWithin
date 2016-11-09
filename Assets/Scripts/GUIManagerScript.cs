@@ -31,7 +31,11 @@ public class GUIManagerScript : MonoBehaviour
 	}
 
 	public int shardCollected = 0;
+
 	public Text movesCount;
+	public Image currentMovementCountImage;
+	public Sprite[] movementCountImagesList;
+
 	public Image currentSanityImage;
 	public Sprite[] sanityImagesList;
 
@@ -90,6 +94,30 @@ public class GUIManagerScript : MonoBehaviour
 		else if(PlayerManager.Instance.currentSanityLevel == 6)
 		{
 			currentSanityImage.sprite = sanityImagesList[5];
+		}
+	}
+
+	public void UpdateMovementSteps()
+	{
+		if(PlayerManager.Instance.remainingMovement == 0)
+		{
+			currentMovementCountImage.sprite = movementCountImagesList[0];
+		}
+		else if(PlayerManager.Instance.remainingMovement == 1)
+		{
+			currentMovementCountImage.sprite = movementCountImagesList[1];
+		}
+		else if(PlayerManager.Instance.remainingMovement == 2)
+		{
+			currentMovementCountImage.sprite = movementCountImagesList[2];
+		}
+		else if(PlayerManager.Instance.remainingMovement == 3)
+		{
+			currentMovementCountImage.sprite = movementCountImagesList[3];
+		}
+		else if(PlayerManager.Instance.remainingMovement == 4)
+		{
+			currentMovementCountImage.sprite = movementCountImagesList[4];
 		}
 	}
 
