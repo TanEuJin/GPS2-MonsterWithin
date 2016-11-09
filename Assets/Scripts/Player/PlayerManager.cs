@@ -253,6 +253,7 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		GUIManagerScript.Instance.movesCount.text = "Movement Steps: " + remainingMovement;
+		GUIManagerScript.Instance.PlayerTurnText(true);
 	}
 
 	public void IncreaseSanity()
