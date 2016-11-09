@@ -38,16 +38,13 @@ public class GUIManagerScript : MonoBehaviour
 	public Canvas gameUI;
 	public Canvas pauseMenu;
 	public Canvas losingMenu;
+	public Canvas memoryCanvas;
 
 	public Button endTurnButton;
-	public Image test;
 
 	void Start()
 	{
 		Screen.orientation = ScreenOrientation.Landscape;
-
-		//test.GetComponent<CanvasRenderer>().SetAlpha(0f);
-		//test.CrossFadeAlpha(1.0f, 3.0f, false);
 	}
 
 	void Update()
@@ -162,5 +159,17 @@ public class GUIManagerScript : MonoBehaviour
 		{
 			losingMenu.GetComponent<CanvasGroup>().interactable = true;
 		}
+	}
+
+	public void ActivateMemory()
+	{
+		gameUI.gameObject.SetActive(false);
+		memoryCanvas.gameObject.SetActive(true);
+	}
+
+	public void DeactivateMemory()
+	{
+		gameUI.gameObject.SetActive(true);
+		memoryCanvas.gameObject.SetActive(false);
 	}
 }
