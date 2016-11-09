@@ -47,9 +47,11 @@ public class PlayerWall : MonoBehaviour
 			//Only do something if the object is not already in the list
 			if (!hiddenObjects.Contains(currentHit))
 			{
-				//Add to list and disable renderer
-				hiddenObjects.Add(currentHit);
-				currentHit.gameObject.GetComponent<Renderer>().material = transparent;
+				if (currentHit.gameObject.GetComponent<Renderer> () != null) {
+					//Add to list and disable renderer
+					hiddenObjects.Add (currentHit);
+					currentHit.gameObject.GetComponent<Renderer> ().material = transparent;
+				}
 			}
 		}
 
