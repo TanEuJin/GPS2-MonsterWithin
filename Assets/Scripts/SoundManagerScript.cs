@@ -31,10 +31,12 @@ public class SoundManagerScript : MonoBehaviour
 	public AudioMixerSnapshot notSeenByEnemy;
 	public AudioMixerSnapshot seenByEnemy;
 	public AudioMixerSnapshot sanityLow;
+	public AudioMixerSnapshot proximityDread;
 	public AudioClip[] Spotted;
 	public AudioSource seenByTheEnemy;
 	public AudioSource SpottedSource;
 	public AudioSource Horrified;
+	public AudioSource Dread;
 	public AudioSource PlayerMove;
 	public AudioSource EnemyMove;
 	public float bpm = 128;
