@@ -57,7 +57,7 @@ public class EnemyManager : MonoBehaviour
 	public List<Node> currentPath = null;
 
 	// How far this unit can move in one turn. Note that some tiles cost extra.
-	public int moveSpeed = 2;
+	public int moveSpeed;
 	public int currentRoam_Value = 0; // for ROAM_ behaviour
 	public bool reachedRoam_ = false;
 	public float remainingMovement = 2;
@@ -76,6 +76,7 @@ public class EnemyManager : MonoBehaviour
 	{
 		anim = GetComponentInChildren<Animator>();
 		modalTransform = transform.GetChild(0).gameObject.transform;
+		moveSpeed = 2;
 	}
 
 	void Update()

@@ -183,7 +183,11 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		gameUI.gameObject.SetActive(false);
 		memoryCanvas.gameObject.SetActive(true);
-		shardCollected++;
+		if(shardCollected <= 2)
+		{
+			shardCollected++;
+			EnemyManager.Instance.moveSpeed++;
+		}
 
 		if(shardCollected == 1)
 		{
