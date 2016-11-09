@@ -37,6 +37,26 @@ public class HideObjectScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
+
+
+	public void HideInteract()
+	{
+		if (PlayerManager.Instance.HideInteract == true) 
+		{
+			anim.Play ("Open");
+			if (PlayerManager.Instance.isHidden == false)
+			{
+				PlayerManager.Instance.playerModel.SetActive(false);
+				PlayerManager.Instance.isHidden = true;
+			} 
+
+			else if (PlayerManager.Instance.isHidden == true) 
+			{
+				PlayerManager.Instance.playerModel.SetActive(true);
+				PlayerManager.Instance.isHidden = false;
+			}
+		}
+	}
+
 }
