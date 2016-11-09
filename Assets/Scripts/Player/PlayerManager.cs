@@ -77,7 +77,7 @@ public class PlayerManager : MonoBehaviour
 	void Start()
 	{
 		GUIManagerScript.Instance.UpdateSanityBar();
-		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
+		GUIManagerScript.Instance.movesCount.text = "Movement Steps: " + remainingMovement;
 
 		anim = GetComponentInChildren<Animator>();
 		playerTransform = transform.GetChild(0).gameObject.transform;
@@ -209,7 +209,7 @@ public class PlayerManager : MonoBehaviour
 			currentPath = null;
 		}
 
-		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
+		GUIManagerScript.Instance.movesCount.text = "Movement Steps: " + remainingMovement;
 	}
 
 	// The "Next Turn" button calls this.
@@ -252,7 +252,7 @@ public class PlayerManager : MonoBehaviour
 			remainingMovement = 4;
 		}
 
-		GUIManagerScript.Instance.movesCount.text = "Remaining Movements: " + remainingMovement;
+		GUIManagerScript.Instance.movesCount.text = "Movement Steps: " + remainingMovement;
 	}
 
 	public void IncreaseSanity()

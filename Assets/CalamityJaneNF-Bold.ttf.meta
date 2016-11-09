@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: e12009158e9571644b65d4a93e421483
+timeCreated: 1478707198
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Calamity Jane NF
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4a3884a62002150449a830b5e8b86214, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

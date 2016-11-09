@@ -31,9 +31,8 @@ public class GUIManagerScript : MonoBehaviour
 	}
 
 	public int shardCollected = 0;
-	public Image sanityBar;
-	public Image[] sanityBarImagesList;
 	public Text movesCount;
+	public Animator sanityLevels;
 
 	public bool playerTurn = true;
 
@@ -66,19 +65,17 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void UpdateSanityBar()
 	{
-		sanityBar.fillAmount = (PlayerManager.Instance.currentSanityLevel * 1.0f / PlayerManager.Instance.maxSanityLevel * 1.0f);
-
 		if(PlayerManager.Instance.currentSanityLevel >=0 && PlayerManager.Instance.currentSanityLevel <=2)
 		{
-			sanityBar.color = Color.red;
+			sanityLevels.Play("LowSanityLevel");
 		}
 		else if(PlayerManager.Instance.currentSanityLevel >=3 && PlayerManager.Instance.currentSanityLevel <=4)
 		{
-			sanityBar.color = Color.yellow;
+			sanityLevels.Play("NormalSanityLevel");
 		}
 		else if(PlayerManager.Instance.currentSanityLevel >=5 && PlayerManager.Instance.currentSanityLevel <=6)
 		{
-			sanityBar.color = Color.green;
+			sanityLevels.Play("MaxSanityLevel");
 		}
 	}
 
@@ -123,9 +120,9 @@ public class GUIManagerScript : MonoBehaviour
 
 			if(PlayerManager.Instance.turnsInDark == PlayerManager.Instance.maxTurnInDark)
 			{
+				PlayerManager.Instance.turnsInDark = 0;
 				PlayerManager.Instance.ReduceSanity();
 				UpdateSanityBar();
-				PlayerManager.Instance.turnsInDark = 0;
 			}
 		}
 
