@@ -11,6 +11,7 @@ public class ShardSpawnManagerScript : MonoBehaviour
 	int Rand_1;
 	int Rand_2;
 	int Rand_3;
+	int Rand_4;
 
 	void Awake()
 	{
@@ -45,6 +46,7 @@ public class ShardSpawnManagerScript : MonoBehaviour
 		Rand_1 = Random.Range(4, 5);
 		Rand_2 = Random.Range(0, 1);
 		Rand_3 = Random.Range(2, 3);
+		Rand_4 = Random.Range(0, 2);
 	}
 
 	void CheckSpawn()
@@ -66,7 +68,7 @@ public class ShardSpawnManagerScript : MonoBehaviour
 		}
 		else
 		{
-			shard.transform.position = new Vector3(shardSpawnpoints[0].x, 1, shardSpawnpoints[0].z);
+			shard.transform.position = new Vector3(shardSpawnpoints[Rand_4].x, 1, shardSpawnpoints[Rand_4].z);
 			SpawnShard();
 		}
 	}
