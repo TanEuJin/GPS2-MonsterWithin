@@ -24,7 +24,7 @@ ModelImporter:
     400014: Rectangle004
     400016: wood wall 043
     4300000: wood wall 043
-    7400000: Take 001
+    7400000: Open
     9500000: //RootNode
     13700000: wood wall 043
   materials:
@@ -41,13 +41,59 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Open
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Rectangle004
+        weight: 1
+      - path: Rectangle004/Bone001
+        weight: 1
+      - path: Rectangle004/Bone001/Circle010
+        weight: 1
+      - path: Rectangle004/Bone001/Circle010/Bone002
+        weight: 1
+      - path: Rectangle004/Bone005
+        weight: 1
+      - path: Rectangle004/Bone005/Circle009
+        weight: 1
+      - path: Rectangle004/Bone005/Circle009/Bone006
+        weight: 1
+      - path: wood wall 043
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -71,7 +117,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
     human: []
     skeleton: []
@@ -84,7 +130,8 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 2e499ea8b3344ad47806aa0108277f1a,
+    type: 3}
   animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
