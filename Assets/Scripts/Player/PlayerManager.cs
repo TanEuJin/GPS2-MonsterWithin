@@ -265,7 +265,7 @@ public class PlayerManager : MonoBehaviour
 
 	public void ReduceSanity()
 	{
-		if(currentSanityLevel - 1 >= 0)
+		if(currentSanityLevel - 1 >= 1)
 		{
 			currentSanityLevel --;
 		}

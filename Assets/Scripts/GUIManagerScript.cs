@@ -32,6 +32,7 @@ public class GUIManagerScript : MonoBehaviour
 
 	public int shardCollected = 0;
 	public Image sanityBar;
+	public Image[] sanityBarImagesList;
 	public Text movesCount;
 
 	public bool playerTurn = true;
@@ -44,6 +45,10 @@ public class GUIManagerScript : MonoBehaviour
 	public Button endTurnButton;
 
 	public Text winloseText;
+
+	public Image memoryPic;
+	public Image[] memoriesPicsList;
+	public Text memoryDescription;
 
 	void Start()
 	{
