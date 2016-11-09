@@ -32,7 +32,8 @@ public class GUIManagerScript : MonoBehaviour
 
 	public int shardCollected = 0;
 	public Text movesCount;
-	public Animator sanityLevels;
+	public Image currentSanityImage;
+	public Sprite[] sanityImagesList;
 
 	public bool playerTurn = true;
 
@@ -66,17 +67,29 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void UpdateSanityBar()
 	{
-		if(PlayerManager.Instance.currentSanityLevel >=0 && PlayerManager.Instance.currentSanityLevel <=2)
+		if(PlayerManager.Instance.currentSanityLevel == 1)
 		{
-			sanityLevels.Play("LowSanityLevel");
+			currentSanityImage.sprite = sanityImagesList[0];
 		}
-		else if(PlayerManager.Instance.currentSanityLevel >=3 && PlayerManager.Instance.currentSanityLevel <=4)
+		else if(PlayerManager.Instance.currentSanityLevel == 2)
 		{
-			sanityLevels.Play("NormalSanityLevel");
+			currentSanityImage.sprite = sanityImagesList[1];
 		}
-		else if(PlayerManager.Instance.currentSanityLevel >=5 && PlayerManager.Instance.currentSanityLevel <=6)
+		else if(PlayerManager.Instance.currentSanityLevel == 3)
 		{
-			sanityLevels.Play("MaxSanityLevel");
+			currentSanityImage.sprite = sanityImagesList[2];
+		}
+		else if(PlayerManager.Instance.currentSanityLevel == 4)
+		{
+			currentSanityImage.sprite = sanityImagesList[3];
+		}
+		else if(PlayerManager.Instance.currentSanityLevel == 5)
+		{
+			currentSanityImage.sprite = sanityImagesList[4];
+		}
+		else if(PlayerManager.Instance.currentSanityLevel == 6)
+		{
+			currentSanityImage.sprite = sanityImagesList[5];
 		}
 	}
 
