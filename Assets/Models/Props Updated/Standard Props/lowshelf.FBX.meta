@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: adb0a3cb5cff8ee4f84f7993595f53ef
-timeCreated: 1477488639
+guid: 7b0a241de3d20d2409334da7feaa9764
+timeCreated: 1478711508
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,8 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: wood wall 031
+    4300000: cabinet001
+    7400000: Take 001
     9500000: //RootNode
   materials:
     importMaterials: 1
