@@ -1,15 +1,39 @@
 fileFormatVersion: 2
-guid: eed1e00a2745c2b4394f09cde980bd1f
-timeCreated: 1478711292
+guid: 21e1db9c58893914191160d40c6191de
+timeCreated: 1478721822
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: floor 1 wood091
+    100000: floor 1 wood144
+    100002: //RootNode
+    100004: Omni001
+    100006: Omni002
+    100008: Omni003
+    100010: Omni004
+    100012: Omni005
+    100014: Omni006
+    100016: Omni007
+    100018: Omni008
+    100020: Omni009
+    100022: Omni010
+    100024: Omni011
+    400000: floor 1 wood144
+    400002: //RootNode
+    400004: Omni001
+    400006: Omni002
+    400008: Omni003
+    400010: Omni004
+    400012: Omni005
+    400014: Omni006
+    400016: Omni007
+    400018: Omni008
+    400020: Omni009
+    400022: Omni010
+    400024: Omni011
+    2300000: floor 1 wood144
+    3300000: floor 1 wood144
+    4300000: floor 1 wood144
     7400000: Take 001
     9500000: //RootNode
   materials:
