@@ -104,8 +104,11 @@ public class GUIManagerScript : MonoBehaviour
 				PlayerManager.Instance.turnsInDark = 0;
 			}
 
-			PlayerManager.Instance.IncreaseSanity();
-			UpdateSanityBar();
+			if(PlayerManager.Instance.enemyInRange == false)
+			{
+				PlayerManager.Instance.IncreaseSanity();
+				UpdateSanityBar();
+			}
 		}
 		else
 		{
