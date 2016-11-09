@@ -222,9 +222,7 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		// Reset our available movement points.
-		if(currentSanityLevel <= 2)
-		{
-			remainingMovement = 2;
+		if (currentSanityLevel == 1) {
 			if (AlreadyScreamed == false) 
 			{
 				SoundManagerScript.Instance.Horrified.Play();
@@ -236,10 +234,16 @@ public class PlayerManager : MonoBehaviour
 			{
 				//! Dont play audio
 			}
+		}
+
+		if(currentSanityLevel <= 2)
+		{
+			remainingMovement = 2;
 
 		}
 		else if(currentSanityLevel >=3 && currentSanityLevel <= 4)
 		{
+			SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionOut);
 			AlreadyScreamed = false;
 			remainingMovement = 3;
 		}
@@ -309,6 +313,12 @@ public class PlayerManager : MonoBehaviour
 			enemyInRange = true;
 		}
 
+		if (other.CompareTag ("EnemyDread")) 
+		{
+			SoundManagerScript.Instance.Dread.Play();
+			SoundManagerScript.Instance.proximityDread.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
+		}
+
 	}
 
 	void OnTriggerExit(Collider other)
@@ -332,6 +342,12 @@ public class PlayerManager : MonoBehaviour
 		if (other.CompareTag ("Enemy")) 
 		{
 			SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionOut);
+		}
+
+		if (other.CompareTag ("EnemyDread")) 
+		{
+			SoundManagerScript.Instance.Dread.Stop();
+			SoundManagerScript.Instance.proximityDread.TransitionTo (SoundManagerScript.Instance.m_TransitionOut);
 		}
 	}
 

@@ -61,6 +61,7 @@ public class ShardScript : MonoBehaviour
 			PlayerManager.Instance.IncreaseSanity();
 			GUIManagerScript.Instance.UpdateSanityBar();
 			this.gameObject.SetActive(false);
+			GUIManagerScript.Instance.ActivateMemory();
 		}
 	}
 }
