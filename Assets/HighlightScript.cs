@@ -7,6 +7,7 @@ public class HighlightScript : MonoBehaviour {
 	public float pX;
 	public float pZ;
 	public float rMoves;
+	public float counter;
 
 	public PlayerManager Player;
 
@@ -28,22 +29,69 @@ public class HighlightScript : MonoBehaviour {
 		pX = Player.tileX;
 		pZ = Player.tileZ;
 		rMoves = Player.remainingMovement;
+
 		if (Player.currentPath == null && rMoves > 0)
 		{
-			if (pX + rMoves == tX && pZ == tZ || pX - rMoves == tX && pZ == tZ)
+			for (float i = 0; i<=rMoves; i++)
 			{
-				//! gameObject.transform.position += Vector3.up * 0.01f;
-				defRenderer.material = Highlighted;
+					if (pX + i == tX && pZ == tZ)
+					{
+						//! gameObject.transform.position += Vector3.up * 0.01f;
+						if (this.gameObject.tag == "UnclickableTile")
+						{
+							break;
+						}
+						else
+						{
+							counter++;
+							Debug.Log(counter);
+
+						}
+					}
 			}
-			else
+
+
+		}
+		else
+		{
+			//!defRenderer.material = Highlighted;
+
+			defRenderer.material = defMat;
+		}
+
+		Highlight();
+
+	}
+
+	void Highlight()
+	{
+		if (counter == rMoves)
+		{
+			for (float i = 0; i<=rMoves; i++)
 			{
-				defRenderer.material = defMat;
+				if (pX + i == tX && pZ == tZ)
+				{
+					defRenderer.material = Highlighted;
+				}
+				else
+				{
+					//!defRenderer.material = Highlighted;
+
+					defRenderer.material = defMat;
+				}
 			}
 		}
 		else
 		{
-			defRenderer.material = defMat;
+			for (float i = 0; i<=counter; i++)
+			{
+				if (pX + i == tX && pZ == tZ)
+				{
+					defRenderer.material = Highlighted;
+				}
+			}
 		}
-
+		counter = 0;
 	}
+
 }
