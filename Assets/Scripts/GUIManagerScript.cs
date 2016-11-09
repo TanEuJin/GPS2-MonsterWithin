@@ -197,6 +197,11 @@ public class GUIManagerScript : MonoBehaviour
 		PlayerManager.Instance.enabled = true;
 	}
 
+	public void BackMainMenu()
+	{
+		SceneManager.LoadScene("MainMenu");
+	}
+
 	public void WinLoseGame()
 	{
 		gameUI.gameObject.SetActive(false);

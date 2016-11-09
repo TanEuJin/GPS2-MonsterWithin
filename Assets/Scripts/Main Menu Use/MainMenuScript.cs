@@ -29,7 +29,8 @@ public class MainMenuScript : MonoBehaviour {
 		
 		
 	public void startGame(){
-		SceneManager.LoadScene(sceneBuildIndex:1);
+		SceneManager.LoadScene(sceneBuildIndex:2);
+		Time.timeScale = 1;
 	}
 
 	public void exitGame(){
