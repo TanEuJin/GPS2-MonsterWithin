@@ -333,11 +333,11 @@ public class PlayerManager : MonoBehaviour
 			}
 		}
 
-		if (other.gameObject.CompareTag ("HideObject")) 
+		/*if (other.gameObject.CompareTag ("HideObject")) 
 		{
 			HideInteract = false;
 			InteractButton.SetActive(false);
-		}
+		}*/
 
 		if (other.CompareTag ("Enemy")) 
 		{

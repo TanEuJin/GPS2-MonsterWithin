@@ -80,12 +80,14 @@ public class GUIManagerScript : MonoBehaviour
 		{
 			if (PlayerManager.Instance.isHidden == false)
 			{
+				HideObjectScript.Instance.anim.Play("Open");
 				PlayerManager.Instance.playerModel.SetActive(false);
 				PlayerManager.Instance.isHidden = true;
 			} 
 
 			else if (PlayerManager.Instance.isHidden == true) 
 			{
+				HideObjectScript.Instance.anim.Play("Open");
 				PlayerManager.Instance.playerModel.SetActive(true);
 				PlayerManager.Instance.isHidden = false;
 			}
