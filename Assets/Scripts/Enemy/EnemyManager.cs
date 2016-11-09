@@ -152,7 +152,7 @@ public class EnemyManager : MonoBehaviour
 
 			if(loseDelayTimer >= loseDelayDuration)
 			{
-				GUIManagerScript.Instance.LoseGame();
+				GUIManagerScript.Instance.WinLoseGame();
 			}
 
 			if(GUIManagerScript.Instance.losingMenu.GetComponent<CanvasGroup>().alpha == 1)
@@ -209,7 +209,7 @@ public class EnemyManager : MonoBehaviour
 		if(CheckLosingCondition() == true)
 		{
 			remainingMovement = 0;
-			//caughtPlayer = true;
+			caughtPlayer = true;
 			return;
 		}
 		

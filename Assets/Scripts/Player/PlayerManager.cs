@@ -144,7 +144,7 @@ public class PlayerManager : MonoBehaviour
 
 			if(loseDelayTimer >= loseDelayDuration)
 			{
-				GUIManagerScript.Instance.LoseGame();
+				GUIManagerScript.Instance.WinLoseGame();
 			}
 
 			if(GUIManagerScript.Instance.losingMenu.GetComponent<CanvasGroup>().alpha == 1)

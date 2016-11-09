@@ -30,6 +30,7 @@ public class GUIManagerScript : MonoBehaviour
 		}
 	}
 
+	public int shardCollected = 0;
 	public Image sanityBar;
 	public Text movesCount;
 
@@ -41,6 +42,8 @@ public class GUIManagerScript : MonoBehaviour
 	public Canvas memoryCanvas;
 
 	public Button endTurnButton;
+
+	public Text winloseText;
 
 	void Start()
 	{
@@ -150,12 +153,21 @@ public class GUIManagerScript : MonoBehaviour
 		PlayerManager.Instance.enabled = true;
 	}
 
-	public void LoseGame()
+	public void WinLoseGame()
 	{
 		gameUI.gameObject.SetActive(false);
 		losingMenu.gameObject.SetActive(true);
 
 		losingMenu.GetComponent<CanvasGroup>().alpha += Time.deltaTime/3;
+
+		if(shardCollected == 3)
+		{
+			winloseText.text = "You Won";
+		}
+		else if(shardCollected <= 2)
+		{
+			winloseText.text = "You Died";
+		}
 
 		if(losingMenu.GetComponent<CanvasGroup>().alpha >= 0.75f)
 		{
@@ -167,6 +179,21 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		gameUI.gameObject.SetActive(false);
 		memoryCanvas.gameObject.SetActive(true);
+		shardCollected++;
+
+		if(shardCollected == 1)
+		{
+			// Trigger first memory
+		}
+		else if(shardCollected == 2)
+		{
+			// Trigger second memory
+		}
+		else if(shardCollected == 3)
+		{
+			// Trigger third memory followed by winning condition upon pressing continue
+			WinLoseGame();
+		}
 	}
 
 	public void DeactivateMemory()
