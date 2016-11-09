@@ -109,7 +109,6 @@ public class PlayerManager : MonoBehaviour
 					if(tileHit.transform.gameObject != null)
 					{
 						SoundManagerScript.Instance.PlayerMove.Play();
-						Debug.DrawRay(tileHit.transform.position, Vector3.up, Color.red, Mathf.Infinity);
 						map.PlayerGeneratePathTo ((int)tileHit.transform.position.x, (int)tileHit.transform.position.z);
 					}
 				}
