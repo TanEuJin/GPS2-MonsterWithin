@@ -44,6 +44,7 @@ public class GUIManagerScript : MonoBehaviour
 	public Button endTurnButton;
 
 	public Text winloseText;
+	public Text whoseTurn;
 
 	public Image memoryPic;
 	public Image[] memoriesPicsList;
@@ -132,6 +133,7 @@ public class GUIManagerScript : MonoBehaviour
 			UpdateSanityBar();
 		}
 
+		PlayerTurnText(false);
 		PlayerManager.Instance.currentPath = null;
 		endTurnButton.interactable = false;
 		playerTurn = false;
@@ -202,5 +204,19 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		gameUI.gameObject.SetActive(true);
 		memoryCanvas.gameObject.SetActive(false);
+	}
+
+	public void PlayerTurnText(bool isPlayer)
+	{
+		if(isPlayer)
+		{
+			whoseTurn.text = "Player's Turn";
+			whoseTurn.enabled = true;
+		}
+		else
+		{
+			whoseTurn.text = "Monster's Turn";
+			whoseTurn.enabled = true;
+		}
 	}
 }
