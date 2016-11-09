@@ -43,10 +43,10 @@ public class ShardSpawnManagerScript : MonoBehaviour
 
 	void RandomizePoint()
 	{
-		Rand_1 = Random.Range(4, 5);
-		Rand_2 = Random.Range(0, 1);
-		Rand_3 = Random.Range(2, 3);
-		Rand_4 = Random.Range(0, 2);
+		Rand_1 = Random.Range(4, 6);
+		Rand_2 = Random.Range(0, 2);
+		Rand_3 = Random.Range(2, 4);
+		Rand_4 = Random.Range(0, 3);
 	}
 
 	void CheckSpawn()
