@@ -55,7 +55,7 @@ public class PlayerManager : MonoBehaviour
 	//public GameObject[] HideObject;
 
 	// Sanity
-	public bool hasLight, AlreadyScreamed = false;
+	public bool hasLight, AlreadyScreamed, AlreadyMoved = false;
 	public int currentSanityLevel = 4;
 	public int maxSanityLevel = 6;
 	public bool enemyInRange = false;
@@ -108,7 +108,11 @@ public class PlayerManager : MonoBehaviour
 				{
 					if(tileHit.transform.gameObject != null)
 					{
-						SoundManagerScript.Instance.PlayerMove.Play();
+						if (AlreadyMoved == false) {
+							SoundManagerScript.Instance.PlayerMove.Play();
+							AlreadyMoved = true;
+						}
+
 						map.PlayerGeneratePathTo ((int)tileHit.transform.position.x, (int)tileHit.transform.position.z);
 					}
 				}
@@ -215,6 +219,7 @@ public class PlayerManager : MonoBehaviour
 	// The "Next Turn" button calls this.
 	public void NextTurn()
 	{
+		AlreadyMoved = false;
 		// Make sure to wrap-up any outstanding movement left over.
 		while(currentPath != null && remainingMovement > 0)
 		{
