@@ -57,7 +57,7 @@ public class GUIManagerScript : MonoBehaviour
 
 	void Start()
 	{
-		Screen.orientation = ScreenOrientation.Landscape;
+		
 	}
 
 	void Update()

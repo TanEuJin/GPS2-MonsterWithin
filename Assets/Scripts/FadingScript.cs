@@ -33,7 +33,7 @@ public class FadingScript : MonoBehaviour {
 			}
 			else
 			{
-				SceneManager.LoadSceneAsync("_SCENE_");
+				SceneManager.LoadSceneAsync("MainMenu");
 			}
 		}
 	}
