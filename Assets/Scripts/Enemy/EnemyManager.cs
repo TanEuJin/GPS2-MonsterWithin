@@ -725,25 +725,28 @@ public class EnemyManager : MonoBehaviour
 
 	bool CheckLosingCondition()
 	{
-		if(tileX - 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ ||
-			tileX + 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ)
+		if(PlayerManager.Instance.isHidden == false)
 		{
-			return true;
-		}
-		else if(tileX == PlayerManager.Instance.tileX && tileZ + 1 == PlayerManager.Instance.tileZ || 
-			tileX == PlayerManager.Instance.tileX && tileZ  - 1 == PlayerManager.Instance.tileZ)
-		{
-			return true;
-		}
-		else if(tileX == PlayerManager.Instance.tileX - 1 && tileZ == PlayerManager.Instance.tileZ - 1 ||
-			tileX == PlayerManager.Instance.tileX - 1 && tileZ == PlayerManager.Instance.tileZ + 1)
-		{
-			return true;
-		}
-		else if(tileX == PlayerManager.Instance.tileX + 1 && tileZ == PlayerManager.Instance.tileZ - 1 ||
-			tileX == PlayerManager.Instance.tileX + 1 && tileZ == PlayerManager.Instance.tileZ + 1)
-		{
-			return true;
+			if(tileX - 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ ||
+				tileX + 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ)
+			{
+				return true;
+			}
+			else if(tileX == PlayerManager.Instance.tileX && tileZ + 1 == PlayerManager.Instance.tileZ || 
+				tileX == PlayerManager.Instance.tileX && tileZ  - 1 == PlayerManager.Instance.tileZ)
+			{
+				return true;
+			}
+			else if(tileX == PlayerManager.Instance.tileX - 1 && tileZ == PlayerManager.Instance.tileZ - 1 ||
+				tileX == PlayerManager.Instance.tileX - 1 && tileZ == PlayerManager.Instance.tileZ + 1)
+			{
+				return true;
+			}
+			else if(tileX == PlayerManager.Instance.tileX + 1 && tileZ == PlayerManager.Instance.tileZ - 1 ||
+				tileX == PlayerManager.Instance.tileX + 1 && tileZ == PlayerManager.Instance.tileZ + 1)
+			{
+				return true;
+			}
 		}
 
 		return  false;
