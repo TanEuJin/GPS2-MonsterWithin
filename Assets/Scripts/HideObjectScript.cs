@@ -50,12 +50,14 @@ public class HideObjectScript : MonoBehaviour {
 			{
 				PlayerManager.Instance.playerModel.SetActive(false);
 				PlayerManager.Instance.isHidden = true;
+				//EnemyManager.Instance.playerDetectable = false;
 			} 
 
 			else if (PlayerManager.Instance.isHidden == true) 
 			{
 				PlayerManager.Instance.playerModel.SetActive(true);
 				PlayerManager.Instance.isHidden = false;
+				//EnemyManager.Instance.playerDetectable = true;
 			}
 		}
 	}

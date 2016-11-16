@@ -64,7 +64,7 @@ public class EnemyManager : MonoBehaviour
 	public float distFromPlayer;
 	public EnemyBehavior state;
 
-	bool playerDetectable = false;
+	public bool playerDetectable = false;
 	Animator anim;
 	Transform modalTransform;
 
@@ -713,11 +713,20 @@ public class EnemyManager : MonoBehaviour
 
 	void PlayerDetection()
 	{
-		if((PlayerManager.Instance.hasLight == true && distFromPlayer <= 8) || (PlayerManager.Instance.currentSanityLevel <= 1 && distFromPlayer <= 8))
-		{
-			playerDetectable = true;
-		}
-		else
+		if ((PlayerManager.Instance.hasLight == true && distFromPlayer <= 8) || (PlayerManager.Instance.currentSanityLevel <= 1 && distFromPlayer <= 8)) {
+			if (PlayerManager.Instance.isHidden == false) 
+			{
+				playerDetectable = true;
+			} 
+
+			else if (PlayerManager.Instance.isHidden == true) 
+			{
+				playerDetectable = false;
+			}
+
+		} 
+
+		else 
 		{
 			playerDetectable = false;
 		}
