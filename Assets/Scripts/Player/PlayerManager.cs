@@ -139,7 +139,7 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		// Smoothly animate towards the correct map tile.
-		transform.position = Vector3.Lerp(transform.position, map.TileCoordToWorldCoord( tileX, tileZ ), speed * Time.deltaTime);
+		transform.position = Vector3.Lerp(transform.position, map.TileCoordToWorldCoord( tileX, tileZ ), speed * Time.fixedDeltaTime);
 
 		if(gotCaught)
 		{
