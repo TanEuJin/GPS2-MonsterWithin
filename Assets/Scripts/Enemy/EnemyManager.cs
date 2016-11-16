@@ -64,7 +64,7 @@ public class EnemyManager : MonoBehaviour
 	public float distFromPlayer;
 	public EnemyBehavior state;
 
-	public bool playerDetectable = false;
+	bool playerDetectable = false;
 	Animator anim;
 	Transform modalTransform;
 
@@ -209,7 +209,7 @@ public class EnemyManager : MonoBehaviour
 		tileZ = currentPath[1].z;
 		anim.SetBool("IsWalk", true);
 
-		if(CheckLosingCondition() == true && PlayerManager.Instance.isHidden == false)
+		if(CheckLosingCondition() == true)
 		{
 			remainingMovement = 0;
 			caughtPlayer = true;
@@ -713,20 +713,11 @@ public class EnemyManager : MonoBehaviour
 
 	void PlayerDetection()
 	{
-		if ((PlayerManager.Instance.hasLight == true && distFromPlayer <= 8) || (PlayerManager.Instance.currentSanityLevel <= 1 && distFromPlayer <= 8)) {
-			if (PlayerManager.Instance.isHidden == false) 
-			{
-				playerDetectable = true;
-			} 
-
-			else if (PlayerManager.Instance.isHidden == true) 
-			{
-				playerDetectable = false;
-			}
-
-		} 
-
-		else 
+		if((PlayerManager.Instance.hasLight == true && distFromPlayer <= 8) || (PlayerManager.Instance.currentSanityLevel <= 1 && distFromPlayer <= 8))
+		{
+			playerDetectable = true;
+		}
+		else
 		{
 			playerDetectable = false;
 		}

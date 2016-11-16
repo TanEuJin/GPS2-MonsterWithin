@@ -177,6 +177,9 @@ public class GUIManagerScript : MonoBehaviour
 		PlayerManager.Instance.currentPath = null;
 		endTurnButton.interactable = false;
 		playerTurn = false;
+
+		//! To Optimize
+		GameObject.Find("Player").GetComponent<HighlightTiles>().FlushList();
 	}
 
 	public void PauseMenu()

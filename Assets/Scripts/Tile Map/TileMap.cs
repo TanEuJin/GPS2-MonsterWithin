@@ -1,6 +1,10 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+
+
+
 
 public class TileMap : MonoBehaviour
 {
@@ -15,6 +19,9 @@ public class TileMap : MonoBehaviour
 
 	const int mapSizeX = 31;
 	const int mapSizeY = 24;
+	[HideInInspector] public int mapSize = mapSizeX * mapSizeY;
+	public GameObject[] tileArray;
+	public int arrayCounter;
 
 	void Awake()
 	{
@@ -27,6 +34,7 @@ public class TileMap : MonoBehaviour
 
 	void Start()
 	{
+		tileArray = new GameObject[mapSizeX*mapSizeY];
 		// Setup the enemy's variable
 		EnemyManager.Instance.tileX = (int)EnemyManager.Instance.transform.position.x;
 		EnemyManager.Instance.tileZ = (int)EnemyManager.Instance.transform.position.z;
@@ -39,6 +47,9 @@ public class TileMap : MonoBehaviour
 		GenerateMapData();
 		GeneratePathfindingGraph();
 		GenerateMapVisual();
+
+		//! Set Array Size to 0
+		arrayCounter = 0;
 	}
 
 	void Update()
@@ -188,6 +199,7 @@ public class TileMap : MonoBehaviour
 
 				TileType tt = tileTypes[ tiles[x,y] ];
 				GameObject go = (GameObject)Instantiate( tt.tileVisualPrefab, new Vector3(x, 0, y), Quaternion.identity );//mapSizeX-x-1
+				tileArray[arrayCounter] = go;
 				go.transform.parent = transform;
 				if (tt.isWalkable == true) {
 					go.layer = 8;
@@ -196,6 +208,8 @@ public class TileMap : MonoBehaviour
 				ct.tileX = x;
 				ct.tileZ = y;
 				ct.map = this;
+				arrayCounter++;
+		
 			}
 		}
 	}

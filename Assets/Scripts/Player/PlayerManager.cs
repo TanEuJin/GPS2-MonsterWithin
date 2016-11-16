@@ -88,10 +88,6 @@ public class PlayerManager : MonoBehaviour
 
 	void Update()
 	{
-		//if (remainingMovement <= 0) {
-		//	GUIManagerScript.Instance.EndTurn ();
-		//}
-
 		if(!enabled)
 		{
 			return;
