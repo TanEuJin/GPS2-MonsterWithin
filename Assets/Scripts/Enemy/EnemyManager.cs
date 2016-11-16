@@ -209,7 +209,7 @@ public class EnemyManager : MonoBehaviour
 		tileZ = currentPath[1].z;
 		anim.SetBool("IsWalk", true);
 
-		if(CheckLosingCondition() == true)
+		if(CheckLosingCondition() == true && PlayerManager.Instance.isHidden == false)
 		{
 			remainingMovement = 0;
 			caughtPlayer = true;
@@ -725,28 +725,25 @@ public class EnemyManager : MonoBehaviour
 
 	bool CheckLosingCondition()
 	{
-		if(PlayerManager.Instance.isHidden == false)
+		if(tileX - 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ ||
+			tileX + 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ)
 		{
-			if(tileX - 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ ||
-				tileX + 1 == PlayerManager.Instance.tileX && tileZ == PlayerManager.Instance.tileZ)
-			{
-				return true;
-			}
-			else if(tileX == PlayerManager.Instance.tileX && tileZ + 1 == PlayerManager.Instance.tileZ || 
-				tileX == PlayerManager.Instance.tileX && tileZ  - 1 == PlayerManager.Instance.tileZ)
-			{
-				return true;
-			}
-			else if(tileX == PlayerManager.Instance.tileX - 1 && tileZ == PlayerManager.Instance.tileZ - 1 ||
-				tileX == PlayerManager.Instance.tileX - 1 && tileZ == PlayerManager.Instance.tileZ + 1)
-			{
-				return true;
-			}
-			else if(tileX == PlayerManager.Instance.tileX + 1 && tileZ == PlayerManager.Instance.tileZ - 1 ||
-				tileX == PlayerManager.Instance.tileX + 1 && tileZ == PlayerManager.Instance.tileZ + 1)
-			{
-				return true;
-			}
+			return true;
+		}
+		else if(tileX == PlayerManager.Instance.tileX && tileZ + 1 == PlayerManager.Instance.tileZ || 
+			tileX == PlayerManager.Instance.tileX && tileZ  - 1 == PlayerManager.Instance.tileZ)
+		{
+			return true;
+		}
+		else if(tileX == PlayerManager.Instance.tileX - 1 && tileZ == PlayerManager.Instance.tileZ - 1 ||
+			tileX == PlayerManager.Instance.tileX - 1 && tileZ == PlayerManager.Instance.tileZ + 1)
+		{
+			return true;
+		}
+		else if(tileX == PlayerManager.Instance.tileX + 1 && tileZ == PlayerManager.Instance.tileZ - 1 ||
+			tileX == PlayerManager.Instance.tileX + 1 && tileZ == PlayerManager.Instance.tileZ + 1)
+		{
+			return true;
 		}
 
 		return  false;
