@@ -209,7 +209,7 @@ public class EnemyManager : MonoBehaviour
 		tileZ = currentPath[1].z;
 		anim.SetBool("IsWalk", true);
 
-		if(CheckLosingCondition() == true)
+		if(CheckLosingCondition() == true && PlayerManager.Instance.isHidden == false)
 		{
 			remainingMovement = 0;
 			caughtPlayer = true;
@@ -715,8 +715,16 @@ public class EnemyManager : MonoBehaviour
 	{
 		if((PlayerManager.Instance.hasLight == true && distFromPlayer <= 8) || (PlayerManager.Instance.currentSanityLevel <= 1 && distFromPlayer <= 8))
 		{
-			playerDetectable = true;
+			if (PlayerManager.Instance.isHidden == false) 
+			{
+				playerDetectable = true;
+			} 
+
+			else if (PlayerManager.Instance.isHidden == true) {
+				playerDetectable = false;
+			}
 		}
+
 		else
 		{
 			playerDetectable = false;
