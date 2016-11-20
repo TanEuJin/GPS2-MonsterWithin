@@ -696,14 +696,15 @@ public class EnemyManager : MonoBehaviour
 	public void NextTurn()
 	{
 		SoundManagerScript.Instance.EnemyMove.Play();
+
+		// Update distance calculation only when move
+		distFromPlayer = Vector3.Distance(PlayerManager.Instance.transform.position, this.transform.position);
+
 		// Make sure to wrap-up any outstanding movement left over.
 		while(currentPath != null && remainingMovement > 0)
 		{
 			AdvancePathing();
 		}
-
-		// Update distance calculation only when move
-		distFromPlayer = Vector3.Distance(PlayerManager.Instance.transform.position, this.transform.position);
 
 		EnemyBehaviourCheck();
 

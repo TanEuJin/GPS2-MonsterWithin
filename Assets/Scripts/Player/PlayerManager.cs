@@ -320,7 +320,6 @@ public class PlayerManager : MonoBehaviour
 			SoundManagerScript.Instance.seenByTheEnemy.Play();
 			SoundManagerScript.Instance.seenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
 			SoundManagerScript.Instance.playTransition ();
-			enemyInRange = true;
 		}
 
 		if (other.CompareTag ("EnemyDread")) 
