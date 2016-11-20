@@ -769,6 +769,10 @@ public class EnemyManager : MonoBehaviour
 				GUIManagerScript.Instance.UpdateSanityBar();
 			}
 		}
+
+		if (other.CompareTag ("CreakyTile")) {
+			SoundManagerScript.Instance.CreakyFloor.Play ();
+		}
 	}
 
 	void OnTriggerExit(Collider other)

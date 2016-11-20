@@ -40,6 +40,7 @@ public class SoundManagerScript : MonoBehaviour
 	public AudioSource PlayerMove;
 	public AudioSource EnemyMove;
 	public AudioSource ClosetSound;
+	public AudioSource CreakyFloor;
 	public float bpm = 128;
 
 	public float m_TransitionIn;
