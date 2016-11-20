@@ -48,12 +48,14 @@ public class HideObjectScript : MonoBehaviour {
 			anim.Play ("Open");
 			if (PlayerManager.Instance.isHidden == false)
 			{
+				SoundManagerScript.Instance.ClosetSound.Play ();
 				PlayerManager.Instance.playerModel.SetActive(false);
 				PlayerManager.Instance.isHidden = true;
 			} 
 
 			else if (PlayerManager.Instance.isHidden == true) 
 			{
+				SoundManagerScript.Instance.ClosetSound.Play ();
 				PlayerManager.Instance.playerModel.SetActive(true);
 				PlayerManager.Instance.isHidden = false;
 			}

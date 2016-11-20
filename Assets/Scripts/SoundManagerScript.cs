@@ -39,6 +39,7 @@ public class SoundManagerScript : MonoBehaviour
 	public AudioSource Dread;
 	public AudioSource PlayerMove;
 	public AudioSource EnemyMove;
+	public AudioSource ClosetSound;
 	public float bpm = 128;
 
 	public float m_TransitionIn;
