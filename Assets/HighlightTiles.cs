@@ -20,6 +20,10 @@ public class HighlightTiles : MonoBehaviour {
 	public List <Material> defMat;
 	MeshRenderer defRenderer;
 
+	//! Timer
+	float timer;
+	public float duration;
+
 	// Use this for initialization
 	void Start () {
 		cCounter = 0;
@@ -31,8 +35,7 @@ public class HighlightTiles : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		rMove = PlayerManager.Instance.remainingMovement + 1;
-
+		rMove = PlayerManager.Instance.remainingMovement;
 		OriginX = PlayerManager.Instance.tileX;
 		OriginZ = PlayerManager.Instance.tileZ;
 		if (playerTileArray.Length != mapSize)
@@ -44,9 +47,9 @@ public class HighlightTiles : MonoBehaviour {
 		{
 			Checking();
 		}
-		else if (curPath != null && rMove <= 0)
+		else
 		{
-			FlushList();
+			UnhighlightTile();
 		}
 
 
@@ -58,7 +61,7 @@ public class HighlightTiles : MonoBehaviour {
 		lCounter = 0;
 		if (cCounter == 0)
 		{
-			for (float i = 0; i<=rMove; i++)
+			for (float i = 0; i<rMove; i++)
 			{
 				for (int j = 0; j<=	mapSize - 1; j++)
 				{
@@ -88,7 +91,7 @@ public class HighlightTiles : MonoBehaviour {
 		}
 		else if (cCounter == 1)
 		{
-			for (float i = 0; i<=rMove; i++)
+			for (float i = 0; i<rMove; i++)
 			{
 				for (int j = 0; j<=	mapSize - 1; j++)
 				{
@@ -119,7 +122,7 @@ public class HighlightTiles : MonoBehaviour {
 		}
 		else if (cCounter == 2)
 		{
-			for (float i = 0; i<=rMove; i++)
+			for (float i = 0; i<rMove; i++)
 			{
 				for (int j = 0; j<=	mapSize - 1; j++)
 				{
@@ -149,7 +152,7 @@ public class HighlightTiles : MonoBehaviour {
 		}
 		else if (cCounter == 3)
 		{
-			for (float i = 0; i<=rMove; i++)
+			for (float i = 0; i<rMove; i++)
 			{
 				for (int j = 0; j<=	mapSize - 1; j++)
 				{
@@ -181,7 +184,6 @@ public class HighlightTiles : MonoBehaviour {
 		{
 			PopulateDefMat();
 			HighlightTile();
-			return;
 		}
 
 	}
@@ -191,6 +193,7 @@ public class HighlightTiles : MonoBehaviour {
 		UnhighlightTile();
 		defMat.Clear();
 		highlightList.Clear();
+		lCounter = 0;
 		cCounter = 0;
 	}
 
