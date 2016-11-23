@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public enum EnemyBehavior
@@ -87,6 +88,8 @@ public class EnemyManager : MonoBehaviour
 			return;
 		}
 
+		distFromPlayer = Vector3.Distance(PlayerManager.Instance.transform.position, this.transform.position);
+
 		RandomChanceGenerator();
 		PlayerDetection();
 
@@ -97,31 +100,38 @@ public class EnemyManager : MonoBehaviour
 		}
 		else
 		{
-			if(ShardScript.Instance.location == ShardLocation.DINING)
+			if(SceneManager.GetActiveScene().name == "_SCENE_")
 			{
-				state = EnemyBehavior.ROAM_DINING;
+				if(ShardScript.Instance.location == ShardLocation.DINING)
+				{
+					state = EnemyBehavior.ROAM_DINING;
+				}
+				else if(ShardScript.Instance.location == ShardLocation.KITCHEN)
+				{
+					state = EnemyBehavior.ROAM_KITCHEN;
+				}
+				else if(ShardScript.Instance.location == ShardLocation.MORNING)
+				{
+					state = EnemyBehavior.ROAM_MORNING;
+				}
+				else if(ShardScript.Instance.location == ShardLocation.LIVING)
+				{
+					state = EnemyBehavior.ROAM_LIVING;
+				}
+				else if(ShardScript.Instance.location == ShardLocation.LIBRARY)
+				{
+					state = EnemyBehavior.ROAM_LIBRARY;
+				}
+				else if(ShardScript.Instance.location == ShardLocation.BEDROOM)
+				{
+					state = EnemyBehavior.ROAM_BEDROOM;
+				}
+				else
+				{
+					state = EnemyBehavior.PATROLLING;
+				}
 			}
-			else if(ShardScript.Instance.location == ShardLocation.KITCHEN)
-			{
-				state = EnemyBehavior.ROAM_KITCHEN;
-			}
-			else if(ShardScript.Instance.location == ShardLocation.MORNING)
-			{
-				state = EnemyBehavior.ROAM_MORNING;
-			}
-			else if(ShardScript.Instance.location == ShardLocation.LIVING)
-			{
-				state = EnemyBehavior.ROAM_LIVING;
-			}
-			else if(ShardScript.Instance.location == ShardLocation.LIBRARY)
-			{
-				state = EnemyBehavior.ROAM_LIBRARY;
-			}
-			else if(ShardScript.Instance.location == ShardLocation.BEDROOM)
-			{
-				state = EnemyBehavior.ROAM_BEDROOM;
-			}
-			else
+			else if(SceneManager.GetActiveScene().name == "TUTORIAL_SCENE_")
 			{
 				state = EnemyBehavior.PATROLLING;
 			}
@@ -696,9 +706,6 @@ public class EnemyManager : MonoBehaviour
 	public void NextTurn()
 	{
 		SoundManagerScript.Instance.EnemyMove.Play();
-
-		// Update distance calculation only when move
-		distFromPlayer = Vector3.Distance(PlayerManager.Instance.transform.position, this.transform.position);
 
 		// Make sure to wrap-up any outstanding movement left over.
 		while(currentPath != null && remainingMovement > 0)

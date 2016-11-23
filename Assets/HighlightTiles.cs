@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -25,12 +26,18 @@ public class HighlightTiles : MonoBehaviour {
 	public float duration;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		cCounter = 0;
 		curPath = PlayerManager.Instance.currentPath;
-		mapSize = GameObject.Find("Map").GetComponent<TileMap>().mapSize;
-
-
+		if(SceneManager.GetActiveScene().name == "_SCENE_")
+		{
+			mapSize = GameObject.Find("Map").GetComponent<TileMap>().mapSize;
+		}
+		else if(SceneManager.GetActiveScene().name == "TUTORIAL_SCENE_")
+		{
+			mapSize = GameObject.Find("TutorialMap").GetComponent<TileMap>().mapSize;
+		}
 	}
 	
 	// Update is called once per frame
@@ -40,7 +47,14 @@ public class HighlightTiles : MonoBehaviour {
 		OriginZ = PlayerManager.Instance.tileZ;
 		if (playerTileArray.Length != mapSize)
 		{
-			playerTileArray = GameObject.Find("Map").GetComponent<TileMap>().tileArray;
+			if(SceneManager.GetActiveScene().name == "_SCENE_")
+			{
+				playerTileArray = GameObject.Find("Map").GetComponent<TileMap>().tileArray;
+			}
+			else if(SceneManager.GetActiveScene().name == "TUTORIAL_SCENE_")
+			{
+				playerTileArray = GameObject.Find("TutorialMap").GetComponent<TileMap>().tileArray;
+			}
 		}
 
 		if (curPath == null && rMove > 0)
