@@ -37,10 +37,14 @@ public class SoundManagerScript : MonoBehaviour
 	public AudioSource SpottedSource;
 	public AudioSource Horrified;
 	public AudioSource Dread;
-	public AudioSource PlayerMove;
 	public AudioSource EnemyMove;
 	public AudioSource ClosetSound;
 	public AudioSource CreakyFloor;
+	public AudioSource BookFlipUI;
+
+	public AudioSource player1Step, player2Step, player3Step, player4Step;
+	//public AudioSource Monster2Step, Monster3Step, Monster4step;
+
 	public float bpm = 128;
 
 	public float m_TransitionIn;
