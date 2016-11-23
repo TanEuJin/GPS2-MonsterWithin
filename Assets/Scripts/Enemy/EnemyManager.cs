@@ -771,9 +771,7 @@ public class EnemyManager : MonoBehaviour
 		{
 			if(PlayerManager.Instance.isHidden == false)
 			{
-				PlayerManager.Instance.ReduceSanity();
 				PlayerManager.Instance.enemyInRange = true;
-				GUIManagerScript.Instance.UpdateSanityBar();
 			}
 		}
 
