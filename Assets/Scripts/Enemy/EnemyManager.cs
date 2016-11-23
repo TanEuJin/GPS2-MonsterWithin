@@ -760,26 +760,8 @@ public class EnemyManager : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.CompareTag("Player"))
-		{
-			if(PlayerManager.Instance.isHidden == false)
-			{
-				PlayerManager.Instance.ReduceSanity();
-				PlayerManager.Instance.enemyInRange = true;
-				GUIManagerScript.Instance.UpdateSanityBar();
-			}
-		}
-
 		if (other.CompareTag ("CreakyTile")) {
 			SoundManagerScript.Instance.CreakyFloor.Play ();
-		}
-	}
-
-	void OnTriggerExit(Collider other)
-	{
-		if(other.CompareTag("Player"))
-		{
-			PlayerManager.Instance.enemyInRange = false;
 		}
 	}
 }

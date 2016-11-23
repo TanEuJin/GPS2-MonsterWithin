@@ -142,7 +142,7 @@ public class GUIManagerScript : MonoBehaviour
 		
 	public void EndTurn()
 	{
-		if(PlayerManager.Instance.hasLight)
+		if(PlayerManager.Instance.hasLight && PlayerManager.Instance.isHidden == false)
 		{
 			if(PlayerManager.Instance.turnsInDark != 0)
 			{
@@ -154,22 +154,26 @@ public class GUIManagerScript : MonoBehaviour
 		}
 		else
 		{
-			PlayerManager.Instance.turnsInDark ++;
-
-			if(PlayerManager.Instance.turnsInDark == PlayerManager.Instance.maxTurnInDark)
+			if(PlayerManager.Instance.enemyInRange)
 			{
-				PlayerManager.Instance.turnsInDark = 0;
 				PlayerManager.Instance.ReduceSanity();
 				UpdateSanityBar();
+
+				if(PlayerManager.Instance.turnsInDark != 0)
+				{
+					PlayerManager.Instance.turnsInDark = 0;
+				}
 			}
-		}
-
-		if(PlayerManager.Instance.enemyInRange)
-		{
-			if(!PlayerManager.Instance.hasLight)
+			else
 			{
-				PlayerManager.Instance.ReduceSanity();
-				UpdateSanityBar();
+				PlayerManager.Instance.turnsInDark ++;
+
+				if(PlayerManager.Instance.turnsInDark == PlayerManager.Instance.maxTurnInDark)
+				{
+					PlayerManager.Instance.turnsInDark = 0;
+					PlayerManager.Instance.ReduceSanity();
+					UpdateSanityBar();
+				}
 			}
 		}
 
