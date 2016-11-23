@@ -347,7 +347,6 @@ public class PlayerManager : MonoBehaviour
 			SoundManagerScript.Instance.Dread.Play();
 			SoundManagerScript.Instance.proximityDread.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
 		}
-
 	}
 
 	void OnTriggerExit(Collider other)

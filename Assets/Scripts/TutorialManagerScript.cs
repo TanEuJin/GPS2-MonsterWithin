@@ -1,0 +1,69 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+
+public class TutorialManagerScript : MonoBehaviour 
+{
+	private static TutorialManagerScript mInstance;
+
+	public static TutorialManagerScript Instance
+	{
+		get
+		{
+			if(mInstance == null)
+			{
+				GameObject tempObject = GameObject.FindGameObjectWithTag("TutorialManager");
+
+				if(tempObject == null)
+				{
+					GameObject obj = new GameObject("_TutorialManager");
+					mInstance = obj.AddComponent<TutorialManagerScript>();
+					obj.tag = "TutorialManager";
+				}
+				else
+				{
+					mInstance = tempObject.GetComponent<TutorialManagerScript >();
+				}
+			}
+			return mInstance;
+		}
+	}
+
+	public Text popUpText;
+	bool finishedTutorial = false;
+
+	void Start ()
+	{
+		EnemyManager.Instance.enabled = false;
+	}
+
+	void Update () 
+	{
+		if(!finishedTutorial)
+		{
+			if(PlayerManager.Instance.tileZ == 1)
+			{
+				popUpText.text = "To move, click on the highlighted tiles" + "\nAll I have to do is move forwards. That's all I need...";
+			}
+			else if(PlayerManager.Instance.tileZ == 4)
+			{
+				popUpText.text = "Staying in light restores sanity" + "\n I always prefer staying in the light.";
+			}
+			else if(PlayerManager.Instance.tileZ == 7)
+			{
+				popUpText.text = "You can hide in closets and tables" + "\nI hide when I'm scared";
+				EnemyManager.Instance.tileX = 2;
+				EnemyManager.Instance.enabled = true;
+			}
+			else if(PlayerManager.Instance.tileZ == 9)
+			{
+				popUpText.text = "Find memory shard(s) to complete the level" + "\nTo feel better, I remember the good times";
+			}
+			else if(PlayerManager.Instance.tileZ > 9)
+			{
+				popUpText.gameObject.SetActive(false);
+				finishedTutorial = true;
+			}
+		}
+	}
+}

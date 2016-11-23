@@ -32,7 +32,6 @@ public class GUIManagerScript : MonoBehaviour
 
 	public int shardCollected = 0;
 
-	public Text movesCount;
 	public Image currentMovementCountImage;
 	public Sprite[] movementCountImagesList;
 
