@@ -6,7 +6,7 @@ Shader "Custom/FogOfWarMask" {
 	}
 
 	SubShader {
-		Tags {"Queue"="Transparent" "RenderType"="Transparent" "LightMode"="ForwardBase"}
+		Tags {"Queue"="Transparent" "RenderType"="Transparent"}
 		Blend SrcAlpha OneMinusSrcAlpha
 		LOD 200
 
