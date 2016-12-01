@@ -70,7 +70,7 @@ public class EnemyManager : MonoBehaviour
 	Transform modalTransform;
 
 	int RandChance;
-	bool enemyAlerted = false;
+	public bool enemyAlerted = false;
 	bool caughtPlayer = false;
 	float loseDelayTimer = 0.0f;
 	public float loseDelayDuration = 1.0f;
@@ -250,6 +250,11 @@ public class EnemyManager : MonoBehaviour
 			GUIManagerScript.Instance.endTurnButton.interactable = true; // Reenable the End Turn button once enemy finish his movement
 			PlayerManager.Instance.NextTurn();
 			currentPath = null;
+
+			if(state == EnemyBehavior.CHASING_LOST)
+			{
+				enemyAlerted = false;
+			}
 		}
 	}
 
@@ -291,13 +296,9 @@ public class EnemyManager : MonoBehaviour
 		{
 			reachedRoam_ = true;
 
-			if(EnemyManager.Instance.transform.position.x != (int)PlayerManager.Instance.playerLastKnownPos.x && EnemyManager.Instance.transform.position.z != (int)PlayerManager.Instance.playerLastKnownPos.z)
+			if(EnemyManager.Instance.transform.position != PlayerManager.Instance.playerLastKnownPos)
 			{
 				map.GetComponent<TileMap>().EnemyGeneratePathTo((int)PlayerManager.Instance.playerLastKnownPos.x, (int)PlayerManager.Instance.playerLastKnownPos.z);
-			}
-			else
-			{
-				enemyAlerted = false;
 			}
 		}
 		else if(state == EnemyBehavior.ROAM_DINING)
