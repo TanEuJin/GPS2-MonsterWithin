@@ -291,7 +291,7 @@ public class EnemyManager : MonoBehaviour
 		{
 			reachedRoam_ = true;
 
-			if(EnemyManager.Instance.transform.position != PlayerManager.Instance.playerLastKnownPos)
+			if(EnemyManager.Instance.transform.position.x != (int)PlayerManager.Instance.playerLastKnownPos.x && EnemyManager.Instance.transform.position.z != (int)PlayerManager.Instance.playerLastKnownPos.z)
 			{
 				map.GetComponent<TileMap>().EnemyGeneratePathTo((int)PlayerManager.Instance.playerLastKnownPos.x, (int)PlayerManager.Instance.playerLastKnownPos.z);
 			}
