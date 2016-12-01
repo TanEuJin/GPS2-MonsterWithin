@@ -97,7 +97,7 @@ public class PlayerManager : MonoBehaviour
 			return;
 		}
 
-		if(Input.GetMouseButtonDown(0) && GUIManagerScript.Instance.endTurnButton.interactable != false)
+		if(Input.GetMouseButtonUp(0) && GUIManagerScript.Instance.endTurnButton.interactable != false)
 		{
 			if (isHidden == false) 
 			{
