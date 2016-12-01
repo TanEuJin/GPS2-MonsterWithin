@@ -51,6 +51,7 @@ public class PlayerManager : MonoBehaviour
 	public bool HideInteract, isHidden;
 	public List<GameObject>Interact = new List<GameObject>();
 	public List<GameObject>HideObject = new List<GameObject>();
+	public Vector3 playerLastKnownPos;
 	//public GameObject[] Interact;
 	//public GameObject[] HideObject;
 
