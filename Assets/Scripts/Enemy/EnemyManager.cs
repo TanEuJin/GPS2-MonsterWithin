@@ -747,18 +747,21 @@ public class EnemyManager : MonoBehaviour
 
 	void PlayerDetection()
 	{
-		if((PlayerManager.Instance.hasLight == true && distFromPlayer <= 8) || (PlayerManager.Instance.currentSanityLevel <= 1 && distFromPlayer <= 8))
+		if(PlayerManager.Instance.hasLight == true && distFromPlayer <= 8)
 		{
-			if (PlayerManager.Instance.isHidden == false) 
+			if(PlayerManager.Instance.isHidden == true)
 			{
-				playerDetectable = true;
-			} 
-
-			else if (PlayerManager.Instance.isHidden == true) {
 				playerDetectable = false;
 			}
+			else
+			{
+				playerDetectable = true;
+			}
 		}
-
+		else if(PlayerManager.Instance.currentSanityLevel <= 1 && distFromPlayer <= 8)
+		{
+			playerDetectable = true;
+		}
 		else
 		{
 			playerDetectable = false;

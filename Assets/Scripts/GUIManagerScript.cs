@@ -62,8 +62,6 @@ public class GUIManagerScript : MonoBehaviour
 
 	void Update()
 	{
-		Debug.Log(spriteIndex);
-		memoryShard.sprite = memoryShardSprite[spriteIndex];
 		if(!playerTurn)
 		{
 			EnemyManager.Instance.NextTurn();
