@@ -50,7 +50,7 @@ public class SceneManagerScript : MonoBehaviour
 		{
 			Time.timeScale = 1;
 		}
-
+		SoundManagerScript.Instance.BookFlipUI.Play ();
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
 	}

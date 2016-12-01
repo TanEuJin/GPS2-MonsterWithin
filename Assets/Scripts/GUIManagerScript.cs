@@ -238,6 +238,7 @@ public class GUIManagerScript : MonoBehaviour
 		gameUI.gameObject.SetActive(false);
 		pauseMenu.gameObject.SetActive(true);
 		PlayerManager.Instance.enabled = false;
+		SoundManagerScript.Instance.BookFlipUI.Play ();
 	}
 
 	public void ResumeGame()
@@ -247,11 +248,13 @@ public class GUIManagerScript : MonoBehaviour
 		gameUI.gameObject.SetActive(true);
 		pauseMenu.gameObject.SetActive(false);
 		PlayerManager.Instance.enabled = true;
+		SoundManagerScript.Instance.BookFlipUI.Play ();
 	}
 
 	public void BackMainMenu()
 	{
 		SceneManager.LoadScene("MainMenu");
+		SoundManagerScript.Instance.BookFlipUI.Play ();
 	}
 
 	public void WinLoseGame()
