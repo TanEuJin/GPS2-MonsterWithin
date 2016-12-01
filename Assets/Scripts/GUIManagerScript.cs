@@ -176,7 +176,7 @@ public class GUIManagerScript : MonoBehaviour
 			}
 		}
 
-		if(PlayerManager.Instance.hasLight)
+		if(PlayerManager.Instance.hasLight || PlayerManager.Instance.currentSanityLevel <= 1)
 		{
 			PlayerManager.Instance.playerLastKnownPos = PlayerManager.Instance.transform.position;
 		}
