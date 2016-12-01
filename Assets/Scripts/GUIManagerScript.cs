@@ -67,11 +67,9 @@ public class GUIManagerScript : MonoBehaviour
 
 	void Update()
 	{
-<<<<<<< HEAD
 		memoryShard.sprite = memoryShardSprite[memShardIndex];
 		memoryShardText.text = memoryShardDescription[memShardIndex];
-=======
->>>>>>> 00d810be842f5c24ce53422c4eb182fd918e1892
+
 		if(!playerTurn)
 		{
 			EnemyManager.Instance.NextTurn();
