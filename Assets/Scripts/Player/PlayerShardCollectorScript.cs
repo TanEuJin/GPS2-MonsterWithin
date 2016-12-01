@@ -22,7 +22,11 @@ public class PlayerShardCollectorScript : MonoBehaviour
 		{
 			PlayerManager.Instance.hasLight = true;
 		}
-
+		else if(other.CompareTag("InitialShard"))
+		{
+			GUIManagerScript.Instance.initalMemoryActivation();
+			Destroy(other.gameObject);
+		}
 	}
 
 	void OnTriggerExit(Collider other)

@@ -50,17 +50,20 @@ public class GUIManagerScript : MonoBehaviour
 	public Text winloseText;
 	public Text whoseTurn;
 
-	public Image memoryPic;
-	public Image[] memoriesPicsList;
-	public Text memoryDescription;
+	public Image memoryShard;
+	public Sprite[] memoryShardSprite;
+	public Text[] memoryShardDescription;
+	public int spriteIndex;
 
 	void Start()
 	{
-		
+		spriteIndex = 0;
 	}
 
 	void Update()
 	{
+		Debug.Log(spriteIndex);
+		memoryShard.sprite = memoryShardSprite[spriteIndex];
 		if(!playerTurn)
 		{
 			EnemyManager.Instance.NextTurn();
@@ -248,26 +251,34 @@ public class GUIManagerScript : MonoBehaviour
 		}
 	}
 
+	public void initalMemoryActivation()
+	{
+		spriteIndex = 1;
+	}
+
 	public void ActivateMemory()
 	{
-		gameUI.gameObject.SetActive(false);
-		memoryCanvas.gameObject.SetActive(true);
-
-		if(shardCollected <= 2)
+		if(shardCollected <= 3)
 		{
 			shardCollected++;
 			EnemyManager.Instance.moveSpeed++;
 		}
 
-		if(shardCollected == 1)
+		if (shardCollected == 1)
+		{
+			spriteIndex = 1;
+		}
+
+		if(shardCollected == 2)
 		{
 			// Trigger first memory
+			spriteIndex = 2;
 		}
-		else if(shardCollected == 2)
+		else if(shardCollected == 3)
 		{
 			// Trigger second memory
 		}
-		else if(shardCollected == 3)
+		else if(shardCollected == 4)
 		{
 			// Trigger third memory
 		}

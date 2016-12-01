@@ -18,9 +18,6 @@ public class InitialShardScript : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.CompareTag("ShardCollector"))
-		{
-			Destroy(this.gameObject);
-		}
+		
 	}
 }
