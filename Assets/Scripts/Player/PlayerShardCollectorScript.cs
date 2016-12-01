@@ -40,7 +40,8 @@ public class PlayerShardCollectorScript : MonoBehaviour
 			}
 			else if(SceneManager.GetActiveScene().name == "TUTORIAL_SCENE_")
 			{
-				// Transition to _SCENE_ straightaway, to be implemented
+				// Transition to _SCENE_ straightaway
+				SceneManager.LoadScene ("_SCENE_");
 			}
 		}
 	}
