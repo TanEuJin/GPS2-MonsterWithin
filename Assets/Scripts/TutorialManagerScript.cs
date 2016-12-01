@@ -30,6 +30,7 @@ public class TutorialManagerScript : MonoBehaviour
 	}
 
 	public Text popUpText;
+	public bool isMonsterSpawned = false;
 
 	void Start ()
 	{
@@ -54,6 +55,7 @@ public class TutorialManagerScript : MonoBehaviour
 			{
 				EnemyManager.Instance.tileX = 2;
 				EnemyManager.Instance.enabled = true;
+				isMonsterSpawned = true;
 			}
 		}
 		else if(PlayerManager.Instance.tileZ >= 9)

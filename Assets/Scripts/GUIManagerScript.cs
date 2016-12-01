@@ -180,10 +180,28 @@ public class GUIManagerScript : MonoBehaviour
 			}
 		}
 
-		PlayerTurnText(false);
-		PlayerManager.Instance.currentPath = null;
-		endTurnButton.interactable = false;
-		playerTurn = false;
+		if(SceneManagerScript.Instance.GetSceneName() != "TUTORIAL_SCENE_")
+		{
+			PlayerTurnText(false);
+			PlayerManager.Instance.currentPath = null;
+			endTurnButton.interactable = false;
+			playerTurn = false;
+		}
+		else
+		{
+			if(TutorialManagerScript.Instance.isMonsterSpawned == false)
+			{
+				PlayerManager.Instance.NextTurn();
+				PlayerManager.Instance.currentPath = null;
+			}
+			else
+			{
+				PlayerTurnText(false);
+				PlayerManager.Instance.currentPath = null;
+				endTurnButton.interactable = false;
+				playerTurn = false;
+			}
+		}
 
 		//! To Optimize
 		GameObject.Find("Player").GetComponent<HighlightTiles>().FlushList();
@@ -238,6 +256,7 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		gameUI.gameObject.SetActive(false);
 		memoryCanvas.gameObject.SetActive(true);
+
 		if(shardCollected <= 2)
 		{
 			shardCollected++;
@@ -254,8 +273,7 @@ public class GUIManagerScript : MonoBehaviour
 		}
 		else if(shardCollected == 3)
 		{
-			// Trigger third memory followed by winning condition upon pressing continue
-			WinLoseGame();
+			// Trigger third memory
 		}
 	}
 
@@ -263,6 +281,11 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		gameUI.gameObject.SetActive(true);
 		memoryCanvas.gameObject.SetActive(false);
+
+		if(shardCollected == 3)
+		{
+			WinLoseGame();
+		}
 	}
 
 	public void PlayerTurnText(bool isPlayer)
