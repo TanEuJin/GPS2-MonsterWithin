@@ -30,7 +30,6 @@ public class TutorialManagerScript : MonoBehaviour
 	}
 
 	public Text popUpText;
-	bool finishedTutorial = false;
 
 	void Start ()
 	{
@@ -39,31 +38,27 @@ public class TutorialManagerScript : MonoBehaviour
 
 	void Update () 
 	{
-		if(!finishedTutorial)
+		if(PlayerManager.Instance.tileZ < 4)
 		{
-			if(PlayerManager.Instance.tileZ == 1)
+			popUpText.text = "To move, click on the highlighted tiles" + "\nAll I have to do is move forwards. That's all I need...";
+		}
+		else if(PlayerManager.Instance.tileZ >= 4 && PlayerManager.Instance.tileZ < 7)
+		{
+			popUpText.text = "Staying in light restores sanity" + "\n I always prefer staying in the light.";
+		}
+		else if(PlayerManager.Instance.tileZ >= 7 && PlayerManager.Instance.tileZ < 9)
+		{
+			popUpText.text = "You can hide in closets and tables" + "\nI hide when I'm scared";
+
+			if(EnemyManager.Instance.enabled == false)
 			{
-				popUpText.text = "To move, click on the highlighted tiles" + "\nAll I have to do is move forwards. That's all I need...";
-			}
-			else if(PlayerManager.Instance.tileZ == 4)
-			{
-				popUpText.text = "Staying in light restores sanity" + "\n I always prefer staying in the light.";
-			}
-			else if(PlayerManager.Instance.tileZ == 7)
-			{
-				popUpText.text = "You can hide in closets and tables" + "\nI hide when I'm scared";
 				EnemyManager.Instance.tileX = 2;
 				EnemyManager.Instance.enabled = true;
 			}
-			else if(PlayerManager.Instance.tileZ == 9)
-			{
-				popUpText.text = "Find memory shard(s) to complete the level" + "\nTo feel better, I remember the good times";
-			}
-			else if(PlayerManager.Instance.tileZ > 9)
-			{
-				popUpText.gameObject.SetActive(false);
-				finishedTutorial = true;
-			}
+		}
+		else if(PlayerManager.Instance.tileZ >= 9)
+		{
+			popUpText.text = "Find memory shard(s) to complete the level" + "\nTo feel better, I remember the good times";
 		}
 	}
 }
