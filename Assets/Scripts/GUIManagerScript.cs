@@ -59,16 +59,22 @@ public class GUIManagerScript : MonoBehaviour
 	void Start()
 	{
 		memShardIndex = 0;
-		memoryShardDescription[0] = " \"A rose for her was the best decision of my life.\" ";
-		memoryShardDescription[1] = " \"Under the starry night, she gave me her locket. It was the first time we touched.\" ";
-		memoryShardDescription[2] = " \"When she wore my ring, my heart filled with glee.\" ";
-		memoryShardDescription[3] = " \"In her last letter, she told me to live for her and that is what I must do.\" ";
+		if(SceneManager.GetActiveScene().name == "_SCENE_")
+		{
+			memoryShardDescription[0] = " \"A rose for her was the best decision of my life.\" ";
+			memoryShardDescription[1] = " \"Under the starry night, she gave me her locket. It was the first time we touched.\" ";
+			memoryShardDescription[2] = " \"When she wore my ring, my heart filled with glee.\" ";
+			memoryShardDescription[3] = " \"In her last letter, she told me to live for her and that is what I must do.\" ";
+		}
 	}
 
 	void Update()
 	{
-		memoryShard.sprite = memoryShardSprite[memShardIndex];
-		memoryShardText.text = memoryShardDescription[memShardIndex];
+		if(SceneManager.GetActiveScene().name == "_SCENE_")
+		{
+			memoryShard.sprite = memoryShardSprite[memShardIndex];
+			memoryShardText.text = memoryShardDescription[memShardIndex];
+		}
 
 		if(!playerTurn)
 		{
@@ -160,11 +166,14 @@ public class GUIManagerScript : MonoBehaviour
 		
 	public void EndTurn()
 	{
-		if (memoryShard.gameObject.active)
+		if(SceneManager.GetActiveScene().name == "_SCENE_")
 		{
-			//! Player can do movement here
-			//! As there is no memory shard descriptions
-			memoryShard.GetComponent<Animator>().Play("FadeOut");
+			if (memoryShard.gameObject.active)
+			{
+				//! Player can do movement here
+				//! As there is no memory shard descriptions
+				memoryShard.GetComponent<Animator>().Play("FadeOut");
+			}
 		}
 
 		if(PlayerManager.Instance.hasLight)

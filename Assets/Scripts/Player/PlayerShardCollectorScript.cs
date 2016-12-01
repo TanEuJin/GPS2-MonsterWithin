@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class PlayerShardCollectorScript : MonoBehaviour
@@ -25,13 +26,22 @@ public class PlayerShardCollectorScript : MonoBehaviour
 		else if(other.CompareTag("InitialShard"))
 		{
 			GUIManagerScript.Instance.initalMemoryActivation();
-			GUIManagerScript.Instance.memoryShard.gameObject.SetActive(true);
+			if(SceneManager.GetActiveScene().name == "_SCENE_")
+			{
+				GUIManagerScript.Instance.memoryShard.gameObject.SetActive(true);
+			}
 			Destroy(other.gameObject);
 		}
 		else if (other.CompareTag("Shard"))
 		{
-			GUIManagerScript.Instance.memoryShard.gameObject.SetActive(true);
-
+			if(SceneManager.GetActiveScene().name == "_SCENE_")
+			{
+				GUIManagerScript.Instance.memoryShard.gameObject.SetActive(true);
+			}
+			else if(SceneManager.GetActiveScene().name == "TUTORIAL_SCENE_")
+			{
+				// Transition to _SCENE_ straightaway, to be implemented
+			}
 		}
 	}
 
