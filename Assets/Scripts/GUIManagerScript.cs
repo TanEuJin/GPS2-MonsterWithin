@@ -51,23 +51,38 @@ public class GUIManagerScript : MonoBehaviour
 	public Text whoseTurn;
 
 	public Image memoryShard;
+	public Text memoryShardText;
 	public Sprite[] memoryShardSprite;
-	public Text[] memoryShardDescription;
-	public int spriteIndex;
+	public string[] memoryShardDescription;
+	public int memShardIndex;
 
 	void Start()
 	{
-		spriteIndex = 0;
+		memShardIndex = 0;
+		memoryShardDescription[0] = " \"A rose for her was the best decision of my life.\" ";
+		memoryShardDescription[1] = " \"Under the starry night, she gave me her locket. It was the first time we touched.\" ";
+		memoryShardDescription[2] = " \"When she wore my ring, my heart filled with glee.\" ";
+		memoryShardDescription[3] = " \"In her last letter, she told me to live for her and that is what I must do.\" ";
 	}
 
 	void Update()
 	{
-		Debug.Log(spriteIndex);
-		memoryShard.sprite = memoryShardSprite[spriteIndex];
+		memoryShard.sprite = memoryShardSprite[memShardIndex];
+		memoryShardText.text = memoryShardDescription[memShardIndex];
 		if(!playerTurn)
 		{
 			EnemyManager.Instance.NextTurn();
 			playerTurn = true;
+		}
+
+		if(Input.GetKeyUp(KeyCode.A))
+		{
+			memoryShard.gameObject.SetActive(true);
+			memShardIndex++;
+			if (memShardIndex > 3)
+			{
+				memShardIndex = 0;
+			}
 		}
 	}
 
@@ -144,6 +159,13 @@ public class GUIManagerScript : MonoBehaviour
 		
 	public void EndTurn()
 	{
+		if (memoryShard.gameObject.active)
+		{
+			//! Player can do movement here
+			//! As there is no memory shard descriptions
+			memoryShard.GetComponent<Animator>().Play("FadeOut");
+		}
+
 		if(PlayerManager.Instance.hasLight)
 		{
 			PlayerManager.Instance.playerLastKnownPos = PlayerManager.Instance.transform.position;
@@ -206,8 +228,6 @@ public class GUIManagerScript : MonoBehaviour
 			}
 		}
 
-		//! To Optimize
-		GameObject.Find("Player").GetComponent<HighlightTiles>().FlushList();
 	}
 
 	public void PauseMenu()
@@ -257,34 +277,33 @@ public class GUIManagerScript : MonoBehaviour
 
 	public void initalMemoryActivation()
 	{
-		spriteIndex = 1;
+		memShardIndex = 0;
+
 	}
 
 	public void ActivateMemory()
 	{
-		if(shardCollected <= 3)
+		if(shardCollected <= 2)
 		{
 			shardCollected++;
 			EnemyManager.Instance.moveSpeed++;
 		}
 
-		if (shardCollected == 1)
-		{
-			spriteIndex = 1;
-		}
 
-		if(shardCollected == 2)
+		if(shardCollected == 1)
 		{
 			// Trigger first memory
-			spriteIndex = 2;
+			memShardIndex = 1;
+		}
+		else if(shardCollected == 2)
+		{
+			// Trigger second memory
+			memShardIndex = 2;
 		}
 		else if(shardCollected == 3)
 		{
-			// Trigger second memory
-		}
-		else if(shardCollected == 4)
-		{
 			// Trigger third memory
+			memShardIndex = 3;
 		}
 	}
 

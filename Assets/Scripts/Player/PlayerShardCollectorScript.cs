@@ -25,7 +25,13 @@ public class PlayerShardCollectorScript : MonoBehaviour
 		else if(other.CompareTag("InitialShard"))
 		{
 			GUIManagerScript.Instance.initalMemoryActivation();
+			GUIManagerScript.Instance.memoryShard.gameObject.SetActive(true);
 			Destroy(other.gameObject);
+		}
+		else if (other.CompareTag("Shard"))
+		{
+			GUIManagerScript.Instance.memoryShard.gameObject.SetActive(true);
+
 		}
 	}
 
