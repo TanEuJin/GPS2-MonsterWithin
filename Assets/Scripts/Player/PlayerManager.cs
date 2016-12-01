@@ -48,7 +48,7 @@ public class PlayerManager : MonoBehaviour
 
 	//! Object Interaction
 	public GameObject InteractButton, playerModel;
-	public bool HideInteract, isHidden;
+	public bool HideInteract, isHidden, detectionTrigger;
 	public List<GameObject>Interact = new List<GameObject>();
 	public List<GameObject>HideObject = new List<GameObject>();
 	public Vector3 playerLastKnownPos;
@@ -338,9 +338,12 @@ public class PlayerManager : MonoBehaviour
 
 		if (other.CompareTag ("Enemy")) 
 		{
-			SoundManagerScript.Instance.seenByTheEnemy.Play();
+			if (detectionTrigger == false) {
+				SoundManagerScript.Instance.seenByTheEnemy.Play ();
+				SoundManagerScript.Instance.playTransition ();
+				detectionTrigger = true;
+			}
 			SoundManagerScript.Instance.seenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
-			SoundManagerScript.Instance.playTransition ();
 		}
 
 		if (other.CompareTag ("EnemyDread")) 
@@ -374,6 +377,11 @@ public class PlayerManager : MonoBehaviour
 			SoundManagerScript.Instance.Dread.Stop();
 			SoundManagerScript.Instance.proximityDread.TransitionTo (SoundManagerScript.Instance.m_TransitionOut);
 			SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
+
+			if (detectionTrigger == true) {
+				detectionTrigger = false;
+			}
+
 		}
 	}
 
