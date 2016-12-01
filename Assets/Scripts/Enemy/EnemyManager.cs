@@ -70,6 +70,7 @@ public class EnemyManager : MonoBehaviour
 	Transform modalTransform;
 
 	int RandChance;
+	bool enemyAlerted = false;
 	bool caughtPlayer = false;
 	float loseDelayTimer = 0.0f;
 	public float loseDelayDuration = 1.0f;
@@ -96,39 +97,51 @@ public class EnemyManager : MonoBehaviour
 		//! Setting Enemy Behavior
 		if(playerDetectable)
 		{
+			if(SceneManager.GetActiveScene().name == "_SCENE_")
+			{
+				enemyAlerted = true;
+			}
+
 			state = EnemyBehavior.CHASING;
 		}
 		else
 		{
 			if(SceneManager.GetActiveScene().name == "_SCENE_")
 			{
-				if(ShardScript.Instance.location == ShardLocation.DINING)
+				if(!enemyAlerted)
 				{
-					state = EnemyBehavior.ROAM_DINING;
-				}
-				else if(ShardScript.Instance.location == ShardLocation.KITCHEN)
-				{
-					state = EnemyBehavior.ROAM_KITCHEN;
-				}
-				else if(ShardScript.Instance.location == ShardLocation.MORNING)
-				{
-					state = EnemyBehavior.ROAM_MORNING;
-				}
-				else if(ShardScript.Instance.location == ShardLocation.LIVING)
-				{
-					state = EnemyBehavior.ROAM_LIVING;
-				}
-				else if(ShardScript.Instance.location == ShardLocation.LIBRARY)
-				{
-					state = EnemyBehavior.ROAM_LIBRARY;
-				}
-				else if(ShardScript.Instance.location == ShardLocation.BEDROOM)
-				{
-					state = EnemyBehavior.ROAM_BEDROOM;
+					if(ShardScript.Instance.location == ShardLocation.DINING)
+					{
+						state = EnemyBehavior.ROAM_DINING;
+					}
+					else if(ShardScript.Instance.location == ShardLocation.KITCHEN)
+					{
+						state = EnemyBehavior.ROAM_KITCHEN;
+					}
+					else if(ShardScript.Instance.location == ShardLocation.MORNING)
+					{
+						state = EnemyBehavior.ROAM_MORNING;
+					}
+					else if(ShardScript.Instance.location == ShardLocation.LIVING)
+					{
+						state = EnemyBehavior.ROAM_LIVING;
+					}
+					else if(ShardScript.Instance.location == ShardLocation.LIBRARY)
+					{
+						state = EnemyBehavior.ROAM_LIBRARY;
+					}
+					else if(ShardScript.Instance.location == ShardLocation.BEDROOM)
+					{
+						state = EnemyBehavior.ROAM_BEDROOM;
+					}
+					else
+					{
+						state = EnemyBehavior.PATROLLING;
+					}
 				}
 				else
 				{
-					state = EnemyBehavior.PATROLLING;
+					state = EnemyBehavior.CHASING_LOST;
 				}
 			}
 			else if(SceneManager.GetActiveScene().name == "TUTORIAL_SCENE_")
@@ -272,6 +285,19 @@ public class EnemyManager : MonoBehaviour
 			if(EnemyManager.Instance.transform.position != PlayerManager.Instance.transform.position)
 			{
 				map.GetComponent<TileMap>().EnemyGeneratePathTo((int)PlayerManager.Instance.transform.position.x, (int)PlayerManager.Instance.transform.position.z);
+			}
+		}
+		else if(state == EnemyBehavior.CHASING_LOST)
+		{
+			reachedRoam_ = true;
+
+			if(EnemyManager.Instance.transform.position != PlayerManager.Instance.playerLastKnownPos)
+			{
+				map.GetComponent<TileMap>().EnemyGeneratePathTo((int)PlayerManager.Instance.playerLastKnownPos.x, (int)PlayerManager.Instance.playerLastKnownPos.z);
+			}
+			else
+			{
+				enemyAlerted = false;
 			}
 		}
 		else if(state == EnemyBehavior.ROAM_DINING)
