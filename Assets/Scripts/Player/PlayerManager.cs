@@ -367,15 +367,12 @@ public class PlayerManager : MonoBehaviour
 			InteractButton.SetActive(false);
 		}*/
 
-		if (other.CompareTag ("Enemy")) 
-		{
-			SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionOut);
-		}
 
 		if (other.CompareTag ("EnemyDread")) 
 		{
 			SoundManagerScript.Instance.Dread.Stop();
 			SoundManagerScript.Instance.proximityDread.TransitionTo (SoundManagerScript.Instance.m_TransitionOut);
+			SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
 		}
 	}
 

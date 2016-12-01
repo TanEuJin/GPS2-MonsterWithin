@@ -52,6 +52,7 @@ public class SceneManagerScript : MonoBehaviour
 		}
 
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
 	}
 
 	public void MainMenu()

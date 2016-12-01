@@ -89,7 +89,7 @@ public class SoundManagerScript : MonoBehaviour
 	{
 		m_QuarternNote = 60 / bpm;
 		m_TransitionIn = m_QuarternNote;
-		m_TransitionOut = m_QuarternNote * 32;
+		m_TransitionOut = m_QuarternNote * 16;
 
 		//PlaySFX(AudioClipID.BGM_MANSION);
 	}
