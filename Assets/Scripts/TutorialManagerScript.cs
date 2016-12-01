@@ -49,7 +49,7 @@ public class TutorialManagerScript : MonoBehaviour
 		}
 		else if(PlayerManager.Instance.tileZ >= 7 && PlayerManager.Instance.tileZ < 9)
 		{
-			popUpText.text = "You can hide in closets and tables" + "\nI hide when I'm scared";
+			popUpText.text = "You can hide in closets" + "\nI hide when I'm scared";
 
 			if(EnemyManager.Instance.enabled == false)
 			{
