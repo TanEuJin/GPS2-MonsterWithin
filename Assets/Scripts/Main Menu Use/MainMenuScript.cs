@@ -30,8 +30,11 @@ public class MainMenuScript : MonoBehaviour {
 		
 		
 	public void startGame(){
-		SceneManager.LoadScene(sceneBuildIndex:2);
-		Time.timeScale = 1;
+		SceneManager.LoadScene("_SCENE_");
+	}
+
+	public void tutorialGame(){
+		SceneManager.LoadScene("TUTORIAL_SCENE_");
 	}
 
 	public void exitGame(){
