@@ -9,6 +9,7 @@ public class FadingScript : MonoBehaviour {
 	public float transValue = 0.0f;
 	public float timer = 0.0f;
 	public float duration = 5.0f;
+	public string levelSel;
 
 	// Use this for initialization
 	void Start () {
@@ -33,7 +34,7 @@ public class FadingScript : MonoBehaviour {
 			}
 			else
 			{
-				SceneManager.LoadSceneAsync("MainMenu");
+				SceneManager.LoadSceneAsync(levelSel);
 			}
 		}
 	}
