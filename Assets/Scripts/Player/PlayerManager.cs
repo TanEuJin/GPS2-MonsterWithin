@@ -113,30 +113,26 @@ public class PlayerManager : MonoBehaviour
 				{
 					if(tileHit.transform.gameObject != null)
 					{
-						if (AlreadyMoved == false) 
+						if (remainingMovement == 1) 
 						{
-							if (remainingMovement == 1) 
-							{
-								SoundManagerScript.Instance.player1Step.Play ();
-							}
-
-							if (remainingMovement == 2) 
-							{
-								SoundManagerScript.Instance.player2Step.Play ();
-							}
-
-							if (remainingMovement == 3) 
-							{
-								SoundManagerScript.Instance.player3Step.Play ();
-							}
-
-							if (remainingMovement == 4) {
-								SoundManagerScript.Instance.player4Step.Play ();
-							}
-
-							//SoundManagerScript.Instance.PlayerMove.Play();
-							AlreadyMoved = true;
+							SoundManagerScript.Instance.player1Step.Play ();
 						}
+
+						if (remainingMovement == 2) 
+						{
+							SoundManagerScript.Instance.player2Step.Play ();
+						}
+
+						if (remainingMovement == 3) 
+						{
+							SoundManagerScript.Instance.player3Step.Play ();
+						}
+
+						if (remainingMovement == 4) 
+						{
+							SoundManagerScript.Instance.player4Step.Play ();
+						}
+								
 
 						map.PlayerGeneratePathTo ((int)tileHit.transform.position.x, (int)tileHit.transform.position.z);
 					}
