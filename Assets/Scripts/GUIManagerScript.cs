@@ -43,7 +43,6 @@ public class GUIManagerScript : MonoBehaviour
 	public Canvas gameUI;
 	public Canvas pauseMenu;
 	public Canvas losingMenu;
-	public Canvas memoryCanvas;
 
 	public Button endTurnButton;
 
@@ -55,6 +54,7 @@ public class GUIManagerScript : MonoBehaviour
 	public Sprite[] memoryShardSprite;
 	public string[] memoryShardDescription;
 	public int memShardIndex;
+	public bool gameEnd = false;
 
 	void Start()
 	{
@@ -90,6 +90,11 @@ public class GUIManagerScript : MonoBehaviour
 			{
 				memShardIndex = 0;
 			}
+		}
+
+		if(gameEnd)
+		{
+			WinLoseGame();
 		}
 	}
 
@@ -168,7 +173,7 @@ public class GUIManagerScript : MonoBehaviour
 	{
 		if(SceneManager.GetActiveScene().name == "_SCENE_")
 		{
-			if (memoryShard.gameObject.active)
+			if (memoryShard.gameObject.activeSelf == true)
 			{
 				//! Player can do movement here
 				//! As there is no memory shard descriptions
@@ -291,7 +296,6 @@ public class GUIManagerScript : MonoBehaviour
 	public void initalMemoryActivation()
 	{
 		memShardIndex = 0;
-
 	}
 
 	public void ActivateMemory()
@@ -317,17 +321,6 @@ public class GUIManagerScript : MonoBehaviour
 		{
 			// Trigger third memory
 			memShardIndex = 3;
-		}
-	}
-
-	public void DeactivateMemory()
-	{
-		gameUI.gameObject.SetActive(true);
-		memoryCanvas.gameObject.SetActive(false);
-
-		if(shardCollected == 3)
-		{
-			WinLoseGame();
 		}
 	}
 
