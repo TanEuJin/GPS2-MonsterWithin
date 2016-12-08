@@ -69,6 +69,12 @@ public class PlayerManager : MonoBehaviour
 	public LayerMask LayerTile;
 	RaycastHit tileHit;
 
+	//! Closet Travel
+	public float speedFactor = 0.1f; 
+	public float zoomFactor = 1.0f; 
+	public Transform currentMount, PlayerPosition; 
+	public Vector3 lastPosition; 
+
 	public float speed = 1.0f;
 
 	bool gotCaught = false;
@@ -92,6 +98,10 @@ public class PlayerManager : MonoBehaviour
 		//if (remainingMovement <= 0) {
 		//	GUIManagerScript.Instance.EndTurn ();
 		//}
+		lastPosition = playerModel.transform.position;
+		playerModel.transform.position = Vector3.Lerp(playerModel.transform.position, currentMount.position, speedFactor); 
+		playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, currentMount.rotation, speedFactor); 
+		var velocity = Vector3.Magnitude(playerModel.transform.position - lastPosition); 
 
 		if(!enabled)
 		{
@@ -197,18 +207,22 @@ public class PlayerManager : MonoBehaviour
 		if(tileX + 1 == currentPath[1].x)
 		{
 			playerTransform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+			PlayerPosition.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
 		}
 		else if(tileX - 1 == currentPath[1].x)
 		{
 			playerTransform.rotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
+			PlayerPosition.rotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
 		}
 		else if(tileZ + 1 == currentPath[1].z)
 		{
 			playerTransform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+			PlayerPosition.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 		}
 		else if(tileZ - 1 == currentPath[1].z)
 		{
 			playerTransform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+			PlayerPosition.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
 		}
 
 		tileX = currentPath[1].x;
@@ -405,5 +419,16 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		return  false;
+	}
+
+	public void MoveinCloset(Transform newMount){ 
+		if (isHidden == true) {
+			currentMount = newMount; 
+		}
+
+		if (isHidden == false) {
+			currentMount = PlayerPosition;
+		}
+
 	}
 }
