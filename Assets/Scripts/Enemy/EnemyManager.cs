@@ -805,7 +805,8 @@ public class EnemyManager : MonoBehaviour
 			}
 		}
 
-		if (other.CompareTag ("CreakyTile")) {
+		if (other.CompareTag ("CreakyTile"))
+		{
 			SoundManagerScript.Instance.CreakyFloor.Play ();
 		}
 	}

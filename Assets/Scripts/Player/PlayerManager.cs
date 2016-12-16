@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
@@ -178,7 +179,20 @@ public class PlayerManager : MonoBehaviour
 
 			if(loseDelayTimer >= loseDelayDuration)
 			{
-				GUIManagerScript.Instance.WinLoseGame();
+				if(SceneManager.GetActiveScene().name == "_SCENE_")
+				{
+					GUIManagerScript.Instance.WinLoseGame();
+				}
+				else if(SceneManager.GetActiveScene().name == "TUTORIAL_SCENE_")
+				{
+					if(Time.timeScale == 0)
+					{
+						Time.timeScale = 1;
+					}
+					SoundManagerScript.Instance.BookFlipUI.Play ();
+					SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+					SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
+				}
 			}
 
 			if(GUIManagerScript.Instance.losingMenu.GetComponent<CanvasGroup>().alpha == 1)
@@ -348,7 +362,8 @@ public class PlayerManager : MonoBehaviour
 
 		if (other.CompareTag ("Enemy")) 
 		{
-			if (detectionTrigger == false) {
+			if (detectionTrigger == false)
+			{
 				SoundManagerScript.Instance.seenByTheEnemy.Play ();
 				SoundManagerScript.Instance.playTransition ();
 				detectionTrigger = true;
@@ -369,7 +384,6 @@ public class PlayerManager : MonoBehaviour
 		{
 			if (other.gameObject == HideObject [i]) 
 			{
-				
 				HideInteract = false;
 				Interact [i].SetActive (false);
 			}
@@ -388,10 +402,10 @@ public class PlayerManager : MonoBehaviour
 			SoundManagerScript.Instance.proximityDread.TransitionTo (SoundManagerScript.Instance.m_TransitionOut);
 			SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
 
-			if (detectionTrigger == true) {
+			if (detectionTrigger == true)
+			{
 				detectionTrigger = false;
 			}
-
 		}
 	}
 
@@ -421,12 +435,15 @@ public class PlayerManager : MonoBehaviour
 		return  false;
 	}
 
-	public void MoveinCloset(Transform newMount){ 
-		if (isHidden == true) {
+	public void MoveinCloset(Transform newMount)
+	{ 
+		if (isHidden == true)
+		{
 			currentMount = newMount; 
 		}
 
-		if (isHidden == false) {
+		if (isHidden == false)
+		{
 			currentMount = PlayerPosition;
 		}
 

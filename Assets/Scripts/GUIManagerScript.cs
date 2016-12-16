@@ -199,12 +199,15 @@ public class GUIManagerScript : MonoBehaviour
 		{
 			if(PlayerManager.Instance.enemyInRange)
 			{
-				PlayerManager.Instance.ReduceSanity();
-				UpdateSanityBar();
-
-				if(PlayerManager.Instance.turnsInDark != 0)
+				if(!PlayerManager.Instance.isHidden)
 				{
-					PlayerManager.Instance.turnsInDark = 0;
+					PlayerManager.Instance.ReduceSanity();
+					UpdateSanityBar();
+
+					if(PlayerManager.Instance.turnsInDark != 0)
+					{
+						PlayerManager.Instance.turnsInDark = 0;
+					}
 				}
 			}
 			else
