@@ -92,6 +92,7 @@ public class PlayerManager : MonoBehaviour
 
 		LayerTile = LayerMask.NameToLayer ("ClickableTile");
 		LayerTile.value = 1<<LayerTile.value;
+		isHidden = false;
 	}
 
 	void Update()
@@ -179,16 +180,17 @@ public class PlayerManager : MonoBehaviour
 
 			if(loseDelayTimer >= loseDelayDuration)
 			{
-				if(SceneManager.GetActiveScene().name == "_SCENE_")
+				if(SceneManager.GetActiveScene().name != "TUTORIAL_SCENE_")
 				{
 					GUIManagerScript.Instance.WinLoseGame();
 				}
-				else if(SceneManager.GetActiveScene().name == "TUTORIAL_SCENE_")
+				else
 				{
 					if(Time.timeScale == 0)
 					{
 						Time.timeScale = 1;
 					}
+
 					SoundManagerScript.Instance.BookFlipUI.Play ();
 					SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 					SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);

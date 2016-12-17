@@ -185,6 +185,7 @@ public class GUIManagerScript : MonoBehaviour
 		{
 			PlayerManager.Instance.playerLastKnownPos = PlayerManager.Instance.transform.position;
 		}
+
 		if(PlayerManager.Instance.hasLight && PlayerManager.Instance.isHidden == false)
 		{
 			if(PlayerManager.Instance.turnsInDark != 0)

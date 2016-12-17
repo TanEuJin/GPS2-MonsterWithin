@@ -178,7 +178,21 @@ public class EnemyManager : MonoBehaviour
 
 			if(loseDelayTimer >= loseDelayDuration)
 			{
-				GUIManagerScript.Instance.WinLoseGame();
+				if(SceneManagerScript.Instance.GetSceneName() != "TUTORIAL_SCENE_")
+				{
+					GUIManagerScript.Instance.WinLoseGame();
+				}
+				else
+				{
+					if(Time.timeScale == 0)
+					{
+						Time.timeScale = 1;
+					}
+
+					SoundManagerScript.Instance.BookFlipUI.Play ();
+					SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+					SoundManagerScript.Instance.notSeenByEnemy.TransitionTo (SoundManagerScript.Instance.m_TransitionIn);
+				}
 			}
 
 			if(GUIManagerScript.Instance.losingMenu.GetComponent<CanvasGroup>().alpha == 1)
