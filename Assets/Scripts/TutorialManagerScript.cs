@@ -41,7 +41,7 @@ public class TutorialManagerScript : MonoBehaviour
 	{
 		if(PlayerManager.Instance.tileZ < 4)
 		{
-			popUpText.text = "To move, click on the highlighted tiles" + "\nAll I have to do is move forwards. That's all I need...";
+			popUpText.text = "To move, click on the highlighted tiles" + "\nAll I have to do is move forwards.";
 		}
 		else if(PlayerManager.Instance.tileZ >= 4 && PlayerManager.Instance.tileZ < 7)
 		{
@@ -60,7 +60,7 @@ public class TutorialManagerScript : MonoBehaviour
 		}
 		else if(PlayerManager.Instance.tileZ >= 9)
 		{
-			popUpText.text = "Find memory shard(s) to complete the level" + "\nTo feel better, I remember the good times";
+			popUpText.text = "Find memory shards to finish the level" + "\nI feel better, remembering the past";
 		}
 	}
 }

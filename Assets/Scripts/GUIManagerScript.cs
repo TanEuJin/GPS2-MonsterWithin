@@ -284,11 +284,11 @@ public class GUIManagerScript : MonoBehaviour
 
 		if(shardCollected == 3)
 		{
-			winloseText.text = "You Won";
+			winloseText.text = "The End";
 		}
 		else if(shardCollected <= 2)
 		{
-			winloseText.text = "You Died";
+			winloseText.text = "You lost yourself";
 		}
 
 		if(losingMenu.GetComponent<CanvasGroup>().alpha >= 0.75f)
